@@ -1,0 +1,25 @@
+{
+  "parser": "babel-eslint",
+  "extends": [
+    "airbnb"
+  ],
+  "env": {
+    "browser": true,
+    "node": true,
+    "es6": true
+  },
+  "rules": {
+    "jsx-a11y/href-no-hash": "off",
+    // Override airbnb to disable devDependencies check until we figure out how to exclude tests files
+    "import/no-extraneous-dependencies": [2, {"optionalDependencies": false}],
+
+    // We rely on named export for reducer so namespace is preserved in the redux store.
+    "import/prefer-default-export": 0,
+
+    // Turn off https://github.com/yannickcr/eslint-plugin-react/blob/master/docs/rules/jsx-filename-extension.md
+    "react/jsx-filename-extension": 0,
+
+    // Turn off https://github.com/benmosher/eslint-plugin-import/blob/master/docs/rules/no-named-as-default-member.md
+    "import/no-named-as-default-member": 0
+  }
+}
