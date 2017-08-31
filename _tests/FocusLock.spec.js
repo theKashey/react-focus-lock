@@ -197,6 +197,32 @@ describe('react-focus-lock', () => {
       });
     /**/
 
+    if (1)
+      it('Should not pick hidden input', (done) => {
+        const wrapper = mount(<div>
+          <div>
+            text
+            <button className="action1">action1</button>
+            text
+          </div>
+          <FocusLock>
+            <input type="hidden" className="action2" />
+            <button style={{visibility:'hidden'}}>hidden</button>
+            <div style={{display: 'none'}}>
+              <button className="action2">5-action3</button>
+            </div>
+            <button className="action2">5-action4</button>
+          </FocusLock>
+        </div>, mountPoint);
+        wrapper.find('.action1').getDOMNode().focus();
+        expect(document.activeElement.innerHTML).to.be.equal('action1');
+        setTimeout(() => {
+          expect(document.activeElement.innerHTML).to.be.equal('5-action4');
+          done();
+        }, 1);
+      });
+    /**/
+
   });
 
 
