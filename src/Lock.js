@@ -22,7 +22,7 @@ class FocusLock extends Component {
     setImmediate(() =>
       this.setState(prevState => ({
         escapeAttempts: prevState.escapeAttempts + 1,
-      }))
+      })),
     );
 
   onActivation = () => {
