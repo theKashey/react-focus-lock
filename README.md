@@ -28,10 +28,15 @@ You can use nested Locks or have more than one Lock on the page.
 Only `last`, or `deepest` one will work. No fighting.
 
 # API
- FocusLock has only 2 props:
+ FocusLock has only 3 props, 2 of them you will never use(I hope):
   - `disabled`, to disable(enable) behavior without altering the tree.
   - `returnFocus`, to return focus into initial position on unmount(not disable).
   I strongly recommend you NOT to use this feature. But sometimes it might be usable.
+  - `sandboxed`, to override default tab behavior. Very usable if you have elements with non-zero tabindex inside.
+  As long it will alter default(and preferred) behavior - __NEVER__ use it unless you have to.
+     
+     
+See example for sandboxed mode - https://codesandbox.io/s/jllj5kr6ov     
 
 # How it works
  Everything thing is simple - react-focus-lock just dont left focus left boundaries of component, and

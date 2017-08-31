@@ -20,6 +20,10 @@ var _setFocus = require('./setFocus');
 
 var _setFocus2 = _interopRequireDefault(_setFocus);
 
+var _tabHook = require('./tabHook');
+
+var _tabHook2 = _interopRequireDefault(_tabHook);
+
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 var FocusTrap = function FocusTrap(_ref) {
@@ -37,13 +41,6 @@ FocusTrap.propTypes = {
   children: _react.PropTypes.node.isRequired
 };
 
-function reducePropsToState(propsList) {
-  return propsList.filter(function (_ref2) {
-    var disabled = _ref2.disabled;
-    return !disabled;
-  }).slice(-1)[0];
-}
-
 var lastActiveTrap = 0;
 var activateTrap = function activateTrap() {
   if (lastActiveTrap) {
@@ -58,11 +55,21 @@ var activateTrap = function activateTrap() {
   }
 };
 
+function reducePropsToState(propsList) {
+  return propsList.filter(function (_ref2) {
+    var disabled = _ref2.disabled;
+    return !disabled;
+  }).slice(-1)[0];
+}
+
 function handleStateChangeOnClient(trap) {
   lastActiveTrap = trap;
   if (trap) {
+    _tabHook2.default.attach(trap.observed, trap.sandboxed);
     activateTrap();
     setImmediate(activateTrap);
+  } else {
+    _tabHook2.default.detach();
   }
 }
 

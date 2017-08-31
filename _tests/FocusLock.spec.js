@@ -197,8 +197,6 @@ describe('react-focus-lock', () => {
       });
     /**/
 
-
-
   });
 
 

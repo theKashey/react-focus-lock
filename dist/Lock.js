@@ -74,6 +74,7 @@ var FocusLock = function (_Component) {
       var _props = this.props,
           children = _props.children,
           disabled = _props.disabled,
+          sandboxed = _props.sandboxed,
           rest = _props.rest;
       var _state = this.state,
           observed = _state.observed,
@@ -91,6 +92,7 @@ var FocusLock = function (_Component) {
             observed: observed,
             escapeAttempts: escapeAttempts,
             disabled: disabled,
+            sandboxed: sandboxed,
             onBlur: this.onTrapBlur,
             onActivation: this.onActivation
           },
@@ -106,7 +108,8 @@ var FocusLock = function (_Component) {
 FocusLock.propTypes = {
   children: _react.PropTypes.node.isRequired,
   disabled: _react.PropTypes.bool,
-  returnFocus: _react.PropTypes.bool
+  returnFocus: _react.PropTypes.bool,
+  sandboxed: _react.PropTypes.bool
 };
 
 exports.default = FocusLock;

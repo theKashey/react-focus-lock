@@ -3,6 +3,7 @@
 Object.defineProperty(exports, "__esModule", {
   value: true
 });
+exports.focusOn = exports.getTabbableNodes = undefined;
 
 var _tabbables = require('./tabbables');
 
@@ -34,14 +35,21 @@ var orderByTabIndex = function orderByTabIndex(nodes) {
   }).sort(_tabOrder2.default);
 };
 
+var getTabbableNodes = exports.getTabbableNodes = function getTabbableNodes(topNode) {
+  return orderByTabIndex(findFocusable(topNode.querySelectorAll(_tabbables2.default.join(','))));
+};
+
+var focusOn = exports.focusOn = function focusOn(target) {
+  target.focus();
+  if (target.contentWindow) {
+    target.contentWindow.focus();
+  }
+};
+
 exports.default = function (topNode) {
-  var focusable = orderByTabIndex(findFocusable(topNode.querySelectorAll(_tabbables2.default.join(','))))[0];
+  var focusable = getTabbableNodes(topNode)[0];
 
   if (focusable) {
-    var target = focusable.node;
-    target.focus();
-    if (target.contentWindow) {
-      target.contentWindow.focus();
-    }
+    focusOn(focusable.node);
   }
 };

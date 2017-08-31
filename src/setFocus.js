@@ -9,23 +9,29 @@ const findFocusable = nodes =>
 const orderByTabIndex = nodes =>
   nodes
     .map((node, index) => ({
-      node: node,
-      index: index,
-      tabIndex: (+node.getAttribute('tabIndex')) || node.tabIndex
+      node,
+      index,
+      tabIndex: (+node.getAttribute('tabIndex')) || node.tabIndex,
     }))
     .filter(data => data.tabIndex >= 0)
     .sort(tabSort);
 
+export const getTabbableNodes = topNode =>
+  orderByTabIndex(
+    findFocusable(topNode.querySelectorAll(tabbables.join(','))),
+  );
+
+export const focusOn = (target) => {
+  target.focus();
+  if (target.contentWindow) {
+    target.contentWindow.focus();
+  }
+};
+
 export default (topNode) => {
-  const focusable = orderByTabIndex(
-    findFocusable(topNode.querySelectorAll(tabbables.join(',')))
-  )[0];
+  const focusable = getTabbableNodes(topNode)[0];
 
   if (focusable) {
-    const target = focusable.node;
-    target.focus();
-    if (target.contentWindow) {
-      target.contentWindow.focus();
-    }
+    focusOn(focusable.node);
   }
 };

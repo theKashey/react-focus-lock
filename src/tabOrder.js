@@ -4,9 +4,8 @@ export default (a, b) => {
   if (tabDiff) {
     if (a.tabIndex) {
       return tabDiff;
-    } else {
-      return -tabDiff;
     }
+    return -tabDiff;
   }
-  return indexDiff
-}
+  return indexDiff;
+};
