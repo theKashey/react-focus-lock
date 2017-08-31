@@ -7,6 +7,12 @@ class FocusLock extends Component {
     observed: undefined,
   };
 
+  componentDidUpdate(prevProps) {
+    if (prevProps.disabled && !this.props.disabled) {
+      this.originalFocusedElement = null;
+    }
+  }
+
   componentWillUnmount() {
     if (
       this.props.returnFocus &&

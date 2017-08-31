@@ -1,12 +1,12 @@
 import tabbables from './tabbables';
 import tabSort from './tabOrder';
 
-const isElementHidden = (computedStyle) => (
+const isElementHidden = computedStyle => (
   computedStyle.getPropertyValue('display') === 'none' ||
   computedStyle.getPropertyValue('visibility') === 'hidden'
 );
 
-const isVisible = (node) => (
+const isVisible = node => (
   (!node || node === document) ||
   (
     !isElementHidden(window.getComputedStyle(node, null)) &&
@@ -14,8 +14,8 @@ const isVisible = (node) => (
   )
 );
 
-const notHiddenInput = (node) =>
-node.tagName !== 'INPUT' && node.type !== 'hidden';
+const notHiddenInput = node =>
+  node.tagName !== 'INPUT' && node.type !== 'hidden';
 
 const findFocusable = nodes =>
   [...nodes]
