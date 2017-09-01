@@ -24,21 +24,23 @@ class FocusLock extends Component {
   }
 
   onTrapBlur = () =>
-    // first focus leaves node, next it lands somewhere....
-    setImmediate(() =>
-      this.setState(prevState => ({
-        escapeAttempts: prevState.escapeAttempts + 1,
-      })),
-    );
+    setImmediate(this.update);
+
+  onTrapFocus = () => this.update();
 
   onActivation = () => {
     this.originalFocusedElement = this.originalFocusedElement || document.activeElement;
-  }
+  };
 
   setObserveNode = observed =>
     this.setState({
       observed,
     });
+
+  update =() =>
+    this.setState(prevState => ({
+      escapeAttempts: prevState.escapeAttempts + 1,
+    }));
 
   originalFocusedElement = null;
 
@@ -56,6 +58,7 @@ class FocusLock extends Component {
           disabled={disabled}
           sandboxed={sandboxed}
           onBlur={this.onTrapBlur}
+          onFocus={this.onTrapFocus}
           onActivation={this.onActivation}
         >
           {children}

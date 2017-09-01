@@ -1,6 +1,6 @@
 import {expect} from 'chai';
 
-import tabSort from '../src/tabOrder';
+import { tabSort, orderByTabIndex} from '../src/utils/tabOrder';
 
 const r = (tabIndex, index, key) => ({tabIndex, index, key});
 const order = (data) => data.map(({key})=>key).join(',');

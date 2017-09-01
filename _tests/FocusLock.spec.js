@@ -5,21 +5,6 @@ import {mount} from 'enzyme';
 import FocusLock from '../src/Lock';
 import FocusTrap from '../src/Trap';
 
-/*
-
- render true
- deactivate d-action2
- render false
- ✓ Should return focus (58ms)
-
-
- render true
- deactivate d-action2
- render false
- 1) Should return focus
-
- */
-
 describe('react-focus-lock', () => {
 
   describe('FocusTrap', () => {
@@ -61,7 +46,7 @@ describe('react-focus-lock', () => {
         expect(document.activeElement.innerHTML).to.be.equal('1-action2');
       });
 
-    it('Should return focus', (done) => {
+    it('Should return focus to the original place', (done) => {
       class Test extends Component {
         state = {
           focused: true
@@ -221,6 +206,62 @@ describe('react-focus-lock', () => {
           done();
         }, 1);
       });
+    /**/
+
+    if (1)
+      it('Should return focus on escape', (done) => {
+        const wrapper = mount(<div>
+          <div>
+            text
+            <button className="action1">action1</button>
+            <button className="action1-1">action1-skip</button>
+            <button className="action1-1">action1-skip-</button>
+            text
+          </div>
+          <FocusLock>
+            <button className="action2">button-action</button>
+            <button>6-action3</button>
+            <button>6-action4</button>
+          </FocusLock>
+        </div>, mountPoint);
+        expect(document.activeElement.innerHTML).to.be.equal('button-action');
+        setTimeout(()=> {
+          wrapper.find('.action1').simulate('focus');
+          wrapper.find('.action1').getDOMNode().focus();
+          expect(document.activeElement.innerHTML).to.be.equal('action1');
+          wrapper.find('.action2').simulate('blur');
+          setTimeout(() => {
+            expect(document.activeElement.innerHTML).to.be.equal('button-action');
+            done();
+          }, 10);
+        },1);
+      });
+
+    it('Should roll focus on escape', (done) => {
+      const wrapper = mount(<div>
+        <div>
+          text
+          <button className="action1">action1</button>
+          text
+        </div>
+        <FocusLock>
+          <button className="action2">button-action</button>
+          <button>6-action3</button>
+          <button>6-action4</button>
+        </FocusLock>
+      </div>, mountPoint);
+      expect(document.activeElement.innerHTML).to.be.equal('button-action');
+      setTimeout(()=> {
+        wrapper.find('.action1').simulate('focus');
+        wrapper.find('.action1').getDOMNode().focus();
+        expect(document.activeElement.innerHTML).to.be.equal('action1');
+        wrapper.find('.action2').simulate('blur');
+        setTimeout(() => {
+          expect(document.activeElement.innerHTML).to.be.equal('6-action4');
+          done();
+        }, 10);
+      },1);
+    });
     /**/
 
   });

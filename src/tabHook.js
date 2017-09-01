@@ -1,4 +1,5 @@
-import { getTabbableNodes, focusOn } from './setFocus';
+import { focusOn } from './setFocus';
+import { getTabbableNodes } from './utils/focusMerge';
 
 let target;
 

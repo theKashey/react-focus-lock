@@ -1,28 +1,31 @@
 import React, { PropTypes } from 'react';
 import withSideEffect from 'react-side-effect';
-import focusInside from './focusInside';
+import focusInside from './utils/focusInside';
 import moveFocusInside from './setFocus';
 import tabHook from './tabHook';
 
-const FocusTrap = ({ children, onBlur }) => (
-  <div onBlur={onBlur}>
+const FocusTrap = ({ children, onBlur, onFocus }) => (
+  <div onBlur={onBlur} onFocus={onFocus}>
     {children}
   </div>
 );
 
 FocusTrap.propTypes = {
   onBlur: PropTypes.func.isRequired,
+  onFocus: PropTypes.func.isRequired,
   children: PropTypes.node.isRequired,
 };
 
 let lastActiveTrap = 0;
+let lastActiveFocus = null;
 const activateTrap = () => {
   if (lastActiveTrap) {
     const { observed, onActivation } = lastActiveTrap;
     if (observed && !focusInside(observed)) {
       onActivation();
-      moveFocusInside(observed);
+      moveFocusInside(observed, lastActiveFocus);
     }
+    lastActiveFocus = document.activeElement;
   }
 };
 
@@ -40,6 +43,7 @@ function handleStateChangeOnClient(trap) {
     setImmediate(activateTrap);
   } else {
     tabHook.detach();
+    lastActiveFocus = null;
   }
 }
 
