@@ -23,6 +23,13 @@ Just wrap something with focus lock, and focus will be `moved inside` on mount.
 ```
  Demo - https://codesandbox.io/s/72prk69z3j
 
+# Behavior
+ 0. It will always keep focus inside Lock.
+ 1. It will cycle forward then you press Tab.
+ 2. It will cycle in reverse direction on Shift+Tab.
+ 3. It will do it using _browser_ tools, not emulation.
+ 4. It will handle positive tabIndex inside form.
+ 5. It will prevent any jump outside, returning focus to the last element.
 
 You can use nested Locks or have more than one Lock on the page.
 Only `last`, or `deepest` one will work. No fighting.
