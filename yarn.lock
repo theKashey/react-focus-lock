@@ -1536,9 +1536,9 @@ flat-cache@^1.2.1:
     graceful-fs "^4.1.2"
     write "^0.2.1"
 
-focus-lock@0.0.2-2:
-  version "0.0.2-2"
-  resolved "https://registry.yarnpkg.com/focus-lock/-/focus-lock-0.0.2-2.tgz#ccc8f50942b4955a1081f5ac0c3215bf25128c42"
+focus-lock@^0.0.3:
+  version "0.0.3"
+  resolved "https://registry.yarnpkg.com/focus-lock/-/focus-lock-0.0.3.tgz#77de4deff0758102101f35a8d9de051669419211"
 
 for-in@^1.0.1:
   version "1.0.2"

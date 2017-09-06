@@ -23,6 +23,15 @@ Just wrap something with focus lock, and focus will be `moved inside` on mount.
 ```
  Demo - https://codesandbox.io/s/72prk69z3j
 
+#WHY?
+From [MDN Article about accessible dialogs](https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/ARIA_Techniques/Using_the_dialog_role):
+ - The dialog must be properly labeled
+ - Keyboard __focus must be managed__ correctly
+ 
+This one is about managing the focus.
+
+I'v got a good [article about focus management, dialogs and  WAI-ARIA](https://medium.com/@antonkorzunov/its-a-focus-trap-699a04d66fb5).    
+
 # Behavior
  0. It will always keep focus inside Lock.
  1. It will cycle forward then you press Tab.

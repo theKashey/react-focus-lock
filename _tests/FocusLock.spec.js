@@ -119,6 +119,32 @@ describe('react-focus-lock', () => {
       });
 
     if (1)
+      it('Should focus on autofocused element', (done) => {
+        const wrapper = mount(<div>
+          <div>
+            text
+            <button className="action1">action1</button>
+            text
+          </div>
+          <FocusLock>
+            <div>
+              text
+              <button className="action2-1" >pre-action2</button>
+              <button className="action2-2" autoFocus>action2</button>
+              <button className="action2-3" >post-action2</button>
+              text
+            </div>
+          </FocusLock>
+        </div>, mountPoint);
+        //wrapper.find('.action1').getDOMNode().focus();
+        //expect(document.activeElement.innerHTML).to.be.equal('action1');
+        setTimeout(() => {
+          expect(document.activeElement.innerHTML).to.be.equal('action2');
+          done();
+        }, 10);
+      });
+
+    if (1)
       it('Should be enabled only on last node', (done) => {
         const wrapper = mount(<div>
           <div>

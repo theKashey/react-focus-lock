@@ -1,5 +1,5 @@
 import React, { PropTypes } from 'react';
-import withSideEffect from 'react-side-effect'
+import withSideEffect from 'react-side-effect';
 import moveFocusInside, { focusInside, tabHook } from 'focus-lock';
 
 const FocusTrap = ({ children, onBlur, onFocus }) => (
