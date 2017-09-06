@@ -1,32 +1,54 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import withSideEffect from 'react-side-effect';
-import moveFocusInside, { focusInside, tabHook } from 'focus-lock';
+import moveFocusInside, { focusInside } from 'focus-lock';
 
-const FocusTrap = ({ children, onBlur, onFocus }) => (
-  <div onBlur={onBlur} onFocus={onFocus}>
+let lastActiveTrap = 0;
+let lastActiveFocus = null;
+const activateTrap = () => {
+  let result = false;
+  if (lastActiveTrap) {
+    const { observed, onActivation } = lastActiveTrap;
+    if (observed && !focusInside(observed)) {
+      onActivation();
+      result = moveFocusInside(observed, lastActiveFocus);
+    }
+    lastActiveFocus = document.activeElement;
+  }
+  return result;
+};
+
+const onTrap = (event) => {
+  if (activateTrap() && event) {
+    // prevent scroll jump
+    event.preventDefault();
+  }
+};
+
+const onBlur = () => {
+  setImmediate(activateTrap);
+};
+
+const FocusTrap = ({ children }) => (
+  <div onBlur={onBlur}>
     {children}
   </div>
 );
 
 FocusTrap.propTypes = {
-  onBlur: PropTypes.func.isRequired,
-  onFocus: PropTypes.func.isRequired,
   children: PropTypes.node.isRequired,
 };
 
-let lastActiveTrap = 0;
-let lastActiveFocus = null;
-const activateTrap = () => {
-  if (lastActiveTrap) {
-    const { observed, onActivation } = lastActiveTrap;
-    if (observed && !focusInside(observed)) {
-      onActivation();
-      moveFocusInside(observed, lastActiveFocus);
-    }
-    lastActiveFocus = document.activeElement;
-  }
+const attachHandler = () => {
+  document.addEventListener('focusin', onTrap, true);
+  document.addEventListener('focusout', onBlur);
 };
+
+const detachHandler = () => {
+  document.removeEventListener('focusin', onTrap, true);
+  document.removeEventListener('focusout', onBlur);
+};
+
 
 function reducePropsToState(propsList) {
   return propsList
@@ -35,13 +57,16 @@ function reducePropsToState(propsList) {
 }
 
 function handleStateChangeOnClient(trap) {
+  if (trap && !lastActiveTrap) {
+    attachHandler();
+  }
+
   lastActiveTrap = trap;
   if (trap) {
-    tabHook.attach(trap.observed, trap.sandboxed);
     activateTrap();
     setImmediate(activateTrap);
   } else {
-    tabHook.detach();
+    detachHandler();
     lastActiveFocus = null;
   }
 }

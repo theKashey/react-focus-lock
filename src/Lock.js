@@ -3,7 +3,6 @@ import FocusTrap from './Trap';
 
 class FocusLock extends Component {
   state = {
-    escapeAttempts: 0,
     observed: undefined,
   };
 
@@ -23,11 +22,6 @@ class FocusLock extends Component {
     }
   }
 
-  onTrapBlur = () =>
-    setImmediate(this.update);
-
-  onTrapFocus = () => this.update();
-
   onActivation = () => {
     this.originalFocusedElement = this.originalFocusedElement || document.activeElement;
   };
@@ -45,8 +39,8 @@ class FocusLock extends Component {
   originalFocusedElement = null;
 
   render() {
-    const { children, disabled, sandboxed } = this.props;
-    const { observed, escapeAttempts } = this.state;
+    const { children, disabled } = this.props;
+    const { observed } = this.state;
     return (
       <div
         ref={this.setObserveNode}
@@ -54,11 +48,7 @@ class FocusLock extends Component {
       >
         <FocusTrap
           observed={observed}
-          escapeAttempts={escapeAttempts}
           disabled={disabled}
-          sandboxed={sandboxed}
-          onBlur={this.onTrapBlur}
-          onFocus={this.onTrapFocus}
           onActivation={this.onActivation}
         >
           {children}
@@ -72,7 +62,6 @@ FocusLock.propTypes = {
   children: PropTypes.node.isRequired,
   disabled: PropTypes.bool,
   returnFocus: PropTypes.bool,
-  sandboxed: PropTypes.bool,
 };
 
 FocusLock.defaultProps = {
