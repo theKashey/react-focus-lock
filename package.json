@@ -1,6 +1,6 @@
 {
   "name": "react-focus-lock",
-  "version": "1.4.7",
+  "version": "1.4.8",
   "description": "It is a trap! (for a focus)",
   "main": "dist/index.js",
   "scripts": {
@@ -57,7 +57,7 @@
   },
   "homepage": "https://github.com/theKashey/react-focus-lock#readme",
   "dependencies": {
-    "focus-lock": "^0.0.4",
+    "focus-lock": "^0.0.6",
     "prop-types": "15.5.10",
     "react-side-effect": "^1.1.3"
   }

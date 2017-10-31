@@ -21,6 +21,7 @@ const activateTrap = () => {
 const onTrap = (event) => {
   if (activateTrap() && event) {
     // prevent scroll jump
+    event.stopPropagation();
     event.preventDefault();
   }
 };
