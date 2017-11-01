@@ -6,7 +6,8 @@
   "env": {
     "browser": true,
     "node": true,
-    "es6": true
+    "es6": true,
+    "mocha": true,
   },
   "rules": {
     "jsx-a11y/href-no-hash": "off",
@@ -20,6 +21,6 @@
     "react/jsx-filename-extension": 0,
 
     // Turn off https://github.com/benmosher/eslint-plugin-import/blob/master/docs/rules/no-named-as-default-member.md
-    "import/no-named-as-default-member": 0
+    "import/no-named-as-default-member": 0,
   }
 }
