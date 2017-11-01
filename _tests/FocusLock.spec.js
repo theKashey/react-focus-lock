@@ -1,15 +1,13 @@
-import React, {Component} from 'react';
+/* eslint-disable jsx-a11y/no-autofocus, jsx-a11y/no-static-element-interactions */
+
+import React, { Component } from 'react';
 import ReactDOM from 'react-dom';
-import {expect} from 'chai';
-import {mount} from 'enzyme';
+import { expect } from 'chai';
+import { mount } from 'enzyme';
 import FocusLock from '../src/Lock';
-import FocusTrap from '../src/Trap';
 
 describe('react-focus-lock', () => {
-
-  describe('FocusTrap', () => {
-
-  });
+  describe('FocusTrap', () => {});
 
   describe('FocusLock', () => {
     let mountPoint;
@@ -27,18 +25,20 @@ describe('react-focus-lock', () => {
     });
 
     it('Should not focus on inputs', () => {
-      const wrapper = mount(<div>
+      const wrapper = mount((
         <div>
-          text
-          <button className="action1">action1</button>
-          text
+          <div>
+            text
+            <button className="action1">action1</button>
+            text
+          </div>
+          <div>
+            text
+            <button className="action2">1-action2</button>
+            text
+          </div>
         </div>
-        <div>
-          text
-          <button className="action2">1-action2</button>
-          text
-        </div>
-      </div>, mountPoint);
+      ), mountPoint);
       wrapper.find('.action1').getDOMNode().focus();
       expect(document.activeElement.innerHTML).to.be.equal('action1');
       wrapper.find('.action2').getDOMNode().focus();
@@ -48,18 +48,18 @@ describe('react-focus-lock', () => {
     it('Should return focus to the original place', (done) => {
       class Test extends Component {
         state = {
-          focused: true
+          focused: true,
         };
 
         deactivate = () => {
           this.setState({
-            focused: false
+            focused: false,
           });
         };
 
         render() {
           return (
-            <div className='clickTarget' onClick={this.deactivate}>
+            <div className="clickTarget" onClick={this.deactivate}>
               {
                 this.state.focused && <FocusLock returnFocus>
                   <div>
@@ -70,10 +70,10 @@ describe('react-focus-lock', () => {
                 </FocusLock>
               }
             </div>
-          )
+          );
         }
       }
-      const wrapper = mount(
+      const wrapper = mount((
         <div>
           <div>
             text
@@ -81,8 +81,9 @@ describe('react-focus-lock', () => {
             text
             <button className="action1" autoFocus>d-action3</button>
           </div>
-          <Test/>
-        </div>, mountPoint);
+          <Test />
+        </div>
+      ), mountPoint);
       expect(document.activeElement.innerHTML).to.be.equal('d-action2');
       wrapper.find('.clickTarget').simulate('click');
       setTimeout(() => {
@@ -116,7 +117,7 @@ describe('react-focus-lock', () => {
     });
 
     it('Should focus on autofocused element', (done) => {
-      const wrapper = mount(<div>
+      mount(<div>
         <div>
           text
           <button className="action1">action1</button>
@@ -132,8 +133,8 @@ describe('react-focus-lock', () => {
           </div>
         </FocusLock>
       </div>, mountPoint);
-      //wrapper.find('.action1').getDOMNode().focus();
-      //expect(document.activeElement.innerHTML).to.be.equal('action1');
+      // wrapper.find('.action1').getDOMNode().focus();
+      // expect(document.activeElement.innerHTML).to.be.equal('action1');
       setTimeout(() => {
         expect(document.activeElement.innerHTML).to.be.equal('action2');
         done();
@@ -209,9 +210,9 @@ describe('react-focus-lock', () => {
             text
           </div>
           <FocusLock>
-            <input type="hidden" className="action2"/>
-            <button style={{visibility: 'hidden'}}>hidden</button>
-            <div style={{display: 'none'}}>
+            <input type="hidden" className="action2" />
+            <button style={{ visibility: 'hidden' }}>hidden</button>
+            <div style={{ display: 'none' }}>
               <button className="action2">5-action3</button>
             </div>
             <button className="action2">5-action4</button>

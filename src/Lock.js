@@ -1,4 +1,4 @@
-import React, {Component} from 'react';
+import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import FocusTrap from './Trap';
 
@@ -40,11 +40,11 @@ class FocusLock extends Component {
   originalFocusedElement = null;
 
   render() {
-    const {children, disabled} = this.props;
-    const {observed} = this.state;
+    const { children, disabled } = this.props;
+    const { observed } = this.state;
     return (
       <div>
-        <div tabIndex={ disabled ? -1 : 1} aria-hidden></div>
+        <div tabIndex={disabled ? -1 : 1} aria-hidden />
         <div
           ref={this.setObserveNode}
           onBlur={this.onTrapBlur}

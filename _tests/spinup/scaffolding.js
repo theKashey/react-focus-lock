@@ -1,9 +1,10 @@
+/* eslint-disable import/first */
+
 import 'babel-polyfill';
 
-import 'jsdom';
-/* eslint-disable import/imports-first */
 import { JSDOM } from 'jsdom';
-const jsdom = new JSDOM('<!doctype html><html><body></body></html>', {userAgent: 'node.js'});
+
+const jsdom = new JSDOM('<!doctype html><html><body></body></html>', { userAgent: 'node.js' });
 
 const { window } = jsdom;
 
@@ -13,20 +14,17 @@ global.navigator = window.navigator;
 global.HTMLElement = window.HTMLElement;
 
 function copyProps(src, target) {
-  Object.defineProperties(target,
-    Object.getOwnPropertyNames(src)
+  const properties = Object
+    .getOwnPropertyNames(src)
     .filter(prop => typeof target[prop] === 'undefined')
-    .map(prop => Object.getOwnPropertyDescriptor(src, prop))
-  );
+    .map(prop => Object.getOwnPropertyDescriptor(src, prop));
+
+  Object.defineProperties(target, properties);
 }
 
 copyProps(window, global);
 
 import chai from 'chai';
 import chaiEnzyme from 'chai-enzyme';
-//import dirtyChai from 'dirty-chai';
 
-
-//chai.use(dirtyChai);
 chai.use(chaiEnzyme());
-//chai.use(sinonChai);
