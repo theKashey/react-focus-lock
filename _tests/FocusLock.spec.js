@@ -166,10 +166,10 @@ describe('react-focus-lock', () => {
         </div>, mountPoint);
         wrapper.find('.action1').getDOMNode().focus();
         expect(document.activeElement.innerHTML).to.be.equal('action1');
-        setTimeout(() => {
+        setImmediate(() => {
           expect(document.activeElement.innerHTML).to.be.equal('action3');
           done();
-        }, 1);
+        });
       });
 
       it('Should handle disabled state', (done) => {
@@ -224,6 +224,52 @@ describe('react-focus-lock', () => {
           expect(document.activeElement.innerHTML).to.be.equal('5-action4');
           done();
         }, 1);
+      });
+
+      it('Focuses the first element in the form', (done) => {
+        const wrapper = mount((
+          <div>
+            <button className="action1">action1</button>
+            <FocusLock>
+              <div>
+                <input type="text" name="first" />
+                <input type="text" name="second" />
+                <input type="text" name="third" />
+              </div>
+            </FocusLock>
+          </div>
+        ), mountPoint);
+
+        wrapper.find('.action1').getDOMNode().focus();
+        expect(document.activeElement.innerHTML).to.be.equal('action1');
+        setImmediate(() => {
+          expect(document.activeElement.name).to.be.equal('first');
+          done();
+        });
+      });
+
+      it('Focuses on checked item within radio group', (done) => {
+        const wrapper = mount((
+          <div>
+            <button className="action1">action1</button>
+            <FocusLock>
+              <div>
+                <input name="group" value="first" />
+                <input name="group" value="second" checked />
+                <input name="group" value="third" />
+
+                <input type="text" value="mistake" />
+              </div>
+            </FocusLock>
+          </div>
+        ), mountPoint);
+
+        wrapper.find('.action1').getDOMNode().focus();
+        expect(document.activeElement.innerHTML).to.be.equal('action1');
+        setImmediate(() => {
+          expect(document.activeElement.value).to.be.equal('second');
+          done();
+        });
       });
     });
 
