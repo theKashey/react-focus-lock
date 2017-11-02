@@ -2,6 +2,13 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import FocusTrap from './Trap';
 
+const hidden = {
+  width: '1px',
+  height: '0px',
+  padding: 0,
+  overflow: 'hidden',
+};
+
 class FocusLock extends Component {
   state = {
     observed: undefined,
@@ -40,11 +47,11 @@ class FocusLock extends Component {
   originalFocusedElement = null;
 
   render() {
-    const { children, disabled } = this.props;
+    const { children, disabled, noFocusGuards } = this.props;
     const { observed } = this.state;
     return (
       <div>
-        <div tabIndex={disabled ? -1 : 1} aria-hidden />
+        {!noFocusGuards && <div tabIndex={disabled ? -1 : 0} style={hidden} />}
         <div
           ref={this.setObserveNode}
           onBlur={this.onTrapBlur}
@@ -57,6 +64,7 @@ class FocusLock extends Component {
             {children}
           </FocusTrap>
         </div>
+        {!noFocusGuards && <div tabIndex={disabled ? -1 : 0} style={hidden} />}
       </div>
     );
   }
@@ -66,12 +74,14 @@ FocusLock.propTypes = {
   children: PropTypes.node.isRequired,
   disabled: PropTypes.bool,
   returnFocus: PropTypes.bool,
+  noFocusGuards: PropTypes.bool,
 };
 
 FocusLock.defaultProps = {
   disabled: false,
   returnFocus: false,
   sandboxed: false,
+  noFocusGuards: false,
 };
 
 

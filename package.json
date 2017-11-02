@@ -1,6 +1,6 @@
 {
   "name": "react-focus-lock",
-  "version": "1.4.8",
+  "version": "1.4.9",
   "description": "It is a trap! (for a focus)",
   "main": "dist/index.js",
   "scripts": {
