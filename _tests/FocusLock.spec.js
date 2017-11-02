@@ -248,7 +248,7 @@ describe('react-focus-lock', () => {
         });
       });
 
-      it('Focuses on checked item within radio group', (done) => {
+      it.skip('Focuses on checked item within radio group', (done) => {
         const wrapper = mount((
           <div>
             <button className="action1">action1</button>
@@ -266,7 +266,7 @@ describe('react-focus-lock', () => {
         wrapper.find('.action1').getDOMNode().focus();
         expect(document.activeElement.innerHTML).to.be.equal('action1');
         setImmediate(() => {
-          //expect(document.activeElement.value).to.be.equal('second');
+          expect(document.activeElement.value).to.be.equal('second');
           // cant be tested yet
           done();
         });
