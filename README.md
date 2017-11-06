@@ -18,7 +18,7 @@ Just wrap something with focus lock, and focus will be `moved inside` on mount.
     <FocusLock>
       You can not leave this form
       <button onClick={onClick} />
-     </FocusLock>
+    </FocusLock>
  );
 ```
  Demo - https://codesandbox.io/s/72prk69z3j
@@ -49,6 +49,34 @@ Only `last`, or `deepest` one will work. No fighting.
   - `returnFocus`, to return focus into initial position on unmount(not disable).
   This is expected behavior for Modals, but it is better to implement it by your self.
      
+# Autofocus
+
+ As long you cannot use `autoFocus` prop - 
+ cos "focusing" should be delayed to Trap activation, and autoFocus will effect immediately - 
+ Focus Lock provide a special API for it
+      
+ - prop `data-autofocus` on the element.
+ - `AutoFocusInside` component, as named export of this library.
+```js
+ import FocusLock, { AutoFocusInside } from 'focus-lock';
+ <FocusLock>
+   <button>Click</button>
+   <AutoFocusInside>
+    <button>will be focused</button>
+   </AutoFocusInside>
+ </FocusLock>
+ // is the same as
+ <FocusLock>
+   <button>Click</button>
+    <button data-autofocus>will be focused</button>
+ </FocusLock>
+
+``` 
+
+ If there is more than one auto-focusable target - the first will be selected.
+ If it is a part of radio group, and __rest of radio group element are also autofocusable__(just put them into AutoFocusInside) - 
+ checked one fill be selected.
+ 
      
 See example for sandboxed mode - https://codesandbox.io/s/jllj5kr6ov     
 

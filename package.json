@@ -1,6 +1,6 @@
 {
   "name": "react-focus-lock",
-  "version": "1.4.9",
+  "version": "1.5.0",
   "description": "It is a trap! (for a focus)",
   "main": "dist/index.js",
   "scripts": {
@@ -9,7 +9,9 @@
     "test:pick": "BABEL_ENV=test mocha --require _tests/spinup/scaffolding --compilers js:babel-core/register -r jsdom-global/register",
     "prepublish": "npm run build",
     "lint": "eslint src tests",
-    "lint:fix": "eslint src tests --fix"
+    "lint:fix": "eslint src tests --fix",
+    "storybook": "start-storybook -p 6006",
+    "build-storybook": "build-storybook"
   },
   "repository": {
     "type": "git",
@@ -54,11 +56,14 @@
     "react-dom": "^15.6.1",
     "react-hot-loader": "^3.0.0-beta.7",
     "react-test-renderer": "^15.6.1",
-    "sinon": "3.2.1"
+    "sinon": "3.2.1",
+    "@storybook/react": "^3.2.14",
+    "@storybook/addon-actions": "^3.2.14",
+    "@storybook/addon-links": "^3.2.14"
   },
   "homepage": "https://github.com/theKashey/react-focus-lock#readme",
   "dependencies": {
-    "focus-lock": "^0.0.6",
+    "focus-lock": "^0.1.0",
     "prop-types": "15.5.10",
     "react-side-effect": "^1.1.3"
   }

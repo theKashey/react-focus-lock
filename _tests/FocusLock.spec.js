@@ -1,13 +1,14 @@
 /* eslint-disable jsx-a11y/no-autofocus, jsx-a11y/no-static-element-interactions */
 
-import React, { Component } from 'react';
+import React, {Component} from 'react';
 import ReactDOM from 'react-dom';
-import { expect } from 'chai';
-import { mount } from 'enzyme';
-import FocusLock from '../src/Lock';
+import {expect} from 'chai';
+import {mount} from 'enzyme';
+import FocusLock, {AutoFocusInside} from '../src/index';
 
 describe('react-focus-lock', () => {
-  describe('FocusTrap', () => {});
+  describe('FocusTrap', () => {
+  });
 
   describe('FocusLock', () => {
     let mountPoint;
@@ -126,9 +127,9 @@ describe('react-focus-lock', () => {
         <FocusLock>
           <div>
             text
-            <button className="action2-1" >pre-action2</button>
+            <button className="action2-1">pre-action2</button>
             <button className="action2-2" autoFocus>action2</button>
-            <button className="action2-3" >post-action2</button>
+            <button className="action2-3">post-action2</button>
             text
           </div>
         </FocusLock>
@@ -210,9 +211,9 @@ describe('react-focus-lock', () => {
             text
           </div>
           <FocusLock>
-            <input type="hidden" className="action2" />
-            <button style={{ visibility: 'hidden' }}>hidden</button>
-            <div style={{ display: 'none' }}>
+            <input type="hidden" className="action2"/>
+            <button style={{visibility: 'hidden'}}>hidden</button>
+            <div style={{display: 'none'}}>
               <button className="action2">5-action3</button>
             </div>
             <button className="action2">5-action4</button>
@@ -232,9 +233,9 @@ describe('react-focus-lock', () => {
             <button className="action1">action1</button>
             <FocusLock>
               <div>
-                <input type="text" name="first" />
-                <input type="text" name="second" />
-                <input type="text" name="third" />
+                <input type="text" name="first"/>
+                <input type="text" name="second"/>
+                <input type="text" name="third"/>
               </div>
             </FocusLock>
           </div>
@@ -248,17 +249,17 @@ describe('react-focus-lock', () => {
         });
       });
 
-      it.skip('Focuses on checked item within radio group', (done) => {
+      it('Focuses on checked item within radio group', (done) => {
         const wrapper = mount((
           <div>
             <button className="action1">action1</button>
             <FocusLock>
               <div>
-                <input name="group" defaultValue="first" />
-                <input name="group" defaultValue="second" defaultChecked />
-                <input name="group" defaultValue="third" />
+                <input name="group" type="radio" value="first"/>
+                <input name="group" type="radio" value="second" checked/>
+                <input name="group" type="radio" value="third"/>
 
-                <input type="text" defaultValue="mistake" />
+                <input type="text" value="mistake"/>
               </div>
             </FocusLock>
           </div>
@@ -267,7 +268,54 @@ describe('react-focus-lock', () => {
         expect(document.activeElement.innerHTML).to.be.equal('action1');
         setImmediate(() => {
           expect(document.activeElement.value).to.be.equal('second');
-          // cant be tested yet
+          done();
+        });
+      });
+
+      it.skip('Focuses on checked item within autoselected radio group', (done) => {
+        const wrapper = mount((
+          <div>
+            <FocusLock>
+              <div>
+                <button className="action1">action1</button>
+                <input name="group" type="radio" value="first" data-autofocus/>
+                <input name="group" type="radio" value="second" data-autofocus checked/>
+                <input name="group" type="radio" value="third" data-autofocus/>
+
+                <input type="text" value="mistake"/>
+              </div>
+            </FocusLock>
+          </div>
+        ), mountPoint);
+        wrapper.find('.action1').getDOMNode().focus();
+        expect(document.activeElement.innerHTML).to.be.equal('action1');
+        setImmediate(() => {
+          expect(document.activeElement.value).to.be.equal('second');
+          done();
+        });
+      });
+
+      it.skip('Do the same with AutoFocusIncide', (done) => {
+        const wrapper = mount((
+          <div>
+            <FocusLock>
+              <div>
+                <button className="action1">action1</button>
+                <AutoFocusInside>
+                  <input name="group" type="radio" value="first"/>
+                  <input name="group" type="radio" value="second" checked/>
+                  <input name="group" type="radio" value="third"/>
+                </AutoFocusInside>
+
+                <input type="text" value="mistake"/>
+              </div>
+            </FocusLock>
+          </div>
+        ), mountPoint);
+        wrapper.find('.action1').getDOMNode().focus();
+        expect(document.activeElement.innerHTML).to.be.equal('action1');
+        setImmediate(() => {
+          expect(document.activeElement.value).to.be.equal('second');
           done();
         });
       });

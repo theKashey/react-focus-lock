@@ -51,7 +51,10 @@ class FocusLock extends Component {
     const { observed } = this.state;
     return (
       <div>
-        {!noFocusGuards && <div tabIndex={disabled ? -1 : 0} style={hidden} />}
+        {!noFocusGuards && [
+          <div tabIndex={disabled ? -1 : 0} style={hidden} />, // nearest focus guard
+          <div tabIndex={disabled ? -1 : 1} style={hidden} />  // first tabbed element guard
+        ]}
         <div
           ref={this.setObserveNode}
           onBlur={this.onTrapBlur}
