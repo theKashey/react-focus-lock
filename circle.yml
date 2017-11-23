@@ -1,0 +1,10 @@
+machine:
+  node:
+    version: 8.9.1
+
+test:
+  pre:
+    - npm run lint
+
+  override:
+    - npm run test
