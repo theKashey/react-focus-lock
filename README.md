@@ -23,7 +23,7 @@ Just wrap something with focus lock, and focus will be `moved inside` on mount.
 ```
  Demo - https://codesandbox.io/s/72prk69z3j
 
-#WHY?
+# WHY?
 From [MDN Article about accessible dialogs](https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/ARIA_Techniques/Using_the_dialog_role):
  - The dialog must be properly labeled
  - Keyboard __focus must be managed__ correctly
@@ -85,6 +85,9 @@ See example for sandboxed mode - https://codesandbox.io/s/jllj5kr6ov
  do something only if escape attempt was succeeded.
  
  It is not altering tabbing behavior at all. We are good citizens.
+
+# Not only for React
+ Uses [focus-lock](https://github.com/theKashey/focus-lock/) under the hood. It does also provide support for Vue.js and Vanilla DOM solutions
 
 # Licence
  MIT
