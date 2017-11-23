@@ -270,11 +270,11 @@ describe('react-focus-lock', () => {
             <button className="action1">action1</button>
             <FocusLock>
               <div>
-                <input name="group" type="radio" value="first"/>
-                <input name="group" type="radio" value="second" checked/>
-                <input name="group" type="radio" value="third"/>
+                <input name="group" type="radio" defaultValue="first"/>
+                <input name="group" type="radio" defaultValue="second" defaultChecked/>
+                <input name="group" type="radio" defaultValue="third"/>
 
-                <input type="text" value="mistake"/>
+                <input type="text" defaultValue="mistake"/>
               </div>
             </FocusLock>
           </div>
@@ -294,7 +294,7 @@ describe('react-focus-lock', () => {
               <div>
                 <button className="action1">action1</button>
                 <input name="group" type="radio" value="first" data-autofocus/>
-                <input name="group" type="radio" value="second" data-autofocus checked/>
+                <input name="group" type="radio" value="second" data-autofocus defaultChecked/>
                 <input name="group" type="radio" value="third" data-autofocus/>
 
                 <input type="text" value="mistake"/>
@@ -318,7 +318,7 @@ describe('react-focus-lock', () => {
                 <button className="action1">action1</button>
                 <AutoFocusInside>
                   <input name="group" type="radio" value="first"/>
-                  <input name="group" type="radio" value="second" checked/>
+                  <input name="group" type="radio" value="second" defaultChecked/>
                   <input name="group" type="radio" value="third"/>
                 </AutoFocusInside>
 
