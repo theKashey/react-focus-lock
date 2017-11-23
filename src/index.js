@@ -2,7 +2,7 @@ import FocusLock from './Lock';
 import AutoFocusInside from './AutoFocusInside';
 
 export {
-  AutoFocusInside
+  AutoFocusInside,
 };
 
 export default FocusLock;

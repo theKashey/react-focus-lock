@@ -26,11 +26,11 @@ const onTrap = (event) => {
   }
 };
 
-const onBlur = () => {
+const onBlur = () => (
   setImmediate
     ? setImmediate(activateTrap)
     : setTimeout(activateTrap, 1)
-};
+);
 
 const FocusTrap = ({ children }) => (
   <div onBlur={onBlur}>
