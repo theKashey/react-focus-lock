@@ -4,9 +4,20 @@ import React, {Component} from 'react';
 import ReactDOM from 'react-dom';
 import {expect} from 'chai';
 import {mount} from 'enzyme';
+import sinon from 'sinon'
 import FocusLock, {AutoFocusInside} from '../src/index';
 
 describe('react-focus-lock', () => {
+  beforeEach(() => {
+    sinon.stub(console, 'error').callsFake((message) => {
+      throw new Error(message);
+    });
+  });
+
+  afterEach(() => {
+    console.error.restore();
+  });
+
   describe('FocusTrap', () => {
   });
 
@@ -24,6 +35,10 @@ describe('react-focus-lock', () => {
       document.body.innerHTML = '';
       document.body.focus();
     });
+
+    it('Is rendered', () => {
+      mount(<FocusLock><p>children</p></FocusLock>)
+    })
 
     it('Should not focus on inputs', () => {
       const wrapper = mount((
