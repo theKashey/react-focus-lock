@@ -3,6 +3,12 @@ import PropTypes from 'prop-types';
 import withSideEffect from 'react-side-effect';
 import moveFocusInside, { focusInside } from 'focus-lock';
 
+function deferAction(action) {
+  setImmediate
+    ? setImmediate(action)
+    : setTimeout(action, 1)
+}
+
 let lastActiveTrap = 0;
 let lastActiveFocus = null;
 const activateTrap = () => {
@@ -27,9 +33,7 @@ const onTrap = (event) => {
 };
 
 const onBlur = () => (
-  setImmediate
-    ? setImmediate(activateTrap)
-    : setTimeout(activateTrap, 1)
+  deferAction(activateTrap)
 );
 
 const FocusTrap = ({ children }) => (
@@ -67,7 +71,7 @@ function handleStateChangeOnClient(trap) {
   lastActiveTrap = trap;
   if (trap) {
     activateTrap();
-    setImmediate(activateTrap);
+    deferAction(activateTrap);
   } else {
     detachHandler();
     lastActiveFocus = null;
