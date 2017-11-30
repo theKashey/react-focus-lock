@@ -11,17 +11,21 @@ function deferAction(action) {
   }
 }
 
+const focusOnBody = () => document.activeElement !== document.body;
+
 let lastActiveTrap = 0;
 let lastActiveFocus = null;
 const activateTrap = () => {
   let result = false;
   if (lastActiveTrap) {
-    const { observed, onActivation } = lastActiveTrap;
-    if (observed && !focusInside(observed)) {
-      onActivation();
-      result = moveFocusInside(observed, lastActiveFocus);
+    const { observed, onActivation, allowTextSelection } = lastActiveTrap;
+    if (!allowTextSelection || focusOnBody()) {
+      if (observed && !focusInside(observed)) {
+        onActivation();
+        result = moveFocusInside(observed, lastActiveFocus);
+      }
+      lastActiveFocus = document.activeElement;
     }
-    lastActiveFocus = document.activeElement;
   }
   return result;
 };

@@ -47,7 +47,7 @@ class FocusLock extends Component {
   originalFocusedElement = null;
 
   render() {
-    const { children, disabled, noFocusGuards } = this.props;
+    const { children, disabled, noFocusGuards, allowTextSelection } = this.props;
     const { observed } = this.state;
     return (
       <div>
@@ -62,6 +62,7 @@ class FocusLock extends Component {
           <FocusTrap
             observed={observed}
             disabled={disabled}
+            allowTextSelection={allowTextSelection}
             onActivation={this.onActivation}
           >
             {children}
@@ -78,6 +79,7 @@ FocusLock.propTypes = {
   disabled: PropTypes.bool,
   returnFocus: PropTypes.bool,
   noFocusGuards: PropTypes.bool,
+  allowTextSelection: PropTypes.bool,
 };
 
 FocusLock.defaultProps = {
@@ -85,6 +87,7 @@ FocusLock.defaultProps = {
   returnFocus: false,
   sandboxed: false,
   noFocusGuards: false,
+  allowTextSelection: false,
 };
 
 

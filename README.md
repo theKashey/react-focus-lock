@@ -47,10 +47,12 @@ You can use nested Locks or have more than one Lock on the page.
 Only `last`, or `deepest` one will work. No fighting.
 
 # API
- FocusLock has only 3 props, 2 of them you will never use(I hope):
+ FocusLock has few props to tune behavior
   - `disabled`, to disable(enable) behavior without altering the tree.
   - `returnFocus`, to return focus into initial position on unmount(not disable).
   This is expected behavior for Modals, but it is better to implement it by your self.
+  - `allowTextSelection` enabled text selections inside, and __outside__ focus lock.
+  - `noFocusGuards` disabled _focus guards_ - virtual inputs which secure tab index.
      
 # Autofocus
 

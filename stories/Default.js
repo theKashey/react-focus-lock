@@ -55,9 +55,11 @@ class Trap extends Component {
 
 const App = () =>
   <div style={styles}>
+    <input placeholder="input1"/>
     <div style={bg}> Inaccessible <a href='#'>Link</a> outside</div>
     <Trap />
     <div style={bg}> Inaccessible <a href='#'>Link</a> outside</div>
+    <input placeholder="input1"/>
   </div>;
 
 export default App;
