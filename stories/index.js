@@ -8,6 +8,7 @@ import {linkTo} from '@storybook/addon-links';
 import DefaultAll from './Default';
 import TabIndex from './TabIndex';
 import AutoFocus from './Autofocus';
+import ReturnFocus from './ReturnFocus';
 import {Trap1, Trap2, Trap3, Trap4} from './Checkboxes';
 import {TextSelectionEnabled, TextSelectionDisabled} from './TextSelection';
 
@@ -22,7 +23,8 @@ const Frame = ({children}) => <div style={frameStyle}>{children}</div>
 storiesOf('Focus lock', module)
   .add('codesanbox example', () => <Frame><DefaultAll/></Frame>)
   .add('TabIndex example', () => <Frame><TabIndex/></Frame>)
-  .add('autofocus', () => <Frame><AutoFocus/></Frame>);
+  .add('autofocus', () => <Frame><AutoFocus/></Frame>)
+  .add('return focus', () => <Frame><ReturnFocus/></Frame>);
 
 storiesOf('Checkboxes', module)
   .add('autofocus', () => <Frame><Trap1/></Frame>)

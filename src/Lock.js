@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import FocusTrap from './Trap';
+import { deferAction } from "./util";
 
 const hidden = {
   width: '1px',
@@ -26,7 +27,7 @@ class FocusLock extends Component {
       this.originalFocusedElement &&
       this.originalFocusedElement.focus
     ) {
-      this.originalFocusedElement.focus();
+      deferAction(() => this.originalFocusedElement.focus(), 0);
     }
   }
 

@@ -2,14 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import withSideEffect from 'react-side-effect';
 import moveFocusInside, { focusInside } from 'focus-lock';
-
-function deferAction(action) {
-  if (typeof setImmediate !== 'undefined') {
-    setImmediate(action);
-  } else {
-    setTimeout(action, 1);
-  }
-}
+import { deferAction } from "./util";
 
 const focusOnBody = () => document.activeElement !== document.body;
 
