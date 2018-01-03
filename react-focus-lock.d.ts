@@ -16,11 +16,11 @@ declare module 'react-focus-lock' {
          */
         noFocusGuards?: boolean;
 
-        children: React.ReactElement<any>
+        children: React.ReactNode
     }
 
     interface AutoFocusProps {
-        children: React.ReactElement<any>
+        children: React.ReactNode
     }
 
     /**
