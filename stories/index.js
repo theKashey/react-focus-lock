@@ -11,6 +11,7 @@ import AutoFocus from './Autofocus';
 import ReturnFocus from './ReturnFocus';
 import {Trap1, Trap2, Trap3, Trap4} from './Checkboxes';
 import {TextSelectionEnabled, TextSelectionDisabled} from './TextSelection';
+import JumpCase from './Jump';
 
 const frameStyle = {
   width: '400px',
@@ -35,5 +36,8 @@ storiesOf('Checkboxes', module)
 storiesOf('Text selection', module)
   .add('enabled', () => <Frame><TextSelectionEnabled/></Frame>)
   .add('disabled', () => <Frame><TextSelectionDisabled/></Frame>);
+
+storiesOf('Jump', module)
+  .add('jump', () => <Frame><JumpCase /></Frame>);
 
 
