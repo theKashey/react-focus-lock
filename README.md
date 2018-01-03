@@ -82,8 +82,14 @@ Only `last`, or `deepest` one will work. No fighting.
  If it is a part of radio group, and __rest of radio group element are also autofocusable__(just put them into AutoFocusInside) - 
  checked one fill be selected.
  
+# Unmounting and focus management
+ - In case FocusLock has `returnFocus` enabled, and it's gonna to be unmounted - focus will be returned after zero-timeout.
+ - In case `returnFocus` did not set, and you are going to control focus change by your own - keep in mind
+ >> React will first call Parent.componentWillUnmount, and next Child.componentWillUnmount
+ 
+ Thus means - Trap will be still active, be the time you _may_ want move(return) focus on componentWillUnmount. Please deffer this action with a zero-timeout. 
      
-See example for sandboxed mode - https://codesandbox.io/s/jllj5kr6ov     
+     
 
 # How it works
  Everything thing is simple - react-focus-lock just dont left focus left boundaries of component, and
