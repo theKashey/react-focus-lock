@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import FocusTrap from './Trap';
-import { deferAction } from "./util";
+import { deferAction } from './util';
 
 const hidden = {
   width: '1px',
