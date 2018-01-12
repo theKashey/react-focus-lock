@@ -8,6 +8,9 @@ const hidden = {
   height: '0px',
   padding: 0,
   overflow: 'hidden',
+  position: 'fixed',
+  top: 0,
+  left: 0,
 };
 
 class FocusLock extends Component {
