@@ -1,4 +1,17 @@
 node_modules/
 npm-debug.log
+yarn.lock
+circle.yml
+stroies/
+_tests/
+src/
+
 .DS_Store
 .size-limit
+.babelrc
+.eslintrc
+.npmignore
+.gitignore
+.storybook/
+
+
