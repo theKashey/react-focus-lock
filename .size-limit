@@ -1,0 +1,6 @@
+[
+  {
+    path: "dist/index.js",
+    limit: "5.7 KB"
+  }
+]

@@ -6,5 +6,8 @@ test:
   pre:
     - npm run lint
 
+  post:
+    - npm run size
+
   override:
     - npm run test
