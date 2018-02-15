@@ -54,7 +54,7 @@ class FocusLock extends Component {
     const { children, disabled, noFocusGuards, allowTextSelection } = this.props;
     const { observed } = this.state;
     return (
-      <div>
+      <React.Fragment>
         {!noFocusGuards && [
           <div key="guard-first" tabIndex={disabled ? -1 : 0} style={hidden} />, // nearest focus guard
           <div key="guard-nearest" tabIndex={disabled ? -1 : 1} style={hidden} />, // first tabbed element guard
@@ -73,7 +73,7 @@ class FocusLock extends Component {
           </FocusTrap>
         </div>
         {!noFocusGuards && <div tabIndex={disabled ? -1 : 0} style={hidden} />}
-      </div>
+      </React.Fragment>
     );
   }
 }
