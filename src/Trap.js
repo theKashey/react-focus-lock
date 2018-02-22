@@ -4,7 +4,7 @@ import withSideEffect from 'react-side-effect';
 import moveFocusInside, { focusInside } from 'focus-lock';
 import { deferAction } from './util';
 
-const focusOnBody = () => document.activeElement !== document.body;
+const focusOnBody = () => document && document.activeElement !== document.body;
 
 let lastActiveTrap = 0;
 let lastActiveFocus = null;
