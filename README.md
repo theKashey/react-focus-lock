@@ -24,7 +24,7 @@ Just wrap something with focus lock, and focus will be `moved inside` on mount.
     </FocusLock>
  );
 ```
- Demo - https://codesandbox.io/s/72prk69z3j
+Demo - https://codesandbox.io/s/5wmrwlvxv4. To be honest - you dont need that demo. Focus lock just works. Always.
 
 # WHY?
 From [MDN Article about accessible dialogs](https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/ARIA_Techniques/Using_the_dialog_role):
@@ -34,6 +34,15 @@ From [MDN Article about accessible dialogs](https://developer.mozilla.org/en-US/
 This one is about managing the focus.
 
 I'v got a good [article about focus management, dialogs and  WAI-ARIA](https://medium.com/@antonkorzunov/its-a-focus-trap-699a04d66fb5).    
+
+# API
+ FocusLock has few props to tune behavior
+  - `disabled`, to disable(enable) behavior without altering the tree.
+  - `returnFocus`, to return focus into initial position on unmount(not disable).
+  This is expected behavior for Modals, but it is better to implement it by your self.
+  - `persistentFocus`, default false, requires any element to be focused. This also disables text selections inside, and __outside__ focus lock.
+  - `autoFocus`, default true, enables or disables focusing into on Lock activation. If disabled Lock will blur an active focus.
+  - `noFocusGuards` disabled _focus guards_ - virtual inputs which secure tab index.
 
 # Behavior
  0. It will always keep focus inside Lock.
@@ -45,14 +54,6 @@ I'v got a good [article about focus management, dialogs and  WAI-ARIA](https://m
 
 You can use nested Locks or have more than one Lock on the page.
 Only `last`, or `deepest` one will work. No fighting.
-
-# API
- FocusLock has few props to tune behavior
-  - `disabled`, to disable(enable) behavior without altering the tree.
-  - `returnFocus`, to return focus into initial position on unmount(not disable).
-  This is expected behavior for Modals, but it is better to implement it by your self.
-  - `allowTextSelection` enabled text selections inside, and __outside__ focus lock.
-  - `noFocusGuards` disabled _focus guards_ - virtual inputs which secure tab index.
      
 # Autofocus
 

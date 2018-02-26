@@ -22,7 +22,7 @@ class Trap extends Component {
     const {disabled} = this.state;
     return (
 
-      <FocusLock disabled={this.state.disabled} allowTextSelection={this.props.allowTextSelection}>
+      <FocusLock disabled={this.state.disabled} persistentFocus={!this.props.allowTextSelection}>
 
         <button onClick={this.toggle}>
           {disabled ? "!ACTIVATE THE TRAP!" : "DISABLE"}

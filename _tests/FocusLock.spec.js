@@ -132,6 +132,74 @@ describe('react-focus-lock', () => {
       }, 10);
     });
 
+    it('Should focus on inputs, when autoFocus is true', (done) => {
+      const wrapper = mount(<div>
+        <div>
+          text
+          <button className="action1">action1</button>
+          text
+        </div>
+        <FocusLock autoFocus={true}>
+          <div>
+            text
+            <button className="action2">1-action2</button>
+            <button className="action2">2-action2</button>
+            text
+          </div>
+        </FocusLock>
+      </div>, mountPoint);
+      setTimeout(() => {
+        expect(document.activeElement.innerHTML).to.be.equal('1-action2');
+        done();
+      }, 10);
+    });
+
+    it('Should blur focus on inputs, when autoFocus is false', (done) => {
+      const wrapper = mount(<div>
+        <div>
+          text
+          <button className="action1">action1</button>
+          text
+        </div>
+        <FocusLock autoFocus={false}>
+          <div>
+            text
+            <button className="action2">1-action2</button>
+            <button className="action2">2-action2</button>
+            text
+          </div>
+        </FocusLock>
+      </div>, mountPoint);
+      setTimeout(() => {
+        expect(document.activeElement).to.be.equal(document.body);
+        done();
+      }, 10);
+    });
+
+    it('Should blur focus on inputs, when autoFocus is false', (done) => {
+      const wrapper = mount(<div>
+        <div>
+          text
+          <button className="action1">action1</button>
+          text
+        </div>
+        <FocusLock autoFocus={false}>
+          <div>
+            text
+            <button className="action2">1-action2</button>
+            <button className="action2">2-action2</button>
+            text
+          </div>
+        </FocusLock>
+      </div>, mountPoint);
+      wrapper.find('.action1').getDOMNode().focus();
+      expect(document.activeElement.innerHTML).to.be.equal('action1');
+      setTimeout(() => {
+        expect(document.activeElement).to.be.equal(document.body);
+        done();
+      }, 10);
+    });
+
     it('Should focus on autofocused element', (done) => {
       mount(<div>
         <div>

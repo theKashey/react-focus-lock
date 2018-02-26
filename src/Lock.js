@@ -3,6 +3,12 @@ import PropTypes from 'prop-types';
 import FocusTrap from './Trap';
 import { deferAction } from './util';
 
+const RenderChildren = ({ children }) => <div>{children}</div>;
+RenderChildren.propTypes = {
+  children: PropTypes.node.isRequired,
+};
+const Fragment = React.Fragment ? React.Fragment : RenderChildren;
+
 const hidden = {
   width: '1px',
   height: '0px',
@@ -51,29 +57,42 @@ class FocusLock extends Component {
   originalFocusedElement = null;
 
   render() {
-    const { children, disabled, noFocusGuards, allowTextSelection } = this.props;
+    const {
+      children,
+      disabled,
+      noFocusGuards,
+      persistentFocus,
+      autoFocus,
+      allowTextSelection,
+    } = this.props;
     const { observed } = this.state;
+
+    if (typeof allowTextSelection !== 'undefined') {
+      // eslint-disable-next-line no-console
+      console.warn('React-Focus-Lock: allowTextSelection is deprecated and enabled by default');
+    }
+
     return (
-      <div>
+      <Fragment>
         {!noFocusGuards && [
           <div key="guard-first" tabIndex={disabled ? -1 : 0} style={hidden} />, // nearest focus guard
           <div key="guard-nearest" tabIndex={disabled ? -1 : 1} style={hidden} />, // first tabbed element guard
         ]}
         <div
           ref={this.setObserveNode}
-          onBlur={this.onTrapBlur}
         >
           <FocusTrap
             observed={observed}
             disabled={disabled}
-            allowTextSelection={allowTextSelection}
+            persistentFocus={persistentFocus}
+            autoFocus={autoFocus}
             onActivation={this.onActivation}
           >
             {children}
           </FocusTrap>
         </div>
         {!noFocusGuards && <div tabIndex={disabled ? -1 : 0} style={hidden} />}
-      </div>
+      </Fragment>
     );
   }
 }
@@ -83,15 +102,20 @@ FocusLock.propTypes = {
   disabled: PropTypes.bool,
   returnFocus: PropTypes.bool,
   noFocusGuards: PropTypes.bool,
+
   allowTextSelection: PropTypes.bool,
+  autoFocus: PropTypes.bool,
+  persistentFocus: PropTypes.bool,
+
 };
 
 FocusLock.defaultProps = {
   disabled: false,
   returnFocus: false,
-  sandboxed: false,
   noFocusGuards: false,
-  allowTextSelection: false,
+  autoFocus: true,
+  persistentFocus: false,
+  allowTextSelection: undefined,
 };
 
 
