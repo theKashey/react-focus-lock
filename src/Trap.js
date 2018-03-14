@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import withSideEffect from 'react-side-effect';
-import moveFocusInside, { focusInside } from 'focus-lock';
+import moveFocusInside, { focusInside, getAllAffectedNodes } from 'focus-lock';
 import { deferAction } from './util';
 
 const focusOnBody = () => document && document.activeElement === document.body;
@@ -18,7 +18,7 @@ const recordPortal = (observerNode, portaledElement) => {
 const isPortaledPair = (element, observed) => (
   lastPortaledElement &&
   lastPortaledElement[0] === element &&
-  observed.contains(lastPortaledElement[1])
+  getAllAffectedNodes(observed).reduce( (result, node) => result || node.contains(lastPortaledElement[1]), false)
 );
 
 const activateTrap = () => {
