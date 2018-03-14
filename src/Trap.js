@@ -8,22 +8,37 @@ const focusOnBody = () => document && document.activeElement === document.body;
 
 let lastActiveTrap = 0;
 let lastActiveFocus = null;
+
+let lastPortaledElement = null;
+
+const recordPortal = (observerNode, portaledElement) => {
+  lastPortaledElement = [portaledElement, observerNode];
+};
+
+const isPortaledPair = (element, observed) => (
+  lastPortaledElement &&
+  lastPortaledElement[0] === element &&
+  observed.contains(lastPortaledElement[1])
+);
+
 const activateTrap = () => {
   let result = false;
   if (lastActiveTrap) {
     const { observed, onActivation, persistentFocus, autoFocus } = lastActiveTrap;
 
     if (persistentFocus || !focusOnBody() || (!lastActiveFocus && autoFocus)) {
-      if (observed && !focusInside(observed)) {
-        onActivation();
-        if (document && !lastActiveFocus && document.activeElement && !autoFocus) {
-          document.activeElement.blur();
-          document.body.focus();
-        } else {
-          result = moveFocusInside(observed, lastActiveFocus);
+      if (!isPortaledPair(document && document.activeElement, observed)) {
+        if (observed && !focusInside(observed)) {
+          onActivation();
+          if (document && !lastActiveFocus && document.activeElement && !autoFocus) {
+            document.activeElement.blur();
+            document.body.focus();
+          } else {
+            result = moveFocusInside(observed, lastActiveFocus);
+          }
         }
+        lastActiveFocus = document && document.activeElement;
       }
-      lastActiveFocus = document && document.activeElement;
     }
   }
   return result;
@@ -41,8 +56,17 @@ const onBlur = () => (
   deferAction(activateTrap)
 );
 
+const onFocus = (event) => {
+  // detect portal
+  const source = event.target;
+  const currentNode = event.currentTarget;
+  if (!currentNode.contains(source)) {
+    recordPortal(currentNode, source);
+  }
+};
+
 const FocusTrap = ({ children }) => (
-  <div onBlur={onBlur}>
+  <div onBlur={onBlur} onFocus={onFocus}>
     {children}
   </div>
 );
