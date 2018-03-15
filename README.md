@@ -11,6 +11,15 @@ This is a small, but very useful for:
  - Focused tasks. It will aways brings you back.
  
 You have to use it in _every_ modal dialog, or you `a11y` will be shitty.
+
+This is most comprehensive focus lock/trap ever built. 
+
+# Features
+ - no keyboard control, everything is done watching a __focus behavior__. Thus works always and everywhere.
+ - React __Portals__ support. Even if some data is in outerspace - it is [still in lock](https://github.com/theKashey/react-focus-lock/issues/19).
+ - _Scattered_ locks, or focus lock groups - you can setup different isolated locks, and _tab_ from from to another.
+ - Controllable isolation level.
+ 
  
 # How to use
 Just wrap something with focus lock, and focus will be `moved inside` on mount.
@@ -43,6 +52,7 @@ I'v got a good [article about focus management, dialogs and  WAI-ARIA](https://m
   - `persistentFocus`, default false, requires any element to be focused. This also disables text selections inside, and __outside__ focus lock.
   - `autoFocus`, default true, enables or disables focusing into on Lock activation. If disabled Lock will blur an active focus.
   - `noFocusGuards` disabled _focus guards_ - virtual inputs which secure tab index.
+  - `group` named focus group for focus scattering aka [combined lock targets](https://github.com/theKashey/vue-focus-lock/issues/2)
 
 # Behavior
  0. It will always keep focus inside Lock.

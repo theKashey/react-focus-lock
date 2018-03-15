@@ -70,7 +70,7 @@
   },
   "homepage": "https://github.com/theKashey/react-focus-lock#readme",
   "dependencies": {
-    "focus-lock": "^0.1.0",
+    "focus-lock": "^0.2.0",
     "prop-types": "^15.0.0",
     "react-side-effect": "^1.1.3"
   }

@@ -524,6 +524,159 @@ describe('react-focus-lock', () => {
           done();
         }, 1);
       });
+
+    });
+
+    describe('groups', () => {
+      it('false test', (done) => {
+        const wrapper = mount(<div>
+          <div>
+            text
+            <button className="action1">action1</button>
+            text
+          </div>
+          <FocusLock>
+            <button id="b1">button1</button>
+            <button id="b2">button2</button>
+          </FocusLock>
+          <div>
+            text
+            <button className="action2">action1</button>
+            text
+          </div>
+          <FocusLock>
+            <button id="b3">button3</button>
+            <button id="b4">button4</button>
+          </FocusLock>
+          <div>
+            text
+            <button className="action1">action1</button>
+            text
+          </div>
+        </div>, mountPoint);
+        wrapper.find('#b2').simulate('focus');
+        wrapper.find('#b2').getDOMNode().focus();
+        expect(document.activeElement.innerHTML).to.be.equal('button2');
+        setTimeout(() => {
+          expect(document.activeElement.innerHTML).to.be.equal('button3');
+          done();
+        }, 1);
+      });
+
+      it('Should handle focus groups', (done) => {
+        const wrapper = mount(
+          <div>
+            <div>
+              text
+              <button className="action1">action1</button>
+              text
+            </div>
+            <FocusLock group="g1">
+              <button id="b1">button1</button>
+              <button id="b2">button2</button>
+            </FocusLock>
+            <div>
+              text
+              <button className="action2">action1</button>
+              text
+            </div>
+            <FocusLock group="g1">
+              <button id="b3">button3</button>
+              <button id="b4">button4</button>
+            </FocusLock>
+            <div>
+              text
+              <button className="action3">action1</button>
+              text
+            </div>
+          </div>, mountPoint);
+        wrapper.find('#b2').simulate('focus');
+        wrapper.find('#b2').getDOMNode().focus();
+        expect(document.activeElement.innerHTML).to.be.equal('button2');
+        setTimeout(() => {
+          expect(document.activeElement.innerHTML).to.be.equal('button2');
+          wrapper.find('#b3').simulate('focus');
+          wrapper.find('#b3').getDOMNode().focus();
+          expect(document.activeElement.innerHTML).to.be.equal('button3');
+          setTimeout(() => {
+            expect(document.activeElement.innerHTML).to.be.equal('button3');
+            done();
+          }, 1);
+        }, 1);
+      });
+
+      it('Should handle focus groups - nested', (done) => {
+        const wrapper = mount(
+          <div>
+            <div>
+              text
+              <button className="action1">action1</button>
+              text
+            </div>
+            <FocusLock group="g1">
+              <button id="b1">button1</button>
+              <button id="b2">button2</button>
+              <FocusLock group="g1">
+                <button id="b3">button3</button>
+                <button id="b4">button4</button>
+              </FocusLock>
+            </FocusLock>
+            <div>
+              text
+              <button className="action3">action1</button>
+              text
+            </div>
+          </div>, mountPoint);
+        wrapper.find('#b2').simulate('focus');
+        wrapper.find('#b2').getDOMNode().focus();
+        expect(document.activeElement.innerHTML).to.be.equal('button2');
+        setTimeout(() => {
+          expect(document.activeElement.innerHTML).to.be.equal('button2');
+          wrapper.find('#b3').simulate('focus');
+          wrapper.find('#b3').getDOMNode().focus();
+          expect(document.activeElement.innerHTML).to.be.equal('button3');
+          setTimeout(() => {
+            expect(document.activeElement.innerHTML).to.be.equal('button3');
+            done();
+          }, 1);
+        }, 1);
+      });
+
+      it('Should handle focus groups - disabled', (done) => {
+        const wrapper = mount(
+          <div>
+            <div>
+              text
+              <button className="action1">action1</button>
+              text
+            </div>
+            <FocusLock group="g1" disabled>
+              <button id="b1">button1</button>
+              <button id="b2">button2</button>
+            </FocusLock>
+            <div>
+              text
+              <button className="action2">action1</button>
+              text
+            </div>
+            <FocusLock group="g1">
+              <button id="b3">button3</button>
+              <button id="b4">button4</button>
+            </FocusLock>
+            <div>
+              text
+              <button className="action3">action1</button>
+              text
+            </div>
+          </div>, mountPoint);
+        wrapper.find('#b2').simulate('focus');
+        wrapper.find('#b2').getDOMNode().focus();
+        expect(document.activeElement.innerHTML).to.be.equal('button2');
+        setTimeout(() => {
+          expect(document.activeElement.innerHTML).to.be.equal('button3');
+            done();
+        }, 1);
+      });
     });
   });
 });
