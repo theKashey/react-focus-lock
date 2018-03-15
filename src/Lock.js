@@ -1,10 +1,10 @@
-import React, {Component} from 'react';
+import React, { Component } from 'react';
 import PropTypes from 'prop-types';
+import { constants } from 'focus-lock';
 import FocusTrap from './Trap';
-import {deferAction} from './util';
-import {constants} from 'focus-lock';
+import { deferAction } from './util';
 
-const RenderChildren = ({children}) => <div>{children}</div>;
+const RenderChildren = ({ children }) => <div>{children}</div>;
 RenderChildren.propTypes = {
   children: PropTypes.node.isRequired,
 };
@@ -65,9 +65,9 @@ class FocusLock extends Component {
       persistentFocus,
       autoFocus,
       allowTextSelection,
-      group
+      group,
     } = this.props;
-    const {observed} = this.state;
+    const { observed } = this.state;
 
     if (typeof allowTextSelection !== 'undefined') {
       // eslint-disable-next-line no-console
@@ -75,15 +75,15 @@ class FocusLock extends Component {
     }
 
     const lockProps = {
-      [constants.FOCUS_DISABLED]: disabled && "disabled",
-      [constants.FOCUS_GROUP]: group
+      [constants.FOCUS_DISABLED]: disabled && 'disabled',
+      [constants.FOCUS_GROUP]: group,
     };
 
     return (
       <Fragment>
         {!noFocusGuards && [
-          <div key="guard-first" tabIndex={disabled ? -1 : 0} style={hidden}/>, // nearest focus guard
-          <div key="guard-nearest" tabIndex={disabled ? -1 : 1} style={hidden}/>, // first tabbed element guard
+          <div key="guard-first" tabIndex={disabled ? -1 : 0} style={hidden} />, // nearest focus guard
+          <div key="guard-nearest" tabIndex={disabled ? -1 : 1} style={hidden} />, // first tabbed element guard
         ]}
         <div
           ref={this.setObserveNode}
@@ -99,7 +99,7 @@ class FocusLock extends Component {
             {children}
           </FocusTrap>
         </div>
-        {!noFocusGuards && <div tabIndex={disabled ? -1 : 0} style={hidden}/>}
+        {!noFocusGuards && <div tabIndex={disabled ? -1 : 0} style={hidden} />}
       </Fragment>
     );
   }
@@ -115,7 +115,7 @@ FocusLock.propTypes = {
   autoFocus: PropTypes.bool,
   persistentFocus: PropTypes.bool,
 
-  group: PropTypes.string
+  group: PropTypes.string,
 };
 
 FocusLock.defaultProps = {
@@ -125,7 +125,7 @@ FocusLock.defaultProps = {
   autoFocus: true,
   persistentFocus: false,
   allowTextSelection: undefined,
-  group: undefined
+  group: undefined,
 };
 
 

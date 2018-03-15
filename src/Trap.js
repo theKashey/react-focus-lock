@@ -18,7 +18,10 @@ const recordPortal = (observerNode, portaledElement) => {
 const isPortaledPair = (element, observed) => (
   lastPortaledElement &&
   lastPortaledElement[0] === element &&
-  getAllAffectedNodes(observed).reduce( (result, node) => result || node.contains(lastPortaledElement[1]), false)
+  getAllAffectedNodes(observed).reduce(
+    (result, node) => result || node.contains(lastPortaledElement[1]),
+    false,
+  )
 );
 
 const activateTrap = () => {
