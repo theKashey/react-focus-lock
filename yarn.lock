@@ -3780,9 +3780,9 @@ flush-write-stream@^1.0.0:
     inherits "^2.0.1"
     readable-stream "^2.0.4"
 
-focus-lock@^0.2.0:
-  version "0.2.0"
-  resolved "https://registry.yarnpkg.com/focus-lock/-/focus-lock-0.2.0.tgz#64bf71b22862a1d4ea4642f938d96ba15b9443a0"
+focus-lock@^0.2.1:
+  version "0.2.1"
+  resolved "https://registry.yarnpkg.com/focus-lock/-/focus-lock-0.2.1.tgz#52dbd7c7dae5658bc2da5138ead3c90b8f98e8a4"
 
 for-in@^1.0.1:
   version "1.0.2"
