@@ -62,6 +62,10 @@ I'v got a good [article about focus management, dialogs and  WAI-ARIA](https://m
  4. It will handle positive tabIndex inside form.
  5. It will prevent any jump outside, returning focus to the last element.
 
+### Focusing in OSX (Safary/FireFox) is strange!
+By default `tabbing` in OSX `sees` only control, but not links or anything else `tabbable`. This is system settings, and Safary/FireFox obey.
+Press Option+Tab in Safary to loop across all tabbables, or change the Safary settings. There is no way to _fix_ FireFox, unless change system settings (Control+F7). See [this issue](https://github.com/theKashey/react-focus-lock/issues/24) for more information.
+
 You can use nested Locks or have more than one Lock on the page.
 Only `last`, or `deepest` one will work. No fighting.
      
