@@ -1,5 +1,5 @@
-<div align="center">
-  <h1>REACT FOCUS LOCK</h1>
+<div align="left">
+  <h1 align="center">REACT FOCUS LOCK</h1>
   <img src="./assets/ackbar.png" alt="it-is-a-trap" width="200" height="200" align="right">
   
   The way to manage your focus.<br/>
