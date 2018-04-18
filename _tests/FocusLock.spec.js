@@ -7,7 +7,7 @@ import {mount, configure as configureEnzyme} from 'enzyme';
 
 ;
 import sinon from 'sinon'
-import FocusLock, {AutoFocusInside} from '../src/index';
+import FocusLock, {AutoFocusInside, MoveFocusInside} from '../src/index';
 
 import EnzymeReactAdapter from 'enzyme-adapter-react-16';
 
@@ -233,6 +233,7 @@ describe('react-focus-lock', () => {
       }, 10);
     });
 
+
     describe('order', () => {
       it('Should be enabled only on last node', (done) => {
         const wrapper = mount(<div>
@@ -361,6 +362,70 @@ describe('react-focus-lock', () => {
           expect(document.activeElement.value).to.be.equal('second');
           done();
         });
+      });
+    });
+
+    describe('AutoFocus', () => {
+
+      it('Should not focus by default', () => {
+        mount(<div>text
+          <button>action</button>
+          text</div>);
+        expect(document.activeElement.innerHTML).not.to.be.equal('action');
+      });
+
+      it('AutoFocus do nothing without FocusLock', () => {
+        mount(<AutoFocusInside>
+          <div>text
+            <button>action</button>
+            text
+          </div>
+        </AutoFocusInside>);
+        expect(document.activeElement.innerHTML).not.to.be.equal('action');
+      });
+
+      it('AutoFocus works with FocusLock', () => {
+        mount(<FocusLock>
+          <AutoFocusInside>
+            <div>text
+              <button>action</button>
+              text
+            </div>
+          </AutoFocusInside>
+        </FocusLock>);
+        expect(document.activeElement.innerHTML).to.be.equal('action');
+      });
+
+      it('MoveFocusInside works without FocusLock', () => {
+        mount(<MoveFocusInside>
+          <div>text
+            <button>action</button>
+            text
+          </div>
+        </MoveFocusInside>);
+        expect(document.activeElement.innerHTML).to.be.equal('action');
+      });
+
+      it('MoveFocusInside works with FocusLock', () => {
+        mount(<FocusLock>
+          <MoveFocusInside>
+            <div>text
+              <button>action</button>
+              text
+            </div>
+          </MoveFocusInside>
+        </FocusLock>);
+        expect(document.activeElement.innerHTML).to.be.equal('action');
+      });
+
+      it('FocusLock do nothing', () => {
+        mount(<FocusLock autoFocus={false}>
+          <div>text
+            <button>action</button>
+            text
+          </div>
+        </FocusLock>);
+        expect(document.activeElement.innerHTML).not.to.be.equal('action');
       });
 
       it.skip('Focuses on checked item within autoselected radio group', (done) => {
@@ -674,7 +739,7 @@ describe('react-focus-lock', () => {
         expect(document.activeElement.innerHTML).to.be.equal('button2');
         setTimeout(() => {
           expect(document.activeElement.innerHTML).to.be.equal('button3');
-            done();
+          done();
         }, 1);
       });
     });
