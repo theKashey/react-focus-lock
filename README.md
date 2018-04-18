@@ -1,16 +1,17 @@
-<div align="center">
-  <h1>REACT FOCUS LOCK</h1>
-  <img src="./assets/ackbar.png" alt="it-is-a-trap" width="256" height="256" align="right">
+<div align="left">
+  <h1 align="center">REACT FOCUS LOCK</h1>
+  <img src="./assets/ackbar.png" alt="it-is-a-trap" width="200" height="200" align="right">
   
   The way to manage your focus.<br/>
   The way to lock it inside.<br/>
-  The way to team up with a11y.<br/> 
+  The way to team up with a11y.<br/> <br/>
+  Make you site a better place. For everyone.<br/>
+
+[![CircleCI status](https://img.shields.io/circleci/project/github/theKashey/react-focus-lock/master.svg?style=flat-square)](https://circleci.com/gh/theKashey/react-focus-lock/tree/master)
+
   <hr/>  
 </div>
 
-# react-focus-lock
-
-[![CircleCI status](https://img.shields.io/circleci/project/github/theKashey/react-focus-lock/master.svg?style=flat-square)](https://circleci.com/gh/theKashey/react-focus-lock/tree/master)
 
 It is a trap! We got your focus and will not let him out!
 
