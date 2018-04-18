@@ -1,15 +1,25 @@
-import React, {Component} from 'react';
+import React, { Component } from 'react';
 import PropTypes from 'prop-types';
-import moveFocusInside, {focusInside} from 'focus-lock';
+import moveFocusInside, { focusInside } from 'focus-lock';
 
 export default class MoveFocusInside extends Component {
   static propTypes = {
     children: PropTypes.node.isRequired,
-    disabled: PropTypes.bool
+    disabled: PropTypes.bool,
   };
+
+  static defaultProps = {
+    disabled: false,
+  }
 
   componentDidMount() {
     this.moveFocus();
+  }
+
+  componentDidUpdate(prevProps) {
+    if (prevProps.disabled && !this.props.disabled) {
+      this.moveFocus();
+    }
   }
 
   setObserveNode = (ref) => {
@@ -26,14 +36,8 @@ export default class MoveFocusInside extends Component {
     }
   }
 
-  componentDidUpdate(prevProps) {
-    if (prevProps.disabled && !this.props.disabled) {
-      this.moveFocus();
-    }
-  }
-
   render() {
-    const {children, disabled} = this.props;
+    const { children, disabled } = this.props;
     return (
       <div data-autofocus-inside={!disabled} ref={this.setObserveNode}>
         {children}
