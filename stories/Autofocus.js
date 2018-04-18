@@ -1,5 +1,6 @@
 import React, {Component} from "react";
 import FocusLock, {AutoFocusInside} from "../src/index";
+import MoveFocusInside from "../src/MoveFocusInside";
 
 const styles = {
   fontFamily: "sans-serif",
@@ -138,9 +139,50 @@ class Trap3 extends Component {
   }
 }
 
+class Trap4 extends Component {
+  state = {
+    disabled: true
+  }
+
+  toggle = () => this.setState({disabled: !this.state.disabled});
+
+  render() {
+    const {disabled} = this.state;
+    return (
+      <div>
+        using MoveFocusInside
+        {disabled && <div>
+          <button onClick={this.toggle}>!SET FOCUS!</button>
+          <br/>
+          <br/>
+        </div>
+        }
+        <MoveFocusInside disabled={disabled}>
+          Nothing to be focused...
+          <button>BUTTON</button>
+          <button>BUTTON</button>
+          <button>BUTTON</button>
+          <br/>
+
+          <a href='#'>link somethere</a> <br/>
+
+          {
+            !disabled && <div>
+              <button onClick={this.toggle}>DEACTIVATE</button>
+              <br/>
+            </div>
+          }
+        </MoveFocusInside>
+      </div>
+    )
+  }
+}
+
 
 export default () => <div>
   <div style={box}><Trap1/></div>
   <div style={box}><Trap2/></div>
   <div style={box}><Trap3/></div>
+
+  <div style={box}><Trap4/></div>
 </div>;

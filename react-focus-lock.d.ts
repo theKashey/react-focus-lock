@@ -48,7 +48,12 @@ declare module 'react-focus-lock' {
     export default class ReactFocusLock extends React.Component<Props> {}
 
     /**
-     * Autofocus on children
+     * Autofocus on children on Lock activation
      */
     export class AutoFocusInside extends React.Component<AutoFocusProps> {}
+
+    /**
+     * Autofocus on children
+     */
+    export class MoveFocusInside extends React.Component<AutoFocusProps> {}
 }

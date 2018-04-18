@@ -86,6 +86,7 @@ Only `last`, or `deepest` one will work. No fighting.
  Focus Lock provide a special API for it
       
  - prop `data-autofocus` on the element.
+ - prop `data-autofocus-inside` on the element to focus on something inside.
  - `AutoFocusInside` component, as named export of this library.
 ```js
  import FocusLock, { AutoFocusInside } from 'focus-lock';
@@ -96,6 +97,7 @@ Only `last`, or `deepest` one will work. No fighting.
    </AutoFocusInside>
  </FocusLock>
  // is the same as
+ 
  <FocusLock>
    <button>Click</button>
     <button data-autofocus>will be focused</button>
@@ -106,6 +108,18 @@ Only `last`, or `deepest` one will work. No fighting.
  If there is more than one auto-focusable target - the first will be selected.
  If it is a part of radio group, and __rest of radio group element are also autofocusable__(just put them into AutoFocusInside) - 
  checked one fill be selected.
+ 
+ `AutoFocusInside` will work only on Lock activation, and does nothing, then used outside of the lock.
+ You can use `MoveFocusInside` to move focus inside with or without lock.
+ 
+ ```js
+```js
+ import { MoveFocusInside } from 'focus-lock';
+    
+   <MoveFocusInside>
+    <button>will be focused</button>
+   </MoveFocusInside>
+ ```
  
 # Unmounting and focus management
  - In case FocusLock has `returnFocus` enabled, and it's gonna to be unmounted - focus will be returned after zero-timeout.
