@@ -13,6 +13,8 @@ import {Trap1, Trap2, Trap3, Trap4} from './Checkboxes';
 import {TextSelectionEnabled, TextSelectionDisabled} from './TextSelection';
 import JumpCase from './Jump';
 import GroupCase from './Group';
+import PortalCase from './Portal';
+import {MUISelect} from './MUI';
 
 const frameStyle = {
   width: '400px',
@@ -41,7 +43,12 @@ storiesOf('Text selection', module)
 storiesOf('Jump', module)
   .add('jump', () => <Frame><JumpCase /></Frame>);
 
+storiesOf('Portal', module)
+  .add('portal', () => <Frame><PortalCase /></Frame>);
 
 storiesOf('Group', module)
   .add('focus group', () => <Frame><GroupCase /></Frame>);
+
+storiesOf('Material UI', module)
+  .add('Select', () => <Frame><MUISelect /></Frame>);
 

@@ -58,6 +58,7 @@
     "eslint-plugin-react": "^7.3.0",
     "jsdom": "11.1.0",
     "jsdom-global": "3.0.2",
+    "material-ui": "^0.20.0",
     "mocha": "^3.4.2",
     "package-self": "^1.1.1",
     "react": "^16.2.0",

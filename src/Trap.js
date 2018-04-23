@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import withSideEffect from 'react-side-effect';
-import moveFocusInside, { focusInside, getAllAffectedNodes } from 'focus-lock';
+import moveFocusInside, { focusInside } from 'focus-lock';
 import { deferAction } from './util';
 
 const focusOnBody = () => document && document.activeElement === document.body;
@@ -12,36 +12,36 @@ let lastActiveFocus = null;
 let lastPortaledElement = null;
 
 const recordPortal = (observerNode, portaledElement) => {
-  lastPortaledElement = [portaledElement, observerNode];
+  lastPortaledElement = { observerNode, portaledElement };
 };
 
-const isPortaledPair = (element, observed) => (
-  lastPortaledElement &&
-  lastPortaledElement[0] === element &&
-  getAllAffectedNodes(observed).reduce(
-    (result, node) => result || node.contains(lastPortaledElement[1]),
-    false,
-  )
+const focusIsPortaledPair = element => (
+  lastPortaledElement && lastPortaledElement.portaledElement === element
 );
 
 const activateTrap = () => {
   let result = false;
   if (lastActiveTrap) {
     const { observed, onActivation, persistentFocus, autoFocus } = lastActiveTrap;
+    const workingNode = observed || (lastPortaledElement && lastPortaledElement.portaledElement);
+    const activeElement = document && document.activeElement;
 
     if (persistentFocus || !focusOnBody() || (!lastActiveFocus && autoFocus)) {
-      if (!isPortaledPair(document && document.activeElement, observed)) {
-        if (observed && !focusInside(observed)) {
-          onActivation();
-          if (document && !lastActiveFocus && document.activeElement && !autoFocus) {
-            document.activeElement.blur();
-            document.body.focus();
-          } else {
-            result = moveFocusInside(observed, lastActiveFocus);
-          }
+      if (
+        workingNode &&
+        !(focusInside(workingNode) ||
+          focusIsPortaledPair(activeElement, workingNode))
+      ) {
+        onActivation();
+        if (document && !lastActiveFocus && activeElement && !autoFocus) {
+          activeElement.blur();
+          document.body.focus();
+        } else {
+          result = moveFocusInside(workingNode, lastActiveFocus);
+          lastPortaledElement = {};
         }
-        lastActiveFocus = document && document.activeElement;
       }
+      lastActiveFocus = document && document.activeElement;
     }
   }
   return result;

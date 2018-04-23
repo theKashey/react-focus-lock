@@ -78,11 +78,13 @@ class Trap2 extends Component {
         </div>
         }
         <FocusLock disabled={this.state.disabled}>
+
           <button>BUTTON</button>
           <AutoFocusInside>
             <button>Will be autofocused</button>
           </AutoFocusInside>
           <button>BUTTON</button>
+
           <br/>
 
           <a href='#'>link somethere</a> <br/>
@@ -158,9 +160,11 @@ class Trap4 extends Component {
         </div>
         }
         <MoveFocusInside disabled={disabled}>
-          Nothing to be focused...
+
           <button>BUTTON</button>
-          <button>BUTTON</button>
+          <MoveFocusInside  disabled={disabled}>
+            <button>to be focused</button>
+          </MoveFocusInside>
           <button>BUTTON</button>
           <br/>
 
@@ -178,6 +182,49 @@ class Trap4 extends Component {
   }
 }
 
+class Trap5 extends Component {
+  state = {
+    disabled: true
+  }
+
+  toggle = () => this.setState({disabled: !this.state.disabled});
+
+  render() {
+    const {disabled} = this.state;
+    return (
+      <div>
+        using MoveFocusInside with Lock
+        {disabled && <div>
+          <button onClick={this.toggle}>!SET FOCUS!</button>
+          <br/>
+          <br/>
+        </div>
+        }
+        <FocusLock autoFocus={false} disabled={disabled}>
+          <MoveFocusInside disabled={disabled}>
+
+            <button>BUTTON</button>
+            <MoveFocusInside  disabled={disabled}>
+              <button>to be focused</button>
+            </MoveFocusInside>
+            <button>BUTTON</button>
+            <br/>
+
+            <a href='#'>link somethere</a> <br/>
+
+            {
+              !disabled && <div>
+                <button onClick={this.toggle}>DEACTIVATE</button>
+                <br/>
+              </div>
+            }
+          </MoveFocusInside>
+        </FocusLock>
+      </div>
+    )
+  }
+}
+
 
 export default () => <div>
   <div style={box}><Trap1/></div>
@@ -185,4 +232,5 @@ export default () => <div>
   <div style={box}><Trap3/></div>
 
   <div style={box}><Trap4/></div>
+  <div style={box}><Trap5/></div>
 </div>;

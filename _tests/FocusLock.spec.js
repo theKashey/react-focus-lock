@@ -4,8 +4,6 @@ import React, {Component} from 'react';
 import ReactDOM, {createPortal} from 'react-dom';
 import {expect} from 'chai';
 import {mount, configure as configureEnzyme} from 'enzyme';
-
-;
 import sinon from 'sinon'
 import FocusLock, {AutoFocusInside, MoveFocusInside} from '../src/index';
 
@@ -565,6 +563,33 @@ describe('react-focus-lock', () => {
         }, 1);
       });
 
+      it('false auto test', (done) => {
+        const focusSpy = sinon.spy();
+        const wrapper = mount(<div>
+          <div>
+            text
+            <button className="action1">action1</button>
+            text
+          </div>
+          <FocusLock noFocusGuards>
+            <button>button-action</button>
+            <button>6-action3</button>
+            <button>6-action4</button>
+          </FocusLock>
+          <div>{ReactDOM.createPortal(
+            <MoveFocusInside>
+              <button id="portaled1" autoFocus onFocus={focusSpy}>i am out portaled</button>
+            </MoveFocusInside>,
+            makeElement()
+          )}</div>
+        </div>, mountPoint);
+        sinon.assert.calledOnce(focusSpy);
+        setTimeout(() => {
+          expect(document.activeElement.innerHTML).to.be.equal('button-action');
+          done();
+        }, 1);
+      });
+
       it('Should handle portaled content', (done) => {
         const wrapper = mount(<div>
           <div>
@@ -576,13 +601,48 @@ describe('react-focus-lock', () => {
             <button>button-action</button>
             <button>6-action3</button>
             <div>{ReactDOM.createPortal(
-              <button id="portaled2" autoFocus>i am portaled</button>,
+              <div>
+                <button id="portaled2" autoFocus>i am portaled</button>
+                <button id="portaled3" autoFocus>and i am portaled</button>
+              </div>,
               makeElement()
             )}</div>
             <button>6-action4</button>
           </FocusLock>
         </div>, mountPoint);
         document.getElementById('portaled2').focus();
+        expect(document.activeElement.innerHTML).to.be.equal('i am portaled');
+        setTimeout(() => {
+          expect(document.activeElement.innerHTML).to.be.equal('i am portaled');
+          document.getElementById('portaled3').focus();
+          setTimeout(() => {
+            expect(document.activeElement.innerHTML).to.be.equal('and i am portaled');
+            done();
+          },1);
+        }, 1);
+      });
+
+      it('Should handle auto portaled content', (done) => {
+        const wrapper = mount(<div>
+          <div>
+            text
+            <button className="action1">action1</button>
+            text
+          </div>
+          <FocusLock noFocusGuards>
+            <button>button-action</button>
+            <button>6-action3</button>
+            <div>{ReactDOM.createPortal(
+              <div>
+                <MoveFocusInside>
+                <button id="portaled2" autoFocus>i am portaled</button>
+                </MoveFocusInside>
+              </div>,
+              makeElement()
+            )}</div>
+            <button>6-action4</button>
+          </FocusLock>
+        </div>, mountPoint);
         expect(document.activeElement.innerHTML).to.be.equal('i am portaled');
         setTimeout(() => {
           expect(document.activeElement.innerHTML).to.be.equal('i am portaled');
