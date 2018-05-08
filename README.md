@@ -44,7 +44,10 @@ Just wrap something with focus lock, and focus will be `moved inside` on mount.
     </FocusLock>
  );
 ```
-Demo - https://codesandbox.io/s/5wmrwlvxv4. To be honest - you dont need that demo. Focus lock just works. Always.
+Demo - https://codesandbox.io/s/5wmrwlvxv4.
+
+That is actually not enough, as long it is better to "shadow" rest of the page, to make it unclickable or
+unscrollable. And there is [react-locky](https://github.com/theKashey/react-locky) to do this job.
 
 # WHY?
 From [MDN Article about accessible dialogs](https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/ARIA_Techniques/Using_the_dialog_role):
