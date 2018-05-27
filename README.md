@@ -15,7 +15,7 @@
 
 It is a trap! We got your focus and will not let him out!
 
-[![NPM](https://nodei.co/npm/react-focus-lock.png?downloads=true&stars=true)](https://nodei.co/npm/react-focus-lock/)
+[![NPM](https://nodei.co/npm/react-focus-lock.png?downloads=true&stars=true)](https://nodei.co/npm/react-focus-lock/) [![Greenkeeper badge](https://badges.greenkeeper.io/theKashey/react-focus-lock.svg)](https://greenkeeper.io/)
 
 This is a small, but very useful for:
  - Modal dialogs. You can not leave it with "Tab", ie tab-out.
