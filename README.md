@@ -28,7 +28,7 @@ This is most comprehensive focus lock/trap ever built.
 # Features
  - no keyboard control, everything is done watching a __focus behavior__. Thus works always and everywhere.
  - React __Portals__ support. Even if some data is in outerspace - it is [still in lock](https://github.com/theKashey/react-focus-lock/issues/19).
- - _Scattered_ locks, or focus lock groups - you can setup different isolated locks, and _tab_ from from to another.
+ - _Scattered_ locks, or focus lock groups - you can setup different isolated locks, and _tab_ from one to another.
  - Controllable isolation level.
  
  
