@@ -8,6 +8,7 @@
   Make you site a better place. For everyone.<br/>
 
 [![CircleCI status](https://img.shields.io/circleci/project/github/theKashey/react-focus-lock/master.svg?style=flat-square)](https://circleci.com/gh/theKashey/react-focus-lock/tree/master)
+[![npm](https://img.shields.io/npm/v/react-focus-lock.svg)](https://www.npmjs.com/package/react-focus-lock)
 
   <hr/>  
 </div>
@@ -17,20 +18,19 @@ It is a trap! We got your focus and will not let him out!
 
 [![NPM](https://nodei.co/npm/react-focus-lock.png?downloads=true&stars=true)](https://nodei.co/npm/react-focus-lock/)
 
-This is a small, but very useful for:
- - Modal dialogs. You can not leave it with "Tab", ie tab-out.
- - Focused tasks. It will aways brings you back.
+This is a small library, but very useful for:
+ - Modal dialogs. You can not leave it with "Tab", ie do a "tab-out".
+ - Focused tasks. It will aways brings you back, as you can "lock" user inside a component.
  
-You have to use it in _every_ modal dialog, or you `a11y` will be shitty.
+You have to lock _every_ modal dialog, that's what `a11y` is asking for.
 
-This is most comprehensive focus lock/trap ever built. 
+And this is most comprehensive focus lock/trap ever built. 
 
 # Features
- - no keyboard control, everything is done watching a __focus behavior__. Thus works always and everywhere.
+ - no keyboard control, everything is done watching a __focus behavior__, not emulating tabs. Thus works always and everywhere.
  - React __Portals__ support. Even if some data is in outerspace - it is [still in lock](https://github.com/theKashey/react-focus-lock/issues/19).
- - _Scattered_ locks, or focus lock groups - you can setup different isolated locks, and _tab_ from from to another.
- - Controllable isolation level.
- 
+ - _Scattered_ locks, or focus lock groups - you can setup different isolated locks, and _tab_ from one to another.
+ - Controllable isolation level. 
  
 # How to use
 Just wrap something with focus lock, and focus will be `moved inside` on mount.
@@ -46,8 +46,11 @@ Just wrap something with focus lock, and focus will be `moved inside` on mount.
 ```
 Demo - https://codesandbox.io/s/5wmrwlvxv4.
 
-That is actually not enough, as long it is better to "shadow" rest of the page, to make it unclickable or
-unscrollable. And there is [react-locky](https://github.com/theKashey/react-locky) to do this job.
+### Final piece for a modals
+
+That is actually not enough, - you shall not lock the focus, but also disable page scroll and user iteractions with the rest of a page - "shadow" rest of the page, to make it unclickable or
+unscrollable. 
+And [react-locky](https://github.com/theKashey/react-locky) is your next component to check.
 
 # WHY?
 From [MDN Article about accessible dialogs](https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/ARIA_Techniques/Using_the_dialog_role):
