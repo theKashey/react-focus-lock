@@ -10,7 +10,7 @@ import TabIndex from './TabIndex';
 import AutoFocus from './Autofocus';
 import ReturnFocus from './ReturnFocus';
 import {Trap1, Trap2, Trap3, Trap4} from './Checkboxes';
-import {TextSelectionEnabled, TextSelectionDisabled} from './TextSelection';
+import {TextSelectionEnabled, TextSelectionDisabled, TextSelectionTabIndexEnabled} from './TextSelection';
 import JumpCase from './Jump';
 import GroupCase from './Group';
 import PortalCase from './Portal';
@@ -38,7 +38,8 @@ storiesOf('Checkboxes', module)
 
 storiesOf('Text selection', module)
   .add('enabled', () => <Frame><TextSelectionEnabled/></Frame>)
-  .add('disabled', () => <Frame><TextSelectionDisabled/></Frame>);
+  .add('disabled', () => <Frame><TextSelectionDisabled/></Frame>)
+  .add('tabindex -1', () => <Frame><TextSelectionTabIndexEnabled/></Frame>);
 
 storiesOf('Jump', module)
   .add('jump', () => <Frame><JumpCase /></Frame>);

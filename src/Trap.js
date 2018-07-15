@@ -30,7 +30,9 @@ const activateTrap = () => {
       if (
         workingNode &&
         !(focusInside(workingNode) ||
-          focusIsPortaledPair(activeElement, workingNode))
+          focusIsPortaledPair(activeElement, workingNode) ||
+          (workingNode.contains && workingNode.contains(activeElement))
+        )
       ) {
         onActivation();
         if (document && !lastActiveFocus && activeElement && !autoFocus) {
