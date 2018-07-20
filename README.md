@@ -135,8 +135,6 @@ Only `last`, or `deepest` one will work. No fighting.
  
  Thus means - Trap will be still active, be the time you _may_ want move(return) focus on componentWillUnmount. Please deffer this action with a zero-timeout. 
      
-     
-
 # How it works
  Everything thing is simple - react-focus-lock just dont left focus left boundaries of component, and
  do something only if escape attempt was succeeded.
@@ -145,6 +143,10 @@ Only `last`, or `deepest` one will work. No fighting.
 
 # Not only for React
  Uses [focus-lock](https://github.com/theKashey/focus-lock/) under the hood. It does also provide support for Vue.js and Vanilla DOM solutions
+ 
+# More
+Dont forget to lock the scroll to complete the picture.
+ [react-scroll-locky](https://github.com/theKashey/react-scroll-locky) - browser scrollbars hiding, you were looking for.
 
 # Licence
  MIT
