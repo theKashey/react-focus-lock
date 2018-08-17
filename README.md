@@ -148,6 +148,10 @@ Only `last`, or `deepest` one will work. No fighting.
 Dont forget to lock the scroll to complete the picture.
  [react-scroll-locky](https://github.com/theKashey/react-scroll-locky) - browser scrollbars hiding, you were looking for.
 
+# Warning!
+Two different _focus-lock-managers_ or even different version of a single one, active
+simultaneously will FIGHT!
+
 # Licence
  MIT
  

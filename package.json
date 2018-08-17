@@ -73,6 +73,6 @@
   "dependencies": {
     "focus-lock": "^0.3.0",
     "prop-types": "^15.0.0",
-    "react-side-effect": "^1.1.3"
+    "react-clientside-effect": "^1.0.0"
   }
 }

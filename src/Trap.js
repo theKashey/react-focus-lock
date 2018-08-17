@@ -1,6 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import withSideEffect from 'react-side-effect';
+import withSideEffect from 'react-clientside-effect';
 import moveFocusInside, { focusInside } from 'focus-lock';
 import { deferAction } from './util';
 
