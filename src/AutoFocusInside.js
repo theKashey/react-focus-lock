@@ -1,8 +1,9 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import { constants } from 'focus-lock';
 
-const AutoFocusInside = ({ disabled, children }) => (
-  <div data-autofocus-inside={!disabled}>
+const AutoFocusInside = ({ disabled, children, className }) => (
+  <div {...{ [constants.FOCUS_AUTO]: !disabled }} className={className}>
     {children}
   </div>
 );
@@ -10,10 +11,12 @@ const AutoFocusInside = ({ disabled, children }) => (
 AutoFocusInside.propTypes = {
   children: PropTypes.node.isRequired,
   disabled: PropTypes.bool,
+  className: PropTypes.string,
 };
 
 AutoFocusInside.defaultProps = {
   disabled: false,
+  className: undefined,
 };
 
 export default AutoFocusInside;

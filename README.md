@@ -152,6 +152,20 @@ Dont forget to lock the scroll to complete the picture.
 Two different _focus-lock-managers_ or even different version of a single one, active
 simultaneously will FIGHT!
 
+__Focus-lock will surrender__, as long any other focus management library will not.
+
+## Focus fighting
+You may wrap some render branch with `FreeFocusInside`, and react-focus-lock __will ignore__
+any focus inside marked node, thus landing a peace.
+
+```js
+<FreeFocusInside>
+ <div id="portal-for-modals">
+   in this div i am going to portal my modals, dont fight with them please
+ </div>
+</FreeFocusInside>
+```
+
 # Licence
  MIT
  

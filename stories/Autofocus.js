@@ -162,7 +162,7 @@ class Trap4 extends Component {
         <MoveFocusInside disabled={disabled}>
 
           <button>BUTTON</button>
-          <MoveFocusInside  disabled={disabled}>
+          <MoveFocusInside disabled={disabled}>
             <button>to be focused</button>
           </MoveFocusInside>
           <button>BUTTON</button>
@@ -204,7 +204,7 @@ class Trap5 extends Component {
           <MoveFocusInside disabled={disabled}>
 
             <button>BUTTON</button>
-            <MoveFocusInside  disabled={disabled}>
+            <MoveFocusInside disabled={disabled}>
               <button>to be focused</button>
             </MoveFocusInside>
             <button>BUTTON</button>
@@ -225,6 +225,102 @@ class Trap5 extends Component {
   }
 }
 
+class Trap6 extends Component {
+  state = {
+    disabled: true
+  }
+
+  toggle = () => this.setState({disabled: !this.state.disabled});
+
+  render() {
+    const {disabled} = this.state;
+    return (
+      <div>
+        nested locks
+        {disabled && <div>
+          <button onClick={this.toggle}>!SET FOCUS!</button>
+          <br/>
+          <br/>
+        </div>
+        }
+        <FocusLock autoFocus={false} disabled={disabled} className="f1">
+          <button>OUTER</button>
+          lock1
+          <FocusLock autoFocus={false} disabled={disabled} className="f2">
+            lock2
+            <MoveFocusInside disabled={disabled}>
+
+              <button>BUTTON</button>
+              <MoveFocusInside disabled={disabled}>
+                <button>to be focused</button>
+              </MoveFocusInside>
+              <button>BUTTON</button>
+              <br/>
+
+              <a href='#'>link somethere</a> <br/>
+
+              {
+                !disabled && <div>
+                  <button onClick={this.toggle}>DEACTIVATE</button>
+                  <br/>
+                </div>
+              }
+            </MoveFocusInside>
+          </FocusLock>
+        </FocusLock>
+      </div>
+    )
+  }
+}
+
+class Trap7 extends Component {
+  state = {
+    disabled: true
+  }
+
+  toggle = () => this.setState({disabled: !this.state.disabled});
+
+  render() {
+    const {disabled} = this.state;
+    return (
+      <div>
+        nested grouped locks
+        {disabled && <div>
+          <button onClick={this.toggle}>!SET FOCUS!</button>
+          <br/>
+          <br/>
+        </div>
+        }
+        <FocusLock autoFocus={false} disabled={disabled} className="f1" group="42">
+          <button>OUTER</button>
+          lock1
+          <FocusLock autoFocus={false} disabled={disabled} className="f2" group="42">
+            lock2
+            <MoveFocusInside disabled={disabled}>
+
+              <button>BUTTON</button>
+              <MoveFocusInside disabled={disabled}>
+                <button>to be focused</button>
+              </MoveFocusInside>
+              <button>BUTTON</button>
+              <br/>
+
+              <a href='#'>link somethere</a> <br/>
+
+              {
+                !disabled && <div>
+                  <button onClick={this.toggle}>DEACTIVATE</button>
+                  <br/>
+                </div>
+              }
+            </MoveFocusInside>
+          </FocusLock>
+        </FocusLock>
+      </div>
+    )
+  }
+}
+
 
 export default () => <div>
   <div style={box}><Trap1/></div>
@@ -233,4 +329,6 @@ export default () => <div>
 
   <div style={box}><Trap4/></div>
   <div style={box}><Trap5/></div>
+  <div style={box}><Trap6/></div>
+  <div style={box}><Trap7/></div>
 </div>;

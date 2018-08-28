@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { constants } from 'focus-lock';
-import FocusTrap from './Trap';
+import FocusTrap, { onBlur, onFocus } from './Trap';
 import { deferAction } from './util';
 
 const RenderChildren = ({ children }) => <div>{children}</div>;
@@ -15,9 +15,10 @@ const hidden = {
   height: '0px',
   padding: 0,
   overflow: 'hidden',
+  // visibility: 'hidden',
   position: 'fixed',
-  top: 0,
-  left: 0,
+  top: '1px',
+  left: '1px',
 };
 
 class FocusLock extends Component {
@@ -66,6 +67,7 @@ class FocusLock extends Component {
       autoFocus,
       allowTextSelection,
       group,
+      className,
     } = this.props;
     const { observed } = this.state;
 
@@ -82,12 +84,15 @@ class FocusLock extends Component {
     return (
       <Fragment>
         {!noFocusGuards && [
-          <div key="guard-first" tabIndex={disabled ? -1 : 0} style={hidden} />, // nearest focus guard
-          <div key="guard-nearest" tabIndex={disabled ? -1 : 1} style={hidden} />, // first tabbed element guard
+          <div key="guard-first" data-focus-guard tabIndex={disabled ? -1 : 0} style={hidden} />, // nearest focus guard
+          <div key="guard-nearest" data-focus-guard tabIndex={disabled ? -1 : 1} style={hidden} />, // first tabbed element guard
         ]}
         <div
           ref={this.setObserveNode}
           {...lockProps}
+          className={className}
+          onBlur={onBlur}
+          onFocus={onFocus}
         >
           <FocusTrap
             observed={observed}
@@ -95,11 +100,10 @@ class FocusLock extends Component {
             persistentFocus={persistentFocus}
             autoFocus={autoFocus}
             onActivation={this.onActivation}
-          >
-            {children}
-          </FocusTrap>
+          />
+          {children}
         </div>
-        {!noFocusGuards && <div tabIndex={disabled ? -1 : 0} style={hidden} />}
+        {!noFocusGuards && <div data-focus-guard tabIndex={disabled ? -1 : 0} style={hidden} />}
       </Fragment>
     );
   }
@@ -116,6 +120,7 @@ FocusLock.propTypes = {
   persistentFocus: PropTypes.bool,
 
   group: PropTypes.string,
+  className: PropTypes.string,
 };
 
 FocusLock.defaultProps = {
@@ -126,6 +131,7 @@ FocusLock.defaultProps = {
   persistentFocus: false,
   allowTextSelection: undefined,
   group: undefined,
+  className: undefined,
 };
 
 

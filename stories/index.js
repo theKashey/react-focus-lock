@@ -15,6 +15,7 @@ import JumpCase from './Jump';
 import GroupCase from './Group';
 import PortalCase from './Portal';
 import {MUISelect} from './MUI';
+import Fight from './FocusFighting';
 
 const frameStyle = {
   width: '400px',
@@ -52,4 +53,7 @@ storiesOf('Group', module)
 
 storiesOf('Material UI', module)
   .add('Select', () => <Frame><MUISelect /></Frame>);
+
+storiesOf('Focus fighting', module)
+  .add('fight', () => <Frame><Fight /></Frame>);
 

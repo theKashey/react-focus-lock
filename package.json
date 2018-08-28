@@ -71,8 +71,8 @@
   },
   "homepage": "https://github.com/theKashey/react-focus-lock#readme",
   "dependencies": {
-    "focus-lock": "^0.3.0",
-    "prop-types": "^15.0.0",
+    "focus-lock": "^0.4.1",
+    "prop-types": "^15.6.2",
     "react-clientside-effect": "^1.0.0"
   }
 }

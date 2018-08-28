@@ -1,10 +1,10 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import withSideEffect from 'react-clientside-effect';
-import moveFocusInside, { focusInside } from 'focus-lock';
+import moveFocusInside, { focusInside, focusIsHidden } from 'focus-lock';
 import { deferAction } from './util';
 
-const focusOnBody = () => document && document.activeElement === document.body;
+const focusOnBody = () => document && (document.activeElement === document.body || focusIsHidden());
 
 let lastActiveTrap = 0;
 let lastActiveFocus = null;
@@ -29,9 +29,9 @@ const activateTrap = () => {
     if (persistentFocus || !focusOnBody() || (!lastActiveFocus && autoFocus)) {
       if (
         workingNode &&
-        !(focusInside(workingNode) ||
-          focusIsPortaledPair(activeElement, workingNode) ||
-          (workingNode.contains && workingNode.contains(activeElement))
+        !(
+          focusInside(workingNode) ||
+          focusIsPortaledPair(activeElement, workingNode)
         )
       ) {
         onActivation();
@@ -57,11 +57,11 @@ const onTrap = (event) => {
   }
 };
 
-const onBlur = () => (
+export const onBlur = () => (
   deferAction(activateTrap)
 );
 
-const onFocus = (event) => {
+export const onFocus = (event) => {
   // detect portal
   const source = event.target;
   const currentNode = event.currentTarget;
@@ -69,6 +69,8 @@ const onFocus = (event) => {
     recordPortal(currentNode, source);
   }
 };
+
+const FocusWatcher = () => null;
 
 const FocusTrap = ({ children }) => (
   <div onBlur={onBlur} onFocus={onFocus}>
@@ -116,4 +118,4 @@ function handleStateChangeOnClient(trap) {
 export default withSideEffect(
   reducePropsToState,
   handleStateChangeOnClient,
-)(FocusTrap);
+)(FocusWatcher);

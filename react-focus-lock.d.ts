@@ -1,3 +1,5 @@
+import * as React from "react";
+
 declare module 'react-focus-lock' {
     import * as React from 'react';
 
@@ -40,11 +42,18 @@ declare module 'react-focus-lock' {
          */
         group?: string;
 
-        children: React.ReactNode
+        children: React.ReactNode;
+
+        className?: string;
     }
 
     interface AutoFocusProps {
-        children: React.ReactNode
+        children: React.ReactNode;
+        className?: string;
+    }
+
+    interface FreeFocusProps {
+        className?: string;
     }
 
     /**
@@ -61,4 +70,9 @@ declare module 'react-focus-lock' {
      * Autofocus on children
      */
     export class MoveFocusInside extends React.Component<AutoFocusProps> {}
+
+    /**
+     * Allow free focus inside on children
+     */
+    export class FreeFocusInside extends React.Component<FreeFocusProps> {}
 }
