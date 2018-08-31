@@ -1,5 +1,3 @@
-import * as React from "react";
-
 declare module 'react-focus-lock' {
     import * as React from 'react';
 
