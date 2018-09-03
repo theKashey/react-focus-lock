@@ -14,7 +14,7 @@ import {TextSelectionEnabled, TextSelectionDisabled, TextSelectionTabIndexEnable
 import JumpCase from './Jump';
 import GroupCase from './Group';
 import PortalCase from './Portal';
-import {MUISelect} from './MUI';
+import {MUISelect, MUISelectWhite} from './MUI';
 import Fight from './FocusFighting';
 
 const frameStyle = {
@@ -52,7 +52,8 @@ storiesOf('Group', module)
   .add('focus group', () => <Frame><GroupCase /></Frame>);
 
 storiesOf('Material UI', module)
-  .add('Select', () => <Frame><MUISelect /></Frame>);
+  .add('Select', () => <Frame><MUISelect /></Frame>)
+  .add('Select White', () => <Frame><MUISelectWhite /></Frame>)
 
 storiesOf('Focus fighting', module)
   .add('fight', () => <Frame><Fight /></Frame>);

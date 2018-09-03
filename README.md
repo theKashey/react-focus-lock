@@ -70,6 +70,7 @@ I'v got a good [article about focus management, dialogs and  WAI-ARIA](https://m
   - `autoFocus`, default true, enables or disables focusing into on Lock activation. If disabled Lock will blur an active focus.
   - `noFocusGuards` disabled _focus guards_ - virtual inputs which secure tab index.
   - `group` named focus group for focus scattering aka [combined lock targets](https://github.com/theKashey/vue-focus-lock/issues/2)
+  - `whiteList` you could _whitelist_ locations FocusLock should carry about. Everything outside it will ignore. For example - any modals.
 
 # Behavior
  0. It will always keep focus inside Lock.
@@ -164,6 +165,13 @@ any focus inside marked node, thus landing a peace.
    in this div i am going to portal my modals, dont fight with them please
  </div>
 </FreeFocusInside>
+```
+
+Even the better is to `whiteList` FocusLock areas - for example "you should handle only React Stuff in React Root"
+```js
+<FocusLock whiteList={node => document.getElementById('root').contains(node)}>
+ ...
+</FocusLock>
 ```
 
 # Licence

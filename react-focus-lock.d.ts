@@ -43,6 +43,13 @@ declare module 'react-focus-lock' {
         children: React.ReactNode;
 
         className?: string;
+
+        /**
+         * Controls focus lock working areas. Lock will silently ignore all the events from `not allowed` areas
+         * @param activeElement
+         * @returns {Boolean} true if focus lock should handle activeElement, false if not
+         */
+        whiteList?: (activeElement: HTMLElement) => boolean;
     }
 
     interface AutoFocusProps {

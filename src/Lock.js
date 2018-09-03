@@ -68,6 +68,7 @@ class FocusLock extends Component {
       allowTextSelection,
       group,
       className,
+      whiteList,
     } = this.props;
     const { observed } = this.state;
 
@@ -99,6 +100,7 @@ class FocusLock extends Component {
             disabled={disabled}
             persistentFocus={persistentFocus}
             autoFocus={autoFocus}
+            whiteList={whiteList}
             onActivation={this.onActivation}
           />
           {children}
@@ -121,6 +123,8 @@ FocusLock.propTypes = {
 
   group: PropTypes.string,
   className: PropTypes.string,
+
+  whiteList: PropTypes.func,
 };
 
 FocusLock.defaultProps = {
@@ -132,6 +136,7 @@ FocusLock.defaultProps = {
   allowTextSelection: undefined,
   group: undefined,
   className: undefined,
+  whiteList: undefined,
 };
 
 
