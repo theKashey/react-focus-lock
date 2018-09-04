@@ -43,7 +43,7 @@ class FocusLock extends Component {
   }
 
   onActivation = () => {
-    this.originalFocusedElement = this.originalFocusedElement || document.activeElement;
+    this.originalFocusedElement = this.originalFocusedElement || document && document.activeElement;
   };
 
   setObserveNode = observed =>
