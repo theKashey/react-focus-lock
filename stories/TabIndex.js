@@ -51,6 +51,10 @@ class Trap extends Component {
           <button onClick={this.toggle}>ESCAPE!!!</button>
           <br/>
         </div>}
+        <button tabIndex={-1}>TAB -1 BUTTON</button>
+        <button style={{visibility: 'hidden'}}>hidden</button>
+        <button style={{display: 'none'}}>node</button>
+
       </FocusLock>
     )
   }
@@ -61,6 +65,7 @@ const App = () =>
     <div style={bg}> Inaccessible <a href='#'>Link</a> outside</div>
     <Trap />
     <div style={bg}> Inaccessible <a href='#'>Link</a> outside</div>
+    <button tabIndex={-1}>TAB -1 BUTTON OUTSIDE</button>
   </div>;
 
 export default App;
