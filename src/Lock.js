@@ -1,10 +1,10 @@
-import React, { Component } from 'react';
+import React, {Component} from 'react';
 import PropTypes from 'prop-types';
-import { constants } from 'focus-lock';
-import FocusTrap, { onBlur, onFocus } from './Trap';
-import { deferAction } from './util';
+import {constants} from 'focus-lock';
+import FocusTrap, {onBlur, onFocus} from './Trap';
+import {deferAction} from './util';
 
-const RenderChildren = ({ children }) => <div>{children}</div>;
+const RenderChildren = ({children}) => <div>{children}</div>;
 RenderChildren.propTypes = {
   children: PropTypes.node.isRequired,
 };
@@ -71,26 +71,28 @@ class FocusLock extends Component {
       group,
       className,
       whiteList,
+      as: Container = 'div',
+      lockProps: containerProps = {},
     } = this.props;
-    const { observed } = this.state;
+    const {observed} = this.state;
 
     if (typeof allowTextSelection !== 'undefined') {
       // eslint-disable-next-line no-console
       console.warn('React-Focus-Lock: allowTextSelection is deprecated and enabled by default');
     }
 
-    const lockProps = {
+    const lockProps = Object.assign({
       [constants.FOCUS_DISABLED]: disabled && 'disabled',
       [constants.FOCUS_GROUP]: group,
-    };
+    }, containerProps);
 
     return (
       <Fragment>
         {!noFocusGuards && [
-          <div key="guard-first" data-focus-guard tabIndex={disabled ? -1 : 0} style={hidden} />, // nearest focus guard
-          <div key="guard-nearest" data-focus-guard tabIndex={disabled ? -1 : 1} style={hidden} />, // first tabbed element guard
+          <div key="guard-first" data-focus-guard tabIndex={disabled ? -1 : 0} style={hidden}/>, // nearest focus guard
+          <div key="guard-nearest" data-focus-guard tabIndex={disabled ? -1 : 1} style={hidden}/>, // first tabbed element guard
         ]}
-        <div
+        <Container
           ref={this.setObserveNode}
           {...lockProps}
           className={className}
@@ -106,8 +108,8 @@ class FocusLock extends Component {
             onActivation={this.onActivation}
           />
           {children}
-        </div>
-        {!noFocusGuards && <div data-focus-guard tabIndex={disabled ? -1 : 0} style={hidden} />}
+        </Container>
+        {!noFocusGuards && <div data-focus-guard tabIndex={disabled ? -1 : 0} style={hidden}/>}
       </Fragment>
     );
   }
@@ -127,6 +129,9 @@ FocusLock.propTypes = {
   className: PropTypes.string,
 
   whiteList: PropTypes.func,
+
+  as: PropTypes.oneOfType([PropTypes.string, PropTypes.func]),
+  lockProps: PropTypes.object,
 };
 
 FocusLock.defaultProps = {
@@ -139,6 +144,8 @@ FocusLock.defaultProps = {
   group: undefined,
   className: undefined,
   whiteList: undefined,
+  as: 'div',
+  lockProps: {},
 };
 
 

@@ -1,3 +1,5 @@
+import * as React from "react";
+
 declare module 'react-focus-lock' {
     import * as React from 'react';
 
@@ -40,9 +42,13 @@ declare module 'react-focus-lock' {
          */
         group?: string;
 
-        children: React.ReactNode;
-
         className?: string;
+
+         /**
+          * Component to use, defaults to 'div'
+          */
+        as?: React.ReactType,
+        lockProps?: { [key:string]: any },
 
         /**
          * Controls focus lock working areas. Lock will silently ignore all the events from `not allowed` areas
@@ -50,6 +56,8 @@ declare module 'react-focus-lock' {
          * @returns {Boolean} true if focus lock should handle activeElement, false if not
          */
         whiteList?: (activeElement: HTMLElement) => boolean;
+
+        children: React.ReactNode;
     }
 
     interface AutoFocusProps {

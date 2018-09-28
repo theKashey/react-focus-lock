@@ -19,6 +19,7 @@
 
     // Turn off https://github.com/yannickcr/eslint-plugin-react/blob/master/docs/rules/jsx-filename-extension.md
     "react/jsx-filename-extension": 0,
+    "react/forbid-prop-types" : 0,
 
     // Turn off https://github.com/benmosher/eslint-plugin-import/blob/master/docs/rules/no-named-as-default-member.md
     "import/no-named-as-default-member": 0,

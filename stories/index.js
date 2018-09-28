@@ -16,6 +16,7 @@ import GroupCase from './Group';
 import PortalCase from './Portal';
 import {MUISelect, MUISelectWhite} from './MUI';
 import Fight from './FocusFighting';
+import {StyledComponent, StyledSection} from "./Custom";
 
 const frameStyle = {
   width: '400px',
@@ -58,3 +59,6 @@ storiesOf('Material UI', module)
 storiesOf('Focus fighting', module)
   .add('fight', () => <Frame><Fight /></Frame>);
 
+storiesOf('Custom component', module)
+  .add('as styled section', () => <Frame><StyledSection /></Frame>)
+  .add('as custom component', () => <Frame><StyledComponent /></Frame>);
