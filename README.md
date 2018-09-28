@@ -185,6 +185,16 @@ Even the better is to `whiteList` FocusLock areas - for example "you should hand
 </FocusLock>
 ```
 
+PS: __please use webpack or yarn resolution for force one version of react-focus-lock used__
+
+> webpack.conf
+```js
+ resolve: {    
+    alias: {
+      'react-focus-lock': path.resolve(path.join(__dirname, './node_modules/react-focus-lock'))
+ ...
+```
+
 # Licence
  MIT
  
