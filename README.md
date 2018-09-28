@@ -99,7 +99,8 @@ Only `last`, or `deepest` one will work. No fighting.
  - prop `data-autofocus-inside` on the element to focus on something inside.
  - `AutoFocusInside` component, as named export of this library.
 ```js
- import FocusLock, { AutoFocusInside } from 'focus-lock';
+ import FocusLock, { AutoFocusInside } from 'react-focus-lock';
+ 
  <FocusLock>
    <button>Click</button>
    <AutoFocusInside>
@@ -131,13 +132,12 @@ Only `last`, or `deepest` one will work. No fighting.
  `AutoFocusInside` will work only on Lock activation, and does nothing, then used outside of the lock.
  You can use `MoveFocusInside` to move focus inside with or without lock.
  
- ```js
 ```js
- import { MoveFocusInside } from 'focus-lock';
+ import { MoveFocusInside } from 'react-focus-lock';
     
-   <MoveFocusInside>
-    <button>will be focused</button>
-   </MoveFocusInside>
+ <MoveFocusInside>
+  <button>will be focused</button>
+ </MoveFocusInside>
  ```
  
 # Unmounting and focus management
@@ -171,6 +171,8 @@ You may wrap some render branch with `FreeFocusInside`, and react-focus-lock __w
 any focus inside marked node, thus landing a peace.
 
 ```js
+import { FreeFocusInside } from 'react-focus-lock';
+
 <FreeFocusInside>
  <div id="portal-for-modals">
    in this div i am going to portal my modals, dont fight with them please
