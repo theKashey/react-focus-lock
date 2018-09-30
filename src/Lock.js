@@ -1,10 +1,10 @@
-import React, {Component} from 'react';
+import React, { Component } from 'react';
 import PropTypes from 'prop-types';
-import {constants} from 'focus-lock';
-import FocusTrap, {onBlur, onFocus} from './Trap';
-import {deferAction} from './util';
+import { constants } from 'focus-lock';
+import FocusTrap, { onBlur, onFocus } from './Trap';
+import { deferAction } from './util';
 
-const RenderChildren = ({children}) => <div>{children}</div>;
+const RenderChildren = ({ children }) => <div>{children}</div>;
 RenderChildren.propTypes = {
   children: PropTypes.node.isRequired,
 };
@@ -74,7 +74,7 @@ class FocusLock extends Component {
       as: Container = 'div',
       lockProps: containerProps = {},
     } = this.props;
-    const {observed} = this.state;
+    const { observed } = this.state;
 
     if (typeof allowTextSelection !== 'undefined') {
       // eslint-disable-next-line no-console
@@ -89,8 +89,8 @@ class FocusLock extends Component {
     return (
       <Fragment>
         {!noFocusGuards && [
-          <div key="guard-first" data-focus-guard tabIndex={disabled ? -1 : 0} style={hidden}/>, // nearest focus guard
-          <div key="guard-nearest" data-focus-guard tabIndex={disabled ? -1 : 1} style={hidden}/>, // first tabbed element guard
+          <div key="guard-first" data-focus-guard tabIndex={disabled ? -1 : 0} style={hidden} />, // nearest focus guard
+          <div key="guard-nearest" data-focus-guard tabIndex={disabled ? -1 : 1} style={hidden} />, // first tabbed element guard
         ]}
         <Container
           ref={this.setObserveNode}
@@ -109,7 +109,7 @@ class FocusLock extends Component {
           />
           {children}
         </Container>
-        {!noFocusGuards && <div data-focus-guard tabIndex={disabled ? -1 : 0} style={hidden}/>}
+        {!noFocusGuards && <div data-focus-guard tabIndex={disabled ? -1 : 0} style={hidden} />}
       </Fragment>
     );
   }
