@@ -2,7 +2,6 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { constants } from 'focus-lock';
 import FocusTrap, { onBlur, onFocus } from './Trap';
-import { deferAction } from './util';
 
 const RenderChildren = ({ children }) => <div>{children}</div>;
 RenderChildren.propTypes = {
@@ -15,7 +14,6 @@ const hidden = {
   height: '0px',
   padding: 0,
   overflow: 'hidden',
-  // visibility: 'hidden',
   position: 'fixed',
   top: '1px',
   left: '1px',
@@ -26,26 +24,27 @@ class FocusLock extends Component {
     observed: undefined,
   };
 
-  componentDidUpdate(prevProps) {
-    if (prevProps.disabled && !this.props.disabled) {
-      this.originalFocusedElement = null;
+  onActivation = () => {
+    this.originalFocusedElement = (
+      this.originalFocusedElement || (document && document.activeElement)
+    );
+    if (this.state.observed && this.props.onActivation) {
+      this.props.onActivation(this.state.observed);
     }
-  }
+  };
 
-  componentWillUnmount() {
+  onDeactivation = () => {
     if (
       this.props.returnFocus &&
       this.originalFocusedElement &&
       this.originalFocusedElement.focus
     ) {
-      deferAction(() => this.originalFocusedElement.focus(), 0);
+      this.originalFocusedElement.focus();
+      this.originalFocusedElement = null;
     }
-  }
-
-  onActivation = () => {
-    this.originalFocusedElement = (
-      this.originalFocusedElement || (document && document.activeElement)
-    );
+    if (this.props.onDeactivation) {
+      this.props.onDeactivation(this.state.observed);
+    }
   };
 
   setObserveNode = observed =>
@@ -106,6 +105,7 @@ class FocusLock extends Component {
             autoFocus={autoFocus}
             whiteList={whiteList}
             onActivation={this.onActivation}
+            onDeactivation={this.onDeactivation}
           />
           {children}
         </Container>
@@ -132,6 +132,9 @@ FocusLock.propTypes = {
 
   as: PropTypes.oneOfType([PropTypes.string, PropTypes.func]),
   lockProps: PropTypes.object,
+
+  onActivation: PropTypes.func,
+  onDeactivation: PropTypes.func,
 };
 
 FocusLock.defaultProps = {
@@ -146,6 +149,8 @@ FocusLock.defaultProps = {
   whiteList: undefined,
   as: 'div',
   lockProps: {},
+  onActivation: undefined,
+  onDeactivation: undefined,
 };
 
 
