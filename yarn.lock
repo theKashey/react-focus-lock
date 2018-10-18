@@ -4905,10 +4905,10 @@ flush-write-stream@^1.0.0:
     inherits "^2.0.1"
     readable-stream "^2.0.4"
 
-focus-lock@^0.4.2:
-  version "0.4.2"
-  resolved "https://registry.yarnpkg.com/focus-lock/-/focus-lock-0.4.2.tgz#3e91141ac911352d4831215fba300d02b9faa6b4"
-  integrity sha512-jqjj49iZEVT/X8yidEMmP8oWmDKJlJy/um7OyYP42CZ0y4icCp6Fm2lTkZVcFVpt4mZ/hPtbs9ikqId7YhUelw==
+focus-lock@^0.5.0:
+  version "0.5.0"
+  resolved "https://registry.yarnpkg.com/focus-lock/-/focus-lock-0.5.0.tgz#6cf24e1091bf7e2aa6704f61f7b0ee0a5f4cf012"
+  integrity sha512-EtQvprh8R8ulU6x0qPLVMDHLHRcD8Dx+flVT8fllK70ls4q8Uagt5FKmikLBraYZZxzQoQSGl4JBMQK0miqMbg==
 
 for-in@^1.0.1, for-in@^1.0.2:
   version "1.0.2"
