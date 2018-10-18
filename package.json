@@ -2,12 +2,16 @@
   "name": "react-focus-lock",
   "version": "1.14.1",
   "description": "It is a trap! (for a focus)",
-  "main": "dist/index.js",
+  "main": "dist/cjs/index.js",
+  "jsnext:main": "dist/es2015/index.js",
+  "module": "dist/es2015/index.js",
   "types": "react-focus-lock.d.ts",
   "scripts": {
-    "build": "babel src -d dist",
+    "build:cjs": "NODE_ENV=cjs babel src -d dist/cjs",
+    "build:es5": "NODE_ENV=es2015 babel src -d dist/es2015",
+    "build": "yarn build:es5 && yarn build:cjs",
     "test": "npm run test:pick -- '_tests/**/*spec.js'",
-    "test:pick": "BABEL_ENV=test mocha --require _tests/spinup/scaffolding --compilers js:babel-core/register -r jsdom-global/register",
+    "test:pick": "NODE_ENV=cjs mocha --require _tests/spinup/scaffolding --compilers js:babel-core/register -r jsdom-global/register",
     "prepublish": "npm run build",
     "lint": "eslint src tests",
     "lint:fix": "eslint src tests --fix",
@@ -67,7 +71,7 @@
     "react-hot-loader": "^3.0.0-beta.7",
     "react-test-renderer": "^16.2.0",
     "sinon": "3.2.1",
-    "size-limit": "^0.14.1"
+    "size-limit": "^0.20.1"
   },
   "homepage": "https://github.com/theKashey/react-focus-lock#readme",
   "dependencies": {

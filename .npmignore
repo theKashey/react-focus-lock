@@ -1,12 +1,11 @@
 node_modules/
-npm-debug.log
 yarn.lock
 circle.yml
-stroies/
+stories/
 _tests/
 src/
 
-.DS_Store
+.storybook
 .size-limit
 .babelrc
 .eslintrc
