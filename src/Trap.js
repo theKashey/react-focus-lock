@@ -32,7 +32,7 @@ const focusIsPortaledPair = element => (
 const activateTrap = () => {
   let result = false;
   if (lastActiveTrap) {
-    const { observed, onActivation, persistentFocus, autoFocus } = lastActiveTrap;
+    const { observed, persistentFocus, autoFocus } = lastActiveTrap;
     const workingNode = observed || (lastPortaledElement && lastPortaledElement.portaledElement);
     const activeElement = document && document.activeElement;
 
@@ -45,7 +45,6 @@ const activateTrap = () => {
             focusIsPortaledPair(activeElement, workingNode)
           )
         ) {
-          onActivation();
           if (document && !lastActiveFocus && activeElement && !autoFocus) {
             activeElement.blur();
             document.body.focus();
@@ -116,9 +115,20 @@ function handleStateChangeOnClient(trap) {
     attachHandler();
   }
 
+  const lastTrap = lastActiveTrap;
+  const sameTrap = lastTrap && trap && trap.onActivation === lastTrap.onActivation;
+
   lastActiveTrap = trap;
+
+  if (lastTrap && !sameTrap) {
+    lastTrap.onDeactivation();
+  }
+
   if (trap) {
     lastActiveFocus = null;
+    if (!sameTrap || lastTrap.observed !== trap.observed) {
+      trap.onActivation();
+    }
     activateTrap(true);
     deferAction(activateTrap);
   } else {
