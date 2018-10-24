@@ -1,14 +1,9 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import moveFocusInside, { focusInside, constants } from 'focus-lock';
+import { inlineProp } from './util';
 
 export default class MoveFocusInside extends Component {
-  static propTypes = {
-    children: PropTypes.node.isRequired,
-    disabled: PropTypes.bool,
-    className: PropTypes.string,
-  };
-
   static defaultProps = {
     disabled: false,
     className: undefined,
@@ -42,7 +37,7 @@ export default class MoveFocusInside extends Component {
     const { children, disabled, className } = this.props;
     return (
       <div
-        {...{ [constants.FOCUS_AUTO]: !disabled }}
+        {...inlineProp(constants.FOCUS_AUTO, !disabled)}
         ref={this.setObserveNode}
         className={className}
       >
@@ -50,4 +45,12 @@ export default class MoveFocusInside extends Component {
       </div>
     );
   }
+}
+
+if (process.env.NODE_ENV !== 'production') {
+  MoveFocusInside.propTypes = {
+    children: PropTypes.node.isRequired,
+    disabled: PropTypes.bool,
+    className: PropTypes.string,
+  };
 }

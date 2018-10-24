@@ -1,4 +1,26 @@
 {
-  "presets": ["env","react"],
-  "plugins": ["transform-class-properties"]
+  "env": {
+    "cjs": {
+      "presets": [
+        "env", "react"
+      ],
+      "plugins": [
+        "transform-class-properties"
+      ]
+    },
+    "es2015": {
+      "presets": [
+        [
+          "env",
+          {
+            "modules": false
+          }
+        ],
+        "react"
+      ],
+      "plugins": [
+        "transform-class-properties"
+      ]
+    }
+  }
 }

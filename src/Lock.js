@@ -115,27 +115,29 @@ class FocusLock extends Component {
   }
 }
 
-FocusLock.propTypes = {
-  children: PropTypes.node.isRequired,
-  disabled: PropTypes.bool,
-  returnFocus: PropTypes.bool,
-  noFocusGuards: PropTypes.bool,
+if (process.env.NODE_ENV !== 'production') {
+  FocusLock.propTypes = {
+    children: PropTypes.node.isRequired,
+    disabled: PropTypes.bool,
+    returnFocus: PropTypes.bool,
+    noFocusGuards: PropTypes.bool,
 
-  allowTextSelection: PropTypes.bool,
-  autoFocus: PropTypes.bool,
-  persistentFocus: PropTypes.bool,
+    allowTextSelection: PropTypes.bool,
+    autoFocus: PropTypes.bool,
+    persistentFocus: PropTypes.bool,
 
-  group: PropTypes.string,
-  className: PropTypes.string,
+    group: PropTypes.string,
+    className: PropTypes.string,
 
-  whiteList: PropTypes.func,
+    whiteList: PropTypes.func,
 
-  as: PropTypes.oneOfType([PropTypes.string, PropTypes.func]),
-  lockProps: PropTypes.object,
+    as: PropTypes.oneOfType([PropTypes.string, PropTypes.func]),
+    lockProps: PropTypes.object,
 
-  onActivation: PropTypes.func,
-  onDeactivation: PropTypes.func,
-};
+    onActivation: PropTypes.func,
+    onDeactivation: PropTypes.func,
+  };
+}
 
 FocusLock.defaultProps = {
   disabled: false,

@@ -89,9 +89,11 @@ const FocusTrap = ({ children }) => (
   </div>
 );
 
-FocusTrap.propTypes = {
-  children: PropTypes.node.isRequired,
-};
+if (process.env.NODE_ENV !== 'production') {
+  FocusTrap.propTypes = {
+    children: PropTypes.node.isRequired,
+  };
+}
 
 const attachHandler = () => {
   document.addEventListener('focusin', onTrap, true);
