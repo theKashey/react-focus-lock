@@ -9,13 +9,11 @@ const AutoFocusInside = ({ disabled, children, className }) => (
   </div>
 );
 
-if (process.env.NODE_ENV !== 'production') {
-  AutoFocusInside.propTypes = {
-    children: PropTypes.node.isRequired,
-    disabled: PropTypes.bool,
-    className: PropTypes.string,
-  };
-}
+AutoFocusInside.propTypes = {
+  children: PropTypes.node.isRequired,
+  disabled: PropTypes.bool,
+  className: PropTypes.string,
+};
 
 AutoFocusInside.defaultProps = {
   disabled: false,

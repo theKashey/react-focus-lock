@@ -9,12 +9,10 @@ const FreeFocusInside = ({ children, className }) => (
   </div>
 );
 
-if (process.env.NODE_ENV !== 'production') {
-  FreeFocusInside.propTypes = {
-    children: PropTypes.node.isRequired,
-    className: PropTypes.string,
-  };
-}
+FreeFocusInside.propTypes = {
+  children: PropTypes.node.isRequired,
+  className: PropTypes.string,
+};
 
 FreeFocusInside.defaultProps = {
   disabled: false,
