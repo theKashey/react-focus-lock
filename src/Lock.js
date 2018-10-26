@@ -75,9 +75,11 @@ class FocusLock extends Component {
     } = this.props;
     const { observed } = this.state;
 
-    if (typeof allowTextSelection !== 'undefined') {
-      // eslint-disable-next-line no-console
-      console.warn('React-Focus-Lock: allowTextSelection is deprecated and enabled by default');
+    if (process.env.NODE_ENV !== 'production') {
+      if (typeof allowTextSelection !== 'undefined') {
+        // eslint-disable-next-line no-console
+        console.warn('React-Focus-Lock: allowTextSelection is deprecated and enabled by default');
+      }
     }
 
     const lockProps = {
@@ -116,29 +118,27 @@ class FocusLock extends Component {
   }
 }
 
-if (process.env.NODE_ENV !== 'production') {
-  FocusLock.propTypes = {
-    children: PropTypes.node.isRequired,
-    disabled: PropTypes.bool,
-    returnFocus: PropTypes.bool,
-    noFocusGuards: PropTypes.bool,
+FocusLock.propTypes = {
+  children: PropTypes.node.isRequired,
+  disabled: PropTypes.bool,
+  returnFocus: PropTypes.bool,
+  noFocusGuards: PropTypes.bool,
 
-    allowTextSelection: PropTypes.bool,
-    autoFocus: PropTypes.bool,
-    persistentFocus: PropTypes.bool,
+  allowTextSelection: PropTypes.bool,
+  autoFocus: PropTypes.bool,
+  persistentFocus: PropTypes.bool,
 
-    group: PropTypes.string,
-    className: PropTypes.string,
+  group: PropTypes.string,
+  className: PropTypes.string,
 
-    whiteList: PropTypes.func,
+  whiteList: PropTypes.func,
 
-    as: PropTypes.oneOfType([PropTypes.string, PropTypes.func]),
-    lockProps: PropTypes.object,
+  as: PropTypes.oneOfType([PropTypes.string, PropTypes.func]),
+  lockProps: PropTypes.object,
 
-    onActivation: PropTypes.func,
-    onDeactivation: PropTypes.func,
-  };
-}
+  onActivation: PropTypes.func,
+  onDeactivation: PropTypes.func,
+};
 
 FocusLock.defaultProps = {
   disabled: false,

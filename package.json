@@ -52,6 +52,7 @@
     "@storybook/addon-links": "^3.2.14",
     "@storybook/react": "^3.2.14",
     "babel-eslint": "^9.0.0",
+    "babel-plugin-transform-react-remove-prop-types": "^0.4.19",
     "chai": "^4.1.0",
     "chai-enzyme": "^1.0.0-beta.0",
     "enzyme": "^3.3.0",

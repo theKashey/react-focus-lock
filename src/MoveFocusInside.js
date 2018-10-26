@@ -47,10 +47,8 @@ export default class MoveFocusInside extends Component {
   }
 }
 
-if (process.env.NODE_ENV !== 'production') {
-  MoveFocusInside.propTypes = {
-    children: PropTypes.node.isRequired,
-    disabled: PropTypes.bool,
-    className: PropTypes.string,
-  };
-}
+MoveFocusInside.propTypes = {
+  children: PropTypes.node.isRequired,
+  disabled: PropTypes.bool,
+  className: PropTypes.string,
+};

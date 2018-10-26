@@ -1,0 +1,25 @@
+{
+  "env": {
+    "cjs": {
+      "presets": [
+        "@babel/preset-env",
+        "@babel/preset-react"
+      ],
+      "plugins": [
+      ]
+    },
+    "es2015": {
+      "presets": [
+        [
+          "@babel/preset-env",
+          {
+            "modules": false
+          }
+        ],
+        "@babel/preset-react"
+      ],
+      "plugins": [
+      ]
+    }
+  }
+}
