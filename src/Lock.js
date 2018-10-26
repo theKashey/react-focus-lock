@@ -80,10 +80,11 @@ class FocusLock extends Component {
       console.warn('React-Focus-Lock: allowTextSelection is deprecated and enabled by default');
     }
 
-    const lockProps = Object.assign({
+    const lockProps = {
       [constants.FOCUS_DISABLED]: disabled && 'disabled',
       [constants.FOCUS_GROUP]: group,
-    }, containerProps);
+      ...containerProps,
+    };
 
     return (
       <Fragment>
