@@ -71,7 +71,7 @@ I'v got a good [article about focus management, dialogs and  WAI-ARIA](https://m
   - `noFocusGuards` disabled _focus guards_ - virtual inputs which secure tab index.
   - `group` named focus group for focus scattering aka [combined lock targets](https://github.com/theKashey/vue-focus-lock/issues/2)
   - `whiteList` you could _whitelist_ locations FocusLock should carry about. Everything outside it will ignore. For example - any modals.
-  - `as` if you need to change internal `div` element, to any other
+  - `as` if you need to change internal `div` element, to any other. Use ref forwarding to give FocusLock the node to work with.
   - `lockProps` to pass any extra props (except className) to the internal wrapper.
 
 # Behavior

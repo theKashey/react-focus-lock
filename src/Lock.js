@@ -133,7 +133,7 @@ FocusLock.propTypes = {
 
   whiteList: PropTypes.func,
 
-  as: PropTypes.oneOfType([PropTypes.string, PropTypes.func]),
+  as: PropTypes.oneOfType([PropTypes.string, PropTypes.func, PropTypes.object]),
   lockProps: PropTypes.object,
 
   onActivation: PropTypes.func,
