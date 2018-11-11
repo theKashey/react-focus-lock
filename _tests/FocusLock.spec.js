@@ -138,6 +138,30 @@ describe('react-focus-lock', () => {
       }, 10);
     });
 
+    it('Should focus on inputs with tab indexes', (done) => {
+      const wrapper = mount(<div>
+        <div>
+          text
+          <button className="action1">action1</button>
+          text
+        </div>
+        <FocusLock>
+          <div>
+            text
+            <button className="action2-false" tabIndex={1} disabled>action2-false</button>
+            <button className="action2" tabIndex={1}>2-action2</button>
+            text
+          </div>
+        </FocusLock>
+      </div>, mountPoint);
+      wrapper.find('.action1').getDOMNode().focus();
+      expect(document.activeElement.innerHTML).to.be.equal('action1');
+      setTimeout(() => {
+        expect(document.activeElement.innerHTML).to.be.equal('2-action2');
+        done();
+      }, 10);
+    });
+
     it('Should focus on inputs, when autoFocus is true', (done) => {
       const wrapper = mount(<div>
         <div>
@@ -618,7 +642,7 @@ describe('react-focus-lock', () => {
           setTimeout(() => {
             expect(document.activeElement.innerHTML).to.be.equal('and i am portaled');
             done();
-          },1);
+          }, 1);
         }, 1);
       });
 
@@ -635,7 +659,7 @@ describe('react-focus-lock', () => {
             <div>{ReactDOM.createPortal(
               <div>
                 <MoveFocusInside>
-                <button id="portaled2" autoFocus>i am portaled</button>
+                  <button id="portaled2" autoFocus>i am portaled</button>
                 </MoveFocusInside>
               </div>,
               makeElement()

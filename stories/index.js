@@ -17,6 +17,7 @@ import PortalCase from './Portal';
 import {MUISelect, MUISelectWhite} from './MUI';
 import Fight from './FocusFighting';
 import {StyledComponent, StyledSection} from "./Custom";
+import {DisabledForm, DisabledFormWithTabIndex} from "./Disabled";
 
 const frameStyle = {
   width: '400px',
@@ -24,7 +25,7 @@ const frameStyle = {
   margin: '100px auto',
 };
 
-const Frame = ({children}) => <div style={frameStyle}>{children}</div>
+const Frame = ({children}) => (<div style={frameStyle}>{children}</div>);
 
 storiesOf('Focus lock', module)
   .add('codesanbox example', () => <Frame><DefaultAll/></Frame>)
@@ -62,3 +63,7 @@ storiesOf('Focus fighting', module)
 storiesOf('Custom component', module)
   .add('as styled section', () => <Frame><StyledSection /></Frame>)
   .add('as custom component', () => <Frame><StyledComponent /></Frame>);
+
+storiesOf('Disabled', module)
+  .add('disabled element', () => <Frame><DisabledForm/></Frame>)
+  .add('disabled element with tabindex', () => <Frame><DisabledFormWithTabIndex/></Frame>)
