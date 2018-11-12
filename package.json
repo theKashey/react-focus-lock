@@ -6,6 +6,7 @@
   "jsnext:main": "dist/es2015/index.js",
   "module": "dist/es2015/index.js",
   "types": "react-focus-lock.d.ts",
+  "sideEffects": false,
   "scripts": {
     "build:cjs": "NODE_ENV=cjs babel src -d dist/cjs",
     "build:es5": "NODE_ENV=es2015 babel src -d dist/es2015",
@@ -75,7 +76,7 @@
     "react-hot-loader": "^3.0.0-beta.7",
     "react-test-renderer": "^16.2.0",
     "sinon": "3.2.1",
-    "size-limit": "^0.20.1"
+    "size-limit": "^0.21.0"
   },
   "homepage": "https://github.com/theKashey/react-focus-lock#readme",
   "dependencies": {
