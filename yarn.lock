@@ -9185,11 +9185,12 @@ rc@^1.2.7:
     minimist "^1.2.0"
     strip-json-comments "~2.0.1"
 
-react-clientside-effect@^1.0.0:
-  version "1.0.0"
-  resolved "https://registry.yarnpkg.com/react-clientside-effect/-/react-clientside-effect-1.0.0.tgz#81c4f91bd4ec0f8792ba76fe29c1d09e37fff062"
-  integrity sha512-XYOjooNlAEos60o4ha9zDb1R9h3LMJUdXJOjFH6fNUwFxXu2k+Wq4Cd0JWmurgeY0DWTzGvpNJ0cY6eHyfhL1Q==
+react-clientside-effect@^1.2.0:
+  version "1.2.0"
+  resolved "https://registry.yarnpkg.com/react-clientside-effect/-/react-clientside-effect-1.2.0.tgz#db823695f75e9616a5e4dd6d908e5ea627fb2516"
+  integrity sha512-cVIsGG7SNHsQsCP4+fw7KFUB0HiYiU8hbvL640XaLCbZ31aK8/lj0qOKJ2K+xRjuQz/IM4Q4qclI0aEqTtcXtA==
   dependencies:
+    "@babel/runtime" "^7.0.0"
     shallowequal "^1.1.0"
 
 react-clone-referenced-element@^1.0.1:

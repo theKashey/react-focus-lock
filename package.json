@@ -82,6 +82,6 @@
     "@babel/runtime": "^7.0.0",
     "focus-lock": "^0.5.2",
     "prop-types": "^15.6.2",
-    "react-clientside-effect": "^1.0.0"
+    "react-clientside-effect": "^1.2.0"
   }
 }
