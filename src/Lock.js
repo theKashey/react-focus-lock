@@ -92,7 +92,7 @@ class FocusLock extends Component {
       <Fragment>
         {!noFocusGuards && [
           <div key="guard-first" data-focus-guard tabIndex={disabled ? -1 : 0} style={hidden} />, // nearest focus guard
-          <div key="guard-nearest" data-focus-guard tabIndex={disabled ? -1 : 1} style={hidden} />, // first tabbed element guard
+          <div key="guard-nearest" data-focus-guard tabIndex={disabled ? -1 : 0} style={hidden} />, // first tabbed element guard
         ]}
         <Container
           ref={this.setObserveNode}
