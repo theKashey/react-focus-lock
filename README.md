@@ -198,7 +198,7 @@ PS: __please use webpack or yarn resolution for force one version of react-focus
 ```
 
 # Package size
-About __6kb__ _with all dependencies, minified and gzipped_.
+About __3kb__, minified and gzipped.
 
 # Licence
  MIT
