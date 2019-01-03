@@ -27,7 +27,7 @@ You have to lock _every_ modal dialog, that's what `a11y` is asking for.
 And this is most comprehensive focus lock/trap ever built. 
 
 # Features
- - no keyboard control, everything is done watching a __focus behavior__, not emulating tabs. Thus works always and everywhere.
+ - no keyboard control, everything is done watching a __focus behavior__, not emulating it. Thus works always and everywhere.
  - React __Portals__ support. Even if some data is in outerspace - it is [still in lock](https://github.com/theKashey/react-focus-lock/issues/19).
  - _Scattered_ locks, or focus lock groups - you can setup different isolated locks, and _tab_ from one to another.
  - Controllable isolation level. 
@@ -46,12 +46,6 @@ Just wrap something with focus lock, and focus will be `moved inside` on mount.
 ```
 Demo - https://codesandbox.io/s/5wmrwlvxv4.
 
-### Final piece for a modals
-
-That is actually not enough, - you shall not lock the focus, but also disable page scroll and user iteractions with the rest of a page - "shadow" rest of the page, to make it unclickable or
-unscrollable. 
-And [react-locky](https://github.com/theKashey/react-locky) is your next component to check.
-
 # WHY?
 From [MDN Article about accessible dialogs](https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/ARIA_Techniques/Using_the_dialog_role):
  - The dialog must be properly labeled
@@ -59,7 +53,7 @@ From [MDN Article about accessible dialogs](https://developer.mozilla.org/en-US/
  
 This one is about managing the focus.
 
-I'v got a good [article about focus management, dialogs and  WAI-ARIA](https://medium.com/@antonkorzunov/its-a-focus-trap-699a04d66fb5).    
+I've got a good [article about focus management, dialogs and  WAI-ARIA](https://medium.com/@antonkorzunov/its-a-focus-trap-699a04d66fb5).    
 
 # API
  FocusLock has few props to tune behavior
@@ -74,23 +68,11 @@ I'v got a good [article about focus management, dialogs and  WAI-ARIA](https://m
   - `as` if you need to change internal `div` element, to any other. Use ref forwarding to give FocusLock the node to work with.
   - `lockProps` to pass any extra props (except className) to the internal wrapper.
 
-# Behavior
- 0. It will always keep focus inside Lock.
- 1. It will cycle forward then you press Tab.
- 2. It will cycle in reverse direction on Shift+Tab.
- 3. It will do it using _browser_ tools, not emulation.
- 4. It will handle positive tabIndex inside form.
- 5. It will prevent any jump outside, returning focus to the last element.
-
 ### Focusing in OSX (Safary/FireFox) is strange!
-By default `tabbing` in OSX `sees` only control, but not links or anything else `tabbable`. This is system settings, and Safary/FireFox obey.
+By default `tabbing` in OSX `sees` only controls, but not links or anything else `tabbable`. This is system settings, and Safari/FireFox obey.
 Press Option+Tab in Safary to loop across all tabbables, or change the Safary settings. There is no way to _fix_ FireFox, unless change system settings (Control+F7). See [this issue](https://github.com/theKashey/react-focus-lock/issues/24) for more information.
 
-You can use nested Locks or have more than one Lock on the page.
-Only `last`, or `deepest` one will work. No fighting.
-     
 # Autofocus
-
  As long you cannot use `autoFocus` prop - 
  cos "focusing" should be delayed to Trap activation, and autoFocus will effect immediately - 
  Focus Lock provide a special API for it
@@ -148,18 +130,14 @@ Only `last`, or `deepest` one will work. No fighting.
  Thus means - Trap will be still active, be the time you _may_ want move(return) focus on componentWillUnmount. Please deffer this action with a zero-timeout. 
      
 # How it works
- Everything thing is simple - react-focus-lock just dont left focus left boundaries of component, and
- do something only if escape attempt was succeeded.
+ Everything thing is simple - react-focus-lock just don't let focus leave boundaries of a component, and
+ is doing something only if escape attempt was successful.
  
  It is not altering tabbing behavior at all. We are good citizens.
 
 # Not only for React
  Uses [focus-lock](https://github.com/theKashey/focus-lock/) under the hood. It does also provide support for Vue.js and Vanilla DOM solutions
  
-# More
-Dont forget to lock the scroll to complete the picture.
- [react-scroll-locky](https://github.com/theKashey/react-scroll-locky) - browser scrollbars hiding, you were looking for.
-
 # Warning!
 Two different _focus-lock-managers_ or even different version of a single one, active
 simultaneously will FIGHT!
@@ -196,6 +174,14 @@ PS: __please use webpack or yarn resolution for force one version of react-focus
       'react-focus-lock': path.resolve(path.join(__dirname, './node_modules/react-focus-lock'))
  ...
 ```
+
+# More
+To create a "right" modal dialog you have to:
+- manage a focus. Use this library
+- block document scroll. Use [react-scroll-locky](https://github.com/theKashey/react-scroll-locky).
+- hide everything else from screen readers. Use [aria-hidden](https://github.com/theKashey/aria-hidden)
+
+You may use [react-focus-on](https://github.com/theKashey/react-focus-on) to archive everything above, assembled in the right order.
 
 # Package size
 About __3kb__, minified and gzipped.
