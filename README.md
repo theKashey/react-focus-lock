@@ -59,6 +59,8 @@ I've got a good [article about focus management, dialogs and  WAI-ARIA](https://
  FocusLock has few props to tune behavior
   - `disabled`, to disable(enable) behavior without altering the tree.
   - `returnFocus`, to return focus into initial position on unmount(not disable).
+> By default `returnFocus` is disabled, so FocusLock will not restore original focus on deactivation.
+    
   This is expected behavior for Modals, but it is better to implement it by your self.
   - `persistentFocus`, default false, requires any element to be focused. This also disables text selections inside, and __outside__ focus lock.
   - `autoFocus`, default true, enables or disables focusing into on Lock activation. If disabled Lock will blur an active focus.
