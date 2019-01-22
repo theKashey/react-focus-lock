@@ -31,9 +31,11 @@ class FocusLock extends Component {
     if (this.state.observed && this.props.onActivation) {
       this.props.onActivation(this.state.observed);
     }
+    this.isActive = true;
   };
 
   onDeactivation = () => {
+    this.isActive = false;
     if (
       this.props.returnFocus &&
       this.originalFocusedElement &&
@@ -47,10 +49,21 @@ class FocusLock extends Component {
     }
   };
 
+  onFocus = (event) => {
+    if (this.isActive) {
+      onFocus(event);
+    }
+  };
+
+  onBlur = onBlur;
+
   setObserveNode = observed =>
     this.setState({
       observed,
     });
+
+  // active status is tracked outside React state
+  isActive = false;
 
   update = () =>
     this.setState(prevState => ({
@@ -98,8 +111,8 @@ class FocusLock extends Component {
           ref={this.setObserveNode}
           {...lockProps}
           className={className}
-          onBlur={onBlur}
-          onFocus={onFocus}
+          onBlur={this.onBlur}
+          onFocus={this.onFocus}
         >
           <FocusTrap
             observed={observed}
