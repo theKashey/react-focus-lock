@@ -12,8 +12,8 @@ import ReturnFocus from './ReturnFocus';
 import {Trap1, Trap2, Trap3, Trap4} from './Checkboxes';
 import {TextSelectionEnabled, TextSelectionDisabled, TextSelectionTabIndexEnabled} from './TextSelection';
 import JumpCase from './Jump';
-import GroupCase from './Group';
-import PortalCase from './Portal';
+import {GroupCase, ShardGroupCase} from './Group';
+import {PortalCase, ShardPortalCase} from './Portal';
 import {MUISelect, MUISelectWhite} from './MUI';
 import Fight from './FocusFighting';
 import {StyledComponent, StyledSection} from "./Custom";
@@ -45,24 +45,26 @@ storiesOf('Text selection', module)
   .add('tabindex -1', () => <Frame><TextSelectionTabIndexEnabled/></Frame>);
 
 storiesOf('Jump', module)
-  .add('jump', () => <Frame><JumpCase /></Frame>);
+  .add('jump', () => <Frame><JumpCase/></Frame>);
 
 storiesOf('Portal', module)
-  .add('portal', () => <Frame><PortalCase /></Frame>);
+  .add('portal', () => <Frame><PortalCase/></Frame>)
+  .add('shard portal', () => <Frame><ShardPortalCase/></Frame>);
 
 storiesOf('Group', module)
-  .add('focus group', () => <Frame><GroupCase /></Frame>);
+  .add('focus group', () => <Frame><GroupCase/></Frame>)
+  .add('shard group', () => <Frame><ShardGroupCase/></Frame>);
 
 storiesOf('Material UI', module)
-  .add('Select', () => <Frame><MUISelect /></Frame>)
-  .add('Select White', () => <Frame><MUISelectWhite /></Frame>)
+  .add('Select', () => <Frame><MUISelect/></Frame>)
+  .add('Select White', () => <Frame><MUISelectWhite/></Frame>)
 
 storiesOf('Focus fighting', module)
-  .add('fight', () => <Frame><Fight /></Frame>);
+  .add('fight', () => <Frame><Fight/></Frame>);
 
 storiesOf('Custom component', module)
-  .add('as styled section', () => <Frame><StyledSection /></Frame>)
-  .add('as custom component', () => <Frame><StyledComponent /></Frame>);
+  .add('as styled section', () => <Frame><StyledSection/></Frame>)
+  .add('as custom component', () => <Frame><StyledComponent/></Frame>);
 
 storiesOf('Disabled', module)
   .add('disabled element', () => <Frame><DisabledForm/></Frame>)

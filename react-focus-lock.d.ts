@@ -67,6 +67,11 @@ declare module 'react-focus-lock' {
      */
     whiteList?: (activeElement: HTMLElement) => boolean;
 
+    /**
+     * Shards forms a scattered lock, same as `group` does, but in more "low" and controlled way
+     */
+    shards?: Array<React.RefObject<any>>;
+
     children: React.ReactNode;
   }
 
@@ -77,6 +82,10 @@ declare module 'react-focus-lock' {
 
   interface FreeFocusProps {
     className?: string;
+  }
+
+  interface InFocusGuardProps {
+    children: React.ReactNode;
   }
 
   /**
@@ -101,5 +110,11 @@ declare module 'react-focus-lock' {
    * Allow free focus inside on children
    */
   export class FreeFocusInside extends React.Component<FreeFocusProps> {
+  }
+
+  /**
+   * Secures the focus around the node
+   */
+  export class InFocusGuard  extends React.Component<InFocusGuardProps> {
   }
 }

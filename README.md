@@ -66,6 +66,7 @@ I've got a good [article about focus management, dialogs and  WAI-ARIA](https://
   - `autoFocus`, default true, enables or disables focusing into on Lock activation. If disabled Lock will blur an active focus.
   - `noFocusGuards` disabled _focus guards_ - virtual inputs which secure tab index.
   - `group` named focus group for focus scattering aka [combined lock targets](https://github.com/theKashey/vue-focus-lock/issues/2)
+  - `shards` an array of `ref` pointing to the nodes, which focus lock should consider and a part of it. This is another way focus scattering.  
   - `whiteList` you could _whitelist_ locations FocusLock should carry about. Everything outside it will ignore. For example - any modals.
   - `as` if you need to change internal `div` element, to any other. Use ref forwarding to give FocusLock the node to work with.
   - `lockProps` to pass any extra props (except className) to the internal wrapper.
@@ -123,6 +124,70 @@ Press Option+Tab in Safary to loop across all tabbables, or change the Safary se
   <button>will be focused</button>
  </MoveFocusInside>
  ```
+ 
+# Portals
+Use focus scattering to handle portals
+
+- using `groups`. Just create a few locks (only one could be active) with a same group name
+```js
+const PortaledElement = () => (
+   <FocusLock group="group42" disabled={true}>
+     // "discoverable" portaled content
+   </FocusLock>  
+);
+
+<FocusLock group="group42">
+  // main content
+</FocusLock>
+```
+- using `shards`. Just pass all the pieces to the "shards" prop. 
+```js
+const PortaledElement = () => (
+   <div ref={ref}>
+     // "discoverable" portaled content
+   </div>  
+);
+
+<FocusLock shards={[ref]}>
+  // main content
+</FocusLock>
+```
+- without anything. FocusLock will not prevent focusing portaled element, but will not include them in to tab order 
+```js
+const PortaledElement = () => (
+   <div>
+     // NON-"discoverable" portaled content
+   </div>  
+);
+
+<FocusLock shards={[ref]}>
+  // main content
+  <PortaledElement />
+</FocusLock>
+```
+
+### Guarding
+As you may know - FocusLock is adding `Focus Guards` before and after lock to remove some side effects, like page scrolling.
+But `shards` will not have such guards, and it might be not so cool to use them - for example if no `tabbable` would be
+defined after shard - you will tab to the browser chrome.
+
+You may wrap shard  with `InFocusGuard` or just drop `InFocusGuard` here and there - that would solve the problem.
+```js
+import {InFocusGuard} from 'react-focus-lock';
+
+<InFocusGuard>
+  <button>
+</InFocusGuard>
+
+//
+
+<InFocusGuard />
+<button>
+<InFocusGuard />
+```
+InFocusGuards would be active(tabbable) only when tabble, it protecting, is focused.
+
+### Automatic potral discovery
  
 # Unmounting and focus management
  - In case FocusLock has `returnFocus` enabled, and it's gonna to be unmounted - focus will be returned after zero-timeout.

@@ -41,7 +41,7 @@ export class StyledSection extends Component {
   }
 }
 
-const Comp = (props) => <main {...props} data-focus-locked-test/>;
+const Comp = React.forwardRef((props, ref) => <main ref={ref} {...props} data-focus-locked-test/>);
 
 export class StyledComponent extends Component {
   state = {
