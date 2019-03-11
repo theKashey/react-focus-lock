@@ -33,10 +33,16 @@ function autoGuard(startIndex, end, step, allNodes) {
   let lastGuard = null;
   let i = startIndex;
   do {
-    const node = allNodes[i];
-    if (node.guard) {
-      lastGuard = node;
-    } else if (node.lockItem) {
+    const item = allNodes[i];
+    if (item.guard) {
+      if (item.node.dataset.focusAutoGuard) {
+        lastGuard = item;
+      }
+    } else if (item.lockItem) {
+      if (i !== startIndex) {
+        // we will tab to the next element
+        return;
+      }
       lastGuard = null;
     } else {
       break;
