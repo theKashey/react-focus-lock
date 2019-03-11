@@ -791,6 +791,64 @@ describe('react-focus-lock', () => {
         }, 1);
       });
 
+      it('Should handle focus groups - shard', (done) => {
+        const ref1 = React.createRef();
+        const ref2 = React.createRef();
+        const TestCase = () => (
+          <div>
+            <div>
+              text
+              <button className="action1">action1</button>
+              text
+            </div>
+            <FocusLock shards={[ref1, ref2.current, null]} autoFocus>
+              <button id="b1">button1</button>
+              <button id="b2">button2</button>
+            </FocusLock>
+            <button id="b3" ref={ref1}>button3</button>
+            <button id="b5">button5</button>
+            <button id="b4" ref={ref2}>button4</button>
+            <div>
+              text
+              <button className="action3">action1</button>
+              text
+            </div>
+          </div>
+        );
+
+        const wrapper = mount(<TestCase />, mountPoint);
+        wrapper.update().find('#b2').getDOMNode().focus();
+        // update wrapper to propagate ref2
+        wrapper.setProps({});
+        expect(document.activeElement.innerHTML).to.be.equal('button2');
+        setTimeout(() => {
+          expect(document.activeElement.innerHTML).to.be.equal('button2');
+          wrapper.find('#b3').simulate('focus');
+          wrapper.find('#b3').getDOMNode().focus();
+          wrapper.find('#b1').simulate('blur');
+          expect(document.activeElement.innerHTML).to.be.equal('button3');
+          setTimeout(() => {
+            expect(document.activeElement.innerHTML).to.be.equal('button3');
+            wrapper.find('#b4').simulate('focus');
+            wrapper.find('#b4').getDOMNode().focus();
+            wrapper.find('#b1').simulate('blur');
+            expect(document.activeElement.innerHTML).to.be.equal('button4');
+            setTimeout(() => {
+              expect(document.activeElement.innerHTML).to.be.equal('button4');
+              wrapper.find('#b5').simulate('focus');
+              wrapper.find('#b5').getDOMNode().focus();
+              expect(document.activeElement.innerHTML).to.be.equal('button5');
+              wrapper.find('#b1').simulate('blur');
+              setTimeout(() => {
+                // it should be 3 :(
+                expect(document.activeElement.innerHTML).to.be.equal('button3');
+                done();
+              }, 1);
+            }, 1);
+          }, 1);
+        }, 1);
+      });
+
       it('Should handle focus groups - disabled', (done) => {
         const wrapper = mount(
           <div>

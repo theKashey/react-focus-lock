@@ -70,7 +70,7 @@ declare module 'react-focus-lock' {
     /**
      * Shards forms a scattered lock, same as `group` does, but in more "low" and controlled way
      */
-    shards?: Array<React.RefObject<any>>;
+    shards?: Array<React.RefObject<any> | HTMLElement>;
 
     children: React.ReactNode;
   }

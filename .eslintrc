@@ -10,6 +10,7 @@
     "mocha": true,
   },
   "rules": {
+    "no-cond-assign": "off",
     "jsx-a11y/href-no-hash": "off",
     // Override airbnb to disable devDependencies check until we figure out how to exclude tests files
     "import/no-extraneous-dependencies": [2, {"optionalDependencies": false}],

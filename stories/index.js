@@ -17,7 +17,7 @@ import {PortalCase, ShardPortalCase} from './Portal';
 import {MUISelect, MUISelectWhite} from './MUI';
 import Fight from './FocusFighting';
 import {StyledComponent, StyledSection} from "./Custom";
-import {DisabledForm, DisabledFormWithTabIndex} from "./Disabled";
+import {AutoDisabledForm, DisabledForm, DisabledFormWithTabIndex} from "./Disabled";
 
 const frameStyle = {
   width: '400px',

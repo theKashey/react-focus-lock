@@ -1,10 +1,10 @@
-import React, {Component} from 'react';
+import React, { Component } from 'react';
 import PropTypes from 'prop-types';
-import {constants} from 'focus-lock';
-import FocusTrap, {onBlur, onFocus} from './Trap';
-import {hiddenGuard} from './FocusGuard';
+import { constants } from 'focus-lock';
+import FocusTrap, { onBlur, onFocus } from './Trap';
+import { hiddenGuard } from './FocusGuard';
 
-const RenderChildren = ({children}) => <div>{children}</div>;
+const RenderChildren = ({ children }) => <div>{children}</div>;
 RenderChildren.propTypes = {
   children: PropTypes.node.isRequired,
 };
@@ -81,7 +81,7 @@ class FocusLock extends Component {
       as: Container = 'div',
       lockProps: containerProps = {},
     } = this.props;
-    const {observed} = this.state;
+    const { observed } = this.state;
 
     if (process.env.NODE_ENV !== 'production') {
       if (typeof allowTextSelection !== 'undefined') {
@@ -99,8 +99,8 @@ class FocusLock extends Component {
     return (
       <Fragment>
         {!noFocusGuards && [
-          <div key="guard-first" data-focus-guard tabIndex={disabled ? -1 : 0} style={hiddenGuard}/>, // nearest focus guard
-          <div key="guard-nearest" data-focus-guard tabIndex={disabled ? -1 : 1} style={hiddenGuard}/>, // first tabbed element guard
+          <div key="guard-first" data-focus-guard tabIndex={disabled ? -1 : 0} style={hiddenGuard} />, // nearest focus guard
+          <div key="guard-nearest" data-focus-guard tabIndex={disabled ? -1 : 1} style={hiddenGuard} />, // first tabbed element guard
         ]}
         <Container
           ref={this.setObserveNode}
@@ -123,7 +123,7 @@ class FocusLock extends Component {
         </Container>
         {
           !noFocusGuards &&
-          <div data-focus-guard tabIndex={disabled ? -1 : 0} style={hiddenGuard}/>
+          <div data-focus-guard tabIndex={disabled ? -1 : 0} style={hiddenGuard} />
         }
       </Fragment>
     );
@@ -144,7 +144,7 @@ FocusLock.propTypes = {
   className: PropTypes.string,
 
   whiteList: PropTypes.func,
-  shards: PropTypes.arrayOf(PropTypes.shape({current: PropTypes.instanceOf(Element)})),
+  shards: PropTypes.arrayOf(PropTypes.shape({ current: PropTypes.instanceOf(Element) })),
 
   as: PropTypes.oneOfType([PropTypes.string, PropTypes.func, PropTypes.object]),
   lockProps: PropTypes.object,
@@ -166,6 +166,7 @@ FocusLock.defaultProps = {
   shards: undefined,
   as: 'div',
   lockProps: {},
+
   onActivation: undefined,
   onDeactivation: undefined,
 };
