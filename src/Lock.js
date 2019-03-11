@@ -144,7 +144,7 @@ FocusLock.propTypes = {
   className: PropTypes.string,
 
   whiteList: PropTypes.func,
-  shards: PropTypes.arrayOf(PropTypes.shape({ current: PropTypes.instanceOf(Element) })),
+  shards: PropTypes.arrayOf(PropTypes.any),
 
   as: PropTypes.oneOfType([PropTypes.string, PropTypes.func, PropTypes.object]),
   lockProps: PropTypes.object,
