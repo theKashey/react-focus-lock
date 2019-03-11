@@ -40,7 +40,7 @@ Just wrap something with focus lock, and focus will be `moved inside` on mount.
  const JailForAFocus = ({onClose}) => (
     <FocusLock>
       You can not leave this form
-      <button onClick={onClick} />
+      <button onClick={onClose} />
     </FocusLock>
  );
 ```
