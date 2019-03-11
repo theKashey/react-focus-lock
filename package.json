@@ -20,7 +20,7 @@
     "build-storybook": "NODE_ENV=es2015 build-storybook",
     "package-self": "package-self",
     "size": "npm run build && size-limit",
-    "changelog": "conventional-changelog -p angular -i CHANGELOG.md -s -r 0"
+    "changelog": "conventional-changelog -p angular -i CHANGELOG.md -s"
   },
   "repository": {
     "type": "git",
@@ -34,7 +34,7 @@
     "tabbable"
   ],
   "author": "theKashey <thekashey@gmail.com>",
-  "license": "ISC",
+  "license": "MIT",
   "bugs": {
     "url": "https://github.com/theKashey/react-focus-lock/issues"
   },
