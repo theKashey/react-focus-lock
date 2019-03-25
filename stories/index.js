@@ -18,6 +18,7 @@ import {MUISelect, MUISelectWhite} from './MUI';
 import Fight from './FocusFighting';
 import {StyledComponent, StyledSection} from "./Custom";
 import {AutoDisabledForm, DisabledForm, DisabledFormWithTabIndex} from "./Disabled";
+import {Video} from "./Exotic";
 
 const frameStyle = {
   width: '400px',
@@ -69,3 +70,6 @@ storiesOf('Custom component', module)
 storiesOf('Disabled', module)
   .add('disabled element', () => <Frame><DisabledForm/></Frame>)
   .add('disabled element with tabindex', () => <Frame><DisabledFormWithTabIndex/></Frame>)
+
+storiesOf('Excotic', module)
+  .add('video', () => <Frame><Video /></Frame>);
