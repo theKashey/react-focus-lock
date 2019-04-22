@@ -13,7 +13,7 @@ export class Video extends React.Component {
     return (
       <div>
         <button onClick={this.toggle}>!ACTIVATE THE TRAP!</button>
-        <FocusLock disabled={disabled} whiteList={node => { console.log(node); return false; }}>
+        <FocusLock disabled={disabled} _whiteList={node => { console.log(node); return false; }}>
 
           <button onClick={this.toggle}>deactivate</button>
 
