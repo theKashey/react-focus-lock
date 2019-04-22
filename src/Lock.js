@@ -51,10 +51,13 @@ class FocusLock extends Component {
 
   onBlur = onBlur;
 
-  setObserveNode = observed =>
-    this.setState({
-      observed,
-    });
+  setObserveNode = (observed) => {
+    if (this.state.observed !== observed) {
+      this.setState({
+        observed,
+      });
+    }
+  };
 
   // active status is tracked outside React state
   isActive = false;
