@@ -15,6 +15,8 @@ let lastActiveFocus = null;
 
 let lastPortaledElement = null;
 
+let focusWasOutsideWindow = false;
+
 const defaultWhitelist = () => true;
 
 const focusWhitelisted = activeElement => (
@@ -68,7 +70,11 @@ const activateTrap = () => {
       ];
 
       if (!activeElement || focusWhitelisted(activeElement)) {
-        if (persistentFocus || !isFreeFocus() || (!lastActiveFocus && autoFocus)) {
+        if (
+          (persistentFocus || focusWasOutsideWindow) ||
+          !isFreeFocus() ||
+          (!lastActiveFocus && autoFocus)
+        ) {
           if (
             workingNode &&
             !(
@@ -83,6 +89,7 @@ const activateTrap = () => {
               result = moveFocusInside(workingArea, lastActiveFocus);
               lastPortaledElement = {};
             }
+            focusWasOutsideWindow = false;
           }
           lastActiveFocus = document && document.activeElement;
         }
@@ -141,14 +148,20 @@ FocusTrap.propTypes = {
   children: PropTypes.node.isRequired,
 };
 
+const onWindowBlur = () => {
+  focusWasOutsideWindow = true;
+};
+
 const attachHandler = () => {
   document.addEventListener('focusin', onTrap, true);
   document.addEventListener('focusout', onBlur);
+  window.addEventListener('blur', onWindowBlur);
 };
 
 const detachHandler = () => {
   document.removeEventListener('focusin', onTrap, true);
   document.removeEventListener('focusout', onBlur);
+  window.removeEventListener('blur', onWindowBlur);
 };
 
 function reducePropsToState(propsList) {

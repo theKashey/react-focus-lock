@@ -33,7 +33,7 @@ declare module 'react-focus-lock' {
     /**
      * disables hidden inputs before and after the lock.
      */
-    noFocusGuards?: boolean;
+    noFocusGuards?: boolean | "tail";
 
     /**
      * named focus group for focus scattering aka combined lock targets

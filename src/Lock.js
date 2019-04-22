@@ -96,9 +96,12 @@ class FocusLock extends Component {
       ...containerProps,
     };
 
+    const hasLeadingGuards = noFocusGuards !== true;
+    const hasTailingGuards = hasLeadingGuards && (noFocusGuards !== 'tail');
+
     return (
       <Fragment>
-        {!noFocusGuards && [
+        {hasLeadingGuards && [
           <div key="guard-first" data-focus-guard tabIndex={disabled ? -1 : 0} style={hiddenGuard} />, // nearest focus guard
           <div key="guard-nearest" data-focus-guard tabIndex={disabled ? -1 : 1} style={hiddenGuard} />, // first tabbed element guard
         ]}
@@ -122,7 +125,7 @@ class FocusLock extends Component {
           {children}
         </Container>
         {
-          !noFocusGuards &&
+          hasTailingGuards &&
           <div data-focus-guard tabIndex={disabled ? -1 : 0} style={hiddenGuard} />
         }
       </Fragment>

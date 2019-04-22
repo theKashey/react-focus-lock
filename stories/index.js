@@ -11,7 +11,7 @@ import AutoFocus from './Autofocus';
 import ReturnFocus from './ReturnFocus';
 import {Trap1, Trap2, Trap3, Trap4} from './Checkboxes';
 import {TextSelectionEnabled, TextSelectionDisabled, TextSelectionTabIndexEnabled} from './TextSelection';
-import JumpCase from './Jump';
+import JumpCase, {NoTailingGuard} from './Jump';
 import {GroupCase, ShardGroupCase} from './Group';
 import {PortalCase, ShardPortalCase} from './Portal';
 import {MUISelect, MUISelectWhite} from './MUI';
@@ -46,7 +46,8 @@ storiesOf('Text selection', module)
   .add('tabindex -1', () => <Frame><TextSelectionTabIndexEnabled/></Frame>);
 
 storiesOf('Jump', module)
-  .add('jump', () => <Frame><JumpCase/></Frame>);
+  .add('jump', () => <Frame><JumpCase/></Frame>)
+  .add('no tailing guard', () => <Frame><NoTailingGuard/></Frame>)
 
 storiesOf('Portal', module)
   .add('portal', () => <Frame><PortalCase/></Frame>)
@@ -72,4 +73,4 @@ storiesOf('Disabled', module)
   .add('disabled element with tabindex', () => <Frame><DisabledFormWithTabIndex/></Frame>)
 
 storiesOf('Excotic', module)
-  .add('video', () => <Frame><Video /></Frame>);
+  .add('video', () => <Frame><Video/></Frame>);
