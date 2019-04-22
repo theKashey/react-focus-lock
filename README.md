@@ -11,7 +11,7 @@
 [![CircleCI status](https://img.shields.io/circleci/project/github/theKashey/react-focus-lock/master.svg?style=flat-square)](https://circleci.com/gh/theKashey/react-focus-lock/tree/master)
 [![npm](https://img.shields.io/npm/v/react-focus-lock.svg)](https://www.npmjs.com/package/react-focus-lock)
 [![bundle size](https://badgen.net/bundlephobia/minzip/react-focus-lock)](https://bundlephobia.com/result?p=react-focus-lock)
-![downloads](https://badgen.net/npm/dm/react-focus-lock)
+[![downloads](https://badgen.net/npm/dm/react-focus-lock)](https://www.npmtrends.com/react-focus-lock)
   <hr/>  
 </div>
 
