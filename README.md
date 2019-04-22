@@ -2,10 +2,11 @@
   <h1 align="center">REACT FOCUS LOCK</h1>
   <img src="./assets/ackbar.png" alt="it-is-a-trap" width="200" height="200" align="right">
   
-  It is a trap! For:
   - browser friendly focus lock<br/>
-  - matching your use cases<br/>
-  - trusted by best UI frameworks    
+  - matching all your use cases<br/>
+  - trusted by best UI frameworks<br/>
+  - the thing Admiral Ackbar was talking about<br/>
+  <br/>
 
 [![CircleCI status](https://img.shields.io/circleci/project/github/theKashey/react-focus-lock/master.svg?style=flat-square)](https://circleci.com/gh/theKashey/react-focus-lock/tree/master)
 [![npm](https://img.shields.io/npm/v/react-focus-lock.svg)](https://www.npmjs.com/package/react-focus-lock)
@@ -18,7 +19,7 @@ It is a trap! We got your focus and will not let him out!
 
 - Modal dialogs. You can not leave it with "Tab", ie do a "tab-out".
 - Focused tasks. It will aways brings you back, as you can "lock" user inside a component.
-- You have to lock _every_ modal dialog, that's what `a11y` is asking for.
+- Any any other case, when you have to lock user _intention_ and _focus_, if that's what `a11y` is asking for.
 
 ### Trusted
 Trusted by 
@@ -26,13 +27,13 @@ Trusted by
 [ReachUI](https://ui.reach.tech/), 
 [SmoothUI](https://smooth-ui.smooth-code.com/), 
 [Storybook](https://storybook.js.org/)
-and we will do out best to earn your trust to!
+and we will do our best to earn your trust too!
  
 # Features
  - no keyboard control, everything is done watching a __focus behavior__, not emulating it. Thus works always and everywhere.
  - React __Portals__ support. Even if some data is in outer space - it is [still in lock](https://github.com/theKashey/react-focus-lock/issues/19).
  - _Scattered_ locks, or focus lock groups - you can setup different isolated locks, and _tab_ from one to another.
- - Controllable isolation level. 
+ - Controllable isolation level.
  
 > 💡 __focus__ locks is only the first part, there are also __scroll lock__ and __text-to-speech__ lock
 you have to use to really "lock" the user.
