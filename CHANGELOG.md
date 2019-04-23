@@ -1,3 +1,17 @@
+# [1.19.0](https://github.com/theKashey/react-focus-lock/compare/v1.18.3...v1.19.0) (2019-04-22)
+
+
+### Bug Fixes
+
+* infinite loop on ref set ([29e9691](https://github.com/theKashey/react-focus-lock/commit/29e9691))
+
+
+### Features
+
+* no tail guard ([c0c5fde](https://github.com/theKashey/react-focus-lock/commit/c0c5fde))
+
+
+
 ## [1.18.3](https://github.com/theKashey/react-focus-lock/compare/v1.18.2...v1.18.3) (2019-03-11)
 
 
