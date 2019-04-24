@@ -62,11 +62,6 @@ class FocusLock extends Component {
   // active status is tracked outside React state
   isActive = false;
 
-  update = () =>
-    this.setState(prevState => ({
-      escapeAttempts: prevState.escapeAttempts + 1,
-    }));
-
   originalFocusedElement = null;
 
   render() {

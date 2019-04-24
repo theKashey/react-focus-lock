@@ -26,19 +26,19 @@ class Trap1 extends Component {
     const {disabled} = this.state;
     return (
       <div>
-        <button>Button</button>
+        <button>Button-1</button>
         <div style={{marginTop: '70vh'}}>
           <button onClick={this.toggle}>!ACTIVATE THE TRAP!</button>
         </div>
 
         {!disabled && <FocusLock returnFocus noFocusGuards>
-          <button>BUTTON</button>
+          <button>BUTTON-2</button>
           <a href='#'>link somethere</a> <br/>
           <button onClick={this.toggle}>DEACTIVATE</button>
         </FocusLock>
         }
         <div style={{marginTop: '70vh'}}>
-          <button>Button</button>
+          <button>Button-3</button>
         </div>
       </div>
     )
@@ -60,14 +60,14 @@ export class NoTailingGuard extends Component {
     const {disabled} = this.state;
     return (
       <div>
-        <button>Button</button>
+        <button>Button-1</button>
         <div style={{marginTop: '70vh'}}>
           <button onClick={this.toggle}>!ACTIVATE THE TRAP!</button>
         </div>
         <p>probably would not work properly in storybook iframe</p>
 
         {!disabled && <FocusLock returnFocus noFocusGuards="tail">
-          <button>BUTTON</button>
+          <button>BUTTON-2</button>
           <a href='#'>link somethere</a> <br/>
           <button onClick={this.toggle}>DEACTIVATE</button>
         </FocusLock>

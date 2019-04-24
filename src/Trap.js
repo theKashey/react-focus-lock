@@ -89,8 +89,8 @@ const activateTrap = () => {
               result = moveFocusInside(workingArea, lastActiveFocus);
               lastPortaledElement = {};
             }
-            focusWasOutsideWindow = false;
           }
+          focusWasOutsideWindow = false;
           lastActiveFocus = document && document.activeElement;
         }
       }
