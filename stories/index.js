@@ -6,6 +6,7 @@ import {linkTo} from '@storybook/addon-links';
 
 
 import DefaultAll from './Default';
+import Iframe from './Iframe';
 import TabIndex from './TabIndex';
 import AutoFocus from './Autofocus';
 import ReturnFocus from './ReturnFocus';
@@ -73,4 +74,5 @@ storiesOf('Disabled', module)
   .add('disabled element with tabindex', () => <Frame><DisabledFormWithTabIndex/></Frame>)
 
 storiesOf('Excotic', module)
-  .add('video', () => <Frame><Video/></Frame>);
+  .add('video', () => <Frame><Video/></Frame>)
+  .add('iframe', () => <Frame><Iframe/></Frame>);
