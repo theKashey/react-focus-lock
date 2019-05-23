@@ -3,6 +3,7 @@ import PropTypes from 'prop-types';
 import withSideEffect from 'react-clientside-effect';
 import moveFocusInside, { focusInside, focusIsHidden, getFocusabledIn } from 'focus-lock';
 import { deferAction } from './util';
+import {setMediumCallbacks} from "./medium";
 
 const focusOnBody = () => (
   document && document.activeElement === document.body
@@ -123,11 +124,11 @@ const onTrap = (event) => {
   }
 };
 
-export const onBlur = () => (
+const onBlur = () => (
   deferAction(activateTrap)
 );
 
-export const onFocus = (event) => {
+const onFocus = (event) => {
   // detect portal
   const source = event.target;
   const currentNode = event.currentTarget;
@@ -196,6 +197,8 @@ function handleStateChangeOnClient(trap) {
     lastActiveFocus = null;
   }
 }
+
+setMediumCallbacks(onFocus, onBlur);
 
 export default withSideEffect(
   reducePropsToState,

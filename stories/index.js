@@ -7,6 +7,7 @@ import {linkTo} from '@storybook/addon-links';
 
 import DefaultAll from './Default';
 import Iframe from './Iframe';
+import SideCar from './sideCar';
 import TabIndex from './TabIndex';
 import AutoFocus from './Autofocus';
 import ReturnFocus from './ReturnFocus';
@@ -75,4 +76,5 @@ storiesOf('Disabled', module)
 
 storiesOf('Excotic', module)
   .add('video', () => <Frame><Video/></Frame>)
-  .add('iframe', () => <Frame><Iframe/></Frame>);
+  .add('iframe', () => <Frame><Iframe/></Frame>)
+  .add('sidecar', () => <Frame><SideCar/></Frame>);

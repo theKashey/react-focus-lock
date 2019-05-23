@@ -1,10 +1,10 @@
-import React, { Component } from 'react';
+import React, {Component} from 'react';
 import PropTypes from 'prop-types';
-import { constants } from 'focus-lock';
-import FocusTrap, { onBlur, onFocus } from './Trap';
-import { hiddenGuard } from './FocusGuard';
+import {constants} from 'focus-lock';
+import {hiddenGuard} from './FocusGuard';
+import {onBlur, onFocus} from "./medium";
 
-const RenderChildren = ({ children }) => <div>{children}</div>;
+const RenderChildren = ({children}) => <div>{children}</div>;
 RenderChildren.propTypes = {
   children: PropTypes.node.isRequired,
 };
@@ -78,8 +78,9 @@ class FocusLock extends Component {
       shards = emptyArray,
       as: Container = 'div',
       lockProps: containerProps = {},
+      sideCar: SideCar,
     } = this.props;
-    const { observed } = this.state;
+    const {observed} = this.state;
 
     if (process.env.NODE_ENV !== 'production') {
       if (typeof allowTextSelection !== 'undefined') {
@@ -100,8 +101,8 @@ class FocusLock extends Component {
     return (
       <Fragment>
         {hasLeadingGuards && [
-          <div key="guard-first" data-focus-guard tabIndex={disabled ? -1 : 0} style={hiddenGuard} />, // nearest focus guard
-          <div key="guard-nearest" data-focus-guard tabIndex={disabled ? -1 : 1} style={hiddenGuard} />, // first tabbed element guard
+          <div key="guard-first" data-focus-guard tabIndex={disabled ? -1 : 0} style={hiddenGuard}/>, // nearest focus guard
+          <div key="guard-nearest" data-focus-guard tabIndex={disabled ? -1 : 1} style={hiddenGuard}/>, // first tabbed element guard
         ]}
         <Container
           ref={this.setObserveNode}
@@ -110,21 +111,23 @@ class FocusLock extends Component {
           onBlur={this.onBlur}
           onFocus={this.onFocus}
         >
-          <FocusTrap
-            observed={observed}
-            disabled={disabled}
-            persistentFocus={persistentFocus}
-            autoFocus={autoFocus}
-            whiteList={whiteList}
-            shards={shards}
-            onActivation={this.onActivation}
-            onDeactivation={this.onDeactivation}
-          />
+          {!disabled && (
+            <SideCar
+              observed={observed}
+              disabled={disabled}
+              persistentFocus={persistentFocus}
+              autoFocus={autoFocus}
+              whiteList={whiteList}
+              shards={shards}
+              onActivation={this.onActivation}
+              onDeactivation={this.onDeactivation}
+            />
+          )}
           {children}
         </Container>
         {
           hasTailingGuards &&
-          <div data-focus-guard tabIndex={disabled ? -1 : 0} style={hiddenGuard} />
+          <div data-focus-guard tabIndex={disabled ? -1 : 0} style={hiddenGuard}/>
         }
       </Fragment>
     );
@@ -152,6 +155,8 @@ FocusLock.propTypes = {
 
   onActivation: PropTypes.func,
   onDeactivation: PropTypes.func,
+
+  sideCar: PropTypes.any.isRequired,
 };
 
 FocusLock.defaultProps = {

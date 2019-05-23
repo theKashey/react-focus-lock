@@ -1,4 +1,5 @@
-import FocusLock from './Lock';
+import FocusLockUI from './Lock';
+import FocusLock from './Combination';
 import AutoFocusInside from './AutoFocusInside';
 import MoveFocusInside from './MoveFocusInside';
 import FreeFocusInside from './FreeFocusInside';
@@ -9,6 +10,8 @@ export {
   MoveFocusInside,
   FreeFocusInside,
   InFocusGuard,
+
+  FocusLockUI,
 };
 
 export default FocusLock;
