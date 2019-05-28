@@ -1,5 +1,7 @@
-import React, {Component, useState, useReducer, useEffect} from "react";
-import {FocusLockUI} from "../src/index";
+import { h } from 'preact';
+import React, {Component} from "react";
+import {FocusLockUI} from "react-focus-lock";
+import {sidecar} from "use-sidecar";
 
 const styles = {
   fontFamily: "sans-serif",
@@ -11,28 +13,7 @@ const bg = {
   backgroundColor: '#FEE'
 };
 
-const sideCar = importer => (props) => {
-  const [Car, setCar] = useReducer((_, s) => s, null);
-  const [error, setError] = useReducer((_, s) => s, null);
-
-  useEffect(() => {
-    importer()
-      .then(
-        car => setCar(car.default),
-        e => setError(e),
-      )
-  }, []);
-
-  useEffect(() => {
-    if (error) {
-      // on Error(error);
-    }
-  }, [error]);
-
-  return Car ? <Car {...props} /> : null;
-}
-
-const FocusLockSidecar = sideCar(() => import("../src/sidecar"));
+const FocusLockSidecar = sidecar(() => import("react-focus-lock/sidecar"));
 
 class Trap extends Component {
   state = {
@@ -49,8 +30,6 @@ class Trap extends Component {
         sideCar={FocusLockSidecar}
       >
         {disabled && <div>
-          ! this is a <b>real trap</b>.<br/>
-          We will steal your focus ! <br/><br/>
           <button onClick={this.toggle}>!ACTIVATE THE TRAP!</button>
           <br/>
           <br/>
@@ -72,14 +51,13 @@ class Trap extends Component {
           <br/><br/>PRESS this to end the trial.<br/><br/>
           <button onClick={this.toggle}>ESCAPE!!!</button>
           <br/>
-          All your focus belongs to us!
         </div>}
       </FocusLockUI>
     )
   }
 }
 
-const App = () =>
+const Lock = () =>
   <div style={styles}>
     <input placeholder="input1"/>
     <div style={bg}> Inaccessible <a href='#'>Link</a> outside</div>
@@ -88,4 +66,4 @@ const App = () =>
     <input placeholder="input1"/>
   </div>;
 
-export default App;
+export default Lock;

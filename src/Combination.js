@@ -9,6 +9,8 @@ const FocusLockCombination = (props) => (
   />
 );
 
-FocusLockCombination.propTypes = FocusLockUI.propTypes;
+const {sideCar, ...propTypes} = FocusLockUI.propTypes;
+
+FocusLockCombination.propTypes = propTypes;
 
 export default FocusLockCombination;

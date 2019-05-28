@@ -1,9 +1,9 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import withSideEffect from 'react-clientside-effect';
-import moveFocusInside, { focusInside, focusIsHidden, getFocusabledIn } from 'focus-lock';
-import { deferAction } from './util';
-import {setMediumCallbacks} from "./medium";
+import moveFocusInside, {focusInside, focusIsHidden, getFocusabledIn} from 'focus-lock';
+import {deferAction} from './util';
+import {mediumFocus, mediumBlur, mediumEffect} from "./medium";
 
 const focusOnBody = () => (
   document && document.activeElement === document.body
@@ -25,7 +25,7 @@ const focusWhitelisted = activeElement => (
 );
 
 const recordPortal = (observerNode, portaledElement) => {
-  lastPortaledElement = { observerNode, portaledElement };
+  lastPortaledElement = {observerNode, portaledElement};
 };
 
 const focusIsPortaledPair = element => (
@@ -61,7 +61,7 @@ const extractRef = ref => ((ref && 'current' in ref) ? ref.current : ref);
 const activateTrap = () => {
   let result = false;
   if (lastActiveTrap) {
-    const { observed, persistentFocus, autoFocus, shards } = lastActiveTrap;
+    const {observed, persistentFocus, autoFocus, shards} = lastActiveTrap;
     const workingNode = observed || (lastPortaledElement && lastPortaledElement.portaledElement);
     const activeElement = document && document.activeElement;
     if (workingNode) {
@@ -99,12 +99,12 @@ const activateTrap = () => {
       if (document) {
         const newActiveElement = document && document.activeElement;
         const allNodes = getFocusabledIn(workingArea);
-        const focusedItem = allNodes.find(({ node }) => node === newActiveElement);
+        const focusedItem = allNodes.find(({node}) => node === newActiveElement);
         if (focusedItem) {
           // remove old focus
           allNodes
-            .filter(({ guard, node }) => guard && node.dataset.focusAutoGuard)
-            .forEach(({ node }) => node.removeAttribute('tabIndex'));
+            .filter(({guard, node}) => guard && node.dataset.focusAutoGuard)
+            .forEach(({node}) => node.removeAttribute('tabIndex'));
 
           const focusedIndex = allNodes.indexOf(focusedItem);
           autoGuard(focusedIndex, allNodes.length, +1, allNodes);
@@ -139,7 +139,7 @@ const onFocus = (event) => {
 
 const FocusWatcher = () => null;
 
-const FocusTrap = ({ children }) => (
+const FocusTrap = ({children}) => (
   <div onBlur={onBlur} onFocus={onFocus}>
     {children}
   </div>
@@ -167,7 +167,7 @@ const detachHandler = () => {
 
 function reducePropsToState(propsList) {
   return propsList
-    .filter(({ disabled }) => !disabled)
+    .filter(({disabled}) => !disabled)
     .slice(-1)[0];
 }
 
@@ -198,7 +198,13 @@ function handleStateChangeOnClient(trap) {
   }
 }
 
-setMediumCallbacks(onFocus, onBlur);
+// bind medium
+mediumFocus.assignMedium(onFocus);
+mediumBlur.assignMedium(onBlur);
+mediumEffect.assignMedium(cb => cb({
+  moveFocusInside,
+  focusInside,
+}));
 
 export default withSideEffect(
   reducePropsToState,

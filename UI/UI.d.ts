@@ -1,10 +1,12 @@
 import * as React from 'react';
-import {ReactFocusLockProps, AutoFocusProps, FreeFocusProps, InFocusGuardProps} from "./interfaces";
+import {ReactFocusLockProps, AutoFocusProps, FreeFocusProps, InFocusGuardProps} from "../interfaces";
 
 /**
  * Traps Focus inside a Lock
  */
-export default class ReactFocusLock extends React.Component<ReactFocusLockProps> {
+export default class ReactFocusLock extends React.Component<ReactFocusLockProps & {
+  sideCar: React.SFC
+}> {
 }
 
 /**

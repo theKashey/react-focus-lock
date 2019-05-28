@@ -3,5 +3,15 @@
     path: "dist/es2015/index.js",
     limit: "5 KB",
     ignore: ["prop-types", "\\@babel/runtime"]
-  }
+  },
+  {
+    path: "dist/es2015/UI.js",
+    limit: "1.8 KB",
+    ignore: ["prop-types", "\\@babel/runtime"]
+  },
+  {
+    path: "dist/es2015/sidecar.js",
+    limit: "3.5 KB",
+    ignore: ["prop-types", "\\@babel/runtime"]
+   },
 ]

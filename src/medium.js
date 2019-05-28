@@ -1,13 +1,5 @@
-let focuses = [];
-let onBlurCB = () => ({});
-let onFocusCB = ({target, currentTarget}) => focuses.push({target, currentTarget});
+import {createMedium} from "use-sidecar";
 
-export const setMediumCallbacks = (f, b) => {
-  onFocusCB = f;
-  onBlurCB = b;
-  focuses.forEach(onFocusCB);
-  focuses = [];
-};
-
-export const onBlur = e => onBlurCB(e);
-export const onFocus = e => onFocusCB(e);
+export const mediumEffect = createMedium({});
+export const mediumFocus = createMedium({}, {}, ({target, currentTarget}) => ({target, currentTarget}));
+export const mediumBlur = createMedium({});

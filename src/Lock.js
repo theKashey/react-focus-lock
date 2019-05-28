@@ -1,8 +1,8 @@
 import React, {Component} from 'react';
 import PropTypes from 'prop-types';
-import {constants} from 'focus-lock';
+import * as constants from 'focus-lock/constants';
 import {hiddenGuard} from './FocusGuard';
-import {onBlur, onFocus} from "./medium";
+import {mediumFocus, mediumBlur} from "./medium";
 
 const RenderChildren = ({children}) => <div>{children}</div>;
 RenderChildren.propTypes = {
@@ -45,11 +45,11 @@ class FocusLock extends Component {
 
   onFocus = (event) => {
     if (this.isActive) {
-      onFocus(event);
+      mediumFocus.useMedium(event);
     }
   };
 
-  onBlur = onBlur;
+  onBlur = mediumBlur.useMedium;
 
   setObserveNode = (observed) => {
     if (this.state.observed !== observed) {
