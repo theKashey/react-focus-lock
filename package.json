@@ -91,9 +91,9 @@
   "homepage": "https://github.com/theKashey/react-focus-lock#readme",
   "dependencies": {
     "@babel/runtime": "^7.0.0",
-    "focus-lock": "^0.6.3",
+    "focus-lock": "^0.6.4",
     "prop-types": "^15.6.2",
     "react-clientside-effect": "^1.2.0",
-    "use-sidecar": "^0.0.1"
+    "use-sidecar": "^0.0.2"
   }
 }

@@ -1,8 +1,8 @@
-import React, {Component} from 'react';
+import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import * as constants from 'focus-lock/constants';
-import {inlineProp} from './util';
-import {mediumEffect} from "./medium";
+import { inlineProp } from './util';
+import { mediumEffect } from './medium';
 
 export default class MoveFocusInside extends Component {
   static defaultProps = {
@@ -27,7 +27,7 @@ export default class MoveFocusInside extends Component {
 
   moveFocus() {
     const observed = this.observed;
-    mediumEffect.useMedium(car => {
+    mediumEffect.useMedium((car) => {
       if (!this.props.disabled && observed) {
         if (!car.focusInside(observed)) {
           car.moveFocusInside(observed, null);
@@ -37,7 +37,7 @@ export default class MoveFocusInside extends Component {
   }
 
   render() {
-    const {children, disabled, className} = this.props;
+    const { children, disabled, className } = this.props;
     return (
       <div
         {...inlineProp(constants.FOCUS_AUTO, !disabled)}

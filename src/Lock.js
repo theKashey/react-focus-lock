@@ -1,10 +1,10 @@
-import React, {Component} from 'react';
+import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import * as constants from 'focus-lock/constants';
-import {hiddenGuard} from './FocusGuard';
-import {mediumFocus, mediumBlur} from "./medium";
+import { hiddenGuard } from './FocusGuard';
+import { mediumFocus, mediumBlur } from './medium';
 
-const RenderChildren = ({children}) => <div>{children}</div>;
+const RenderChildren = ({ children }) => <div>{children}</div>;
 RenderChildren.propTypes = {
   children: PropTypes.node.isRequired,
 };
@@ -80,7 +80,7 @@ class FocusLock extends Component {
       lockProps: containerProps = {},
       sideCar: SideCar,
     } = this.props;
-    const {observed} = this.state;
+    const { observed } = this.state;
 
     if (process.env.NODE_ENV !== 'production') {
       if (typeof allowTextSelection !== 'undefined') {
@@ -101,8 +101,8 @@ class FocusLock extends Component {
     return (
       <Fragment>
         {hasLeadingGuards && [
-          <div key="guard-first" data-focus-guard tabIndex={disabled ? -1 : 0} style={hiddenGuard}/>, // nearest focus guard
-          <div key="guard-nearest" data-focus-guard tabIndex={disabled ? -1 : 1} style={hiddenGuard}/>, // first tabbed element guard
+          <div key="guard-first" data-focus-guard tabIndex={disabled ? -1 : 0} style={hiddenGuard} />, // nearest focus guard
+          <div key="guard-nearest" data-focus-guard tabIndex={disabled ? -1 : 1} style={hiddenGuard} />, // first tabbed element guard
         ]}
         <Container
           ref={this.setObserveNode}
@@ -127,7 +127,7 @@ class FocusLock extends Component {
         </Container>
         {
           hasTailingGuards &&
-          <div data-focus-guard tabIndex={disabled ? -1 : 0} style={hiddenGuard}/>
+          <div data-focus-guard tabIndex={disabled ? -1 : 0} style={hiddenGuard} />
         }
       </Fragment>
     );

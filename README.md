@@ -34,6 +34,7 @@ and we will do our best to earn your trust too!
  - React __Portals__ support. Even if some data is in outer space - it is [still in lock](https://github.com/theKashey/react-focus-lock/issues/19).
  - _Scattered_ locks, or focus lock groups - you can setup different isolated locks, and _tab_ from one to another.
  - Controllable isolation level.
+ - variable size bundle. Uses sidecar to trim UI part to 1.5kb. 
  
 > 💡 __focus__ locks is only the first part, there are also __scroll lock__ and __text-to-speech__ lock
 you have to use to really "lock" the user.
@@ -215,6 +216,37 @@ to allow user _tab_ into address bar.
  >> React will first call Parent.componentWillUnmount, and next Child.componentWillUnmount
  
  Thus means - Trap will be still active, be the time you _may_ want move(return) focus on componentWillUnmount. Please deffer this action with a zero-timeout. 
+
+# Sidecar
+`react-focus-lock` exposed __3 entry points__:
+- default, 5kb, just `import FocusLock from 'react-focus-lock`
+- UI, 1.5kb, `import FocusLockUI from 'react-focus-lock/UI` - a DOM part of a lock, which does nothing
+- Sidecar, 3.5kb, `import Sidecar from 'react-focus-lock/sidecar` - which is the real focus lock.
+
+## Default usage
+- `import FocusLock from 'react-focus-lock` would give you component you are looking for
+
+## Separated usage
+Meanwhile - you dont need any focus related logic until it's needed, is used in an active Lock.
+Thus - you may defer that logic and move it to a sidecar.
+```js
+import FocusLockUI from "react-focus-lock/UI";
+import {sidecar} from "use-sidecar";
+
+// define sidecar
+const FocusLockSidecar = sidecar(
+  // prefetch sidecar. data would be loaded, but js would not be executed
+  () => import(/* webpackPrefetch: true */ "react-focus-lock/sidecar")
+);
+
+<FocusLockUI
+    disabled={this.state.disabled}
+    sideCar={FocusLockSidecar}
+>
+ {content}
+</FocusLockUI> 
+```
+That would split FocusLock into two pieces, improving the first load, and not ruining the real work. 
      
 # How it works
  Everything thing is simple - react-focus-lock just don't let focus leave boundaries of a component, and

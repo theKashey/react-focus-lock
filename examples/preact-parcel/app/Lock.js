@@ -1,6 +1,6 @@
 import { h } from 'preact';
 import React, {Component} from "react";
-import {FocusLockUI} from "react-focus-lock";
+import FocusLockUI from "react-focus-lock/UI";
 import {sidecar} from "use-sidecar";
 
 const styles = {
