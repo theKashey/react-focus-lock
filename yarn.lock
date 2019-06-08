@@ -12618,10 +12618,10 @@ url@^0.11.0:
     punycode "1.3.2"
     querystring "0.2.0"
 
-use-sidecar@^0.0.2:
-  version "0.0.2"
-  resolved "https://registry.yarnpkg.com/use-sidecar/-/use-sidecar-0.0.2.tgz#781bb2fac5cf02d429de8f9074d458b7854cc039"
-  integrity sha512-5sI+4U+uu6FHrmYuJXT+e/+tGOtgQnuIrvMR7uBraYlsBV45ryUcknSHeYf+7dp1fkNYilIv89P82jvrEIVMSw==
+use-sidecar@^0.1.1:
+  version "0.1.1"
+  resolved "https://registry.yarnpkg.com/use-sidecar/-/use-sidecar-0.1.1.tgz#a6def8426348d4ac9f24a1d0b7d45932c9187406"
+  integrity sha512-gkggN312023Y1DAHQs0ppPzDig+1nrHnzQATcHZA3C9dvTlZU01yItTbBooR8BVQskUCmbQlSWwL2msP77q/2w==
   dependencies:
     detect-node "^2.0.4"
     tslib "^1.9.3"

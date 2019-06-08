@@ -1,10 +1,11 @@
-import { createMedium } from 'use-sidecar';
+import { createMedium, createSidecarMedium } from 'use-sidecar';
 
 export const mediumFocus = createMedium(
   {},
-  {},
   ({ target, currentTarget }) => ({ target, currentTarget }),
 );
-export const mediumBlur = createMedium({});
+export const mediumBlur = createMedium();
 
-export const mediumEffect = createMedium({});
+export const mediumEffect = createMedium();
+
+export const mediumSidecar = createSidecarMedium();

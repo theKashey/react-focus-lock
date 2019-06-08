@@ -94,6 +94,6 @@
     "focus-lock": "^0.6.4",
     "prop-types": "^15.6.2",
     "react-clientside-effect": "^1.2.0",
-    "use-sidecar": "^0.0.2"
+    "use-sidecar": "^0.1.1"
   }
 }

@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import * as constants from 'focus-lock/constants';
 import { hiddenGuard } from './FocusGuard';
-import { mediumFocus, mediumBlur } from './medium';
+import { mediumFocus, mediumBlur, mediumSidecar } from './medium';
 
 const RenderChildren = ({ children }) => <div>{children}</div>;
 RenderChildren.propTypes = {
@@ -113,6 +113,7 @@ class FocusLock extends Component {
         >
           {!disabled && (
             <SideCar
+              sideCar={mediumSidecar}
               observed={observed}
               disabled={disabled}
               persistentFocus={persistentFocus}

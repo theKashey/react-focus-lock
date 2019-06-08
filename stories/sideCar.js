@@ -1,4 +1,5 @@
-import React, {Component, useState, useReducer, useEffect} from "react";
+import React, {Component} from "react";
+import {sidecar} from "use-sidecar";
 import {FocusLockUI} from "../src/index";
 
 const styles = {
@@ -11,28 +12,7 @@ const bg = {
   backgroundColor: '#FEE'
 };
 
-const sideCar = importer => (props) => {
-  const [Car, setCar] = useReducer((_, s) => s, null);
-  const [error, setError] = useReducer((_, s) => s, null);
-
-  useEffect(() => {
-    importer()
-      .then(
-        car => setCar(car.default),
-        e => setError(e),
-      )
-  }, []);
-
-  useEffect(() => {
-    if (error) {
-      // on Error(error);
-    }
-  }, [error]);
-
-  return Car ? <Car {...props} /> : null;
-}
-
-const FocusLockSidecar = sideCar(() => import("../src/sidecar"));
+const FocusLockSidecar = sidecar(() => import("../src/sidecar"));
 
 class Trap extends Component {
   state = {
