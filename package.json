@@ -85,15 +85,14 @@
     "react-dom": "^16.8.6",
     "react-hot-loader": "^3.0.0-beta.7",
     "react-test-renderer": "^16.2.0",
-    "sinon": "3.2.1",
-    "size-limit": "^0.21.1"
+    "sinon": "3.2.1"
   },
   "homepage": "https://github.com/theKashey/react-focus-lock#readme",
   "dependencies": {
     "@babel/runtime": "^7.0.0",
     "focus-lock": "^0.6.4",
     "prop-types": "^15.6.2",
-    "react-clientside-effect": "^1.2.0",
+    "react-clientside-effect": "^1.2.1",
     "use-sidecar": "^0.1.1"
   }
 }
