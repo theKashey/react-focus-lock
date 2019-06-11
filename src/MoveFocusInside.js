@@ -1,8 +1,8 @@
-import React, {Component} from 'react';
+import React from 'react';
 import PropTypes from 'prop-types';
 import * as constants from 'focus-lock/constants';
-import {inlineProp} from './util';
-import {mediumEffect} from './medium';
+import { inlineProp } from './util';
+import { mediumEffect } from './medium';
 
 function MoveFocusInside(props) {
   const ref = React.useRef(null);
