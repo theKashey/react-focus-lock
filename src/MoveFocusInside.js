@@ -18,7 +18,7 @@ function MoveFocusInside(props) {
     });
   };
 
-  React.useEffect(() => {
+  React.useLayoutEffect(() => {
     disabled.current = props.disabled;
     moveFocus();
   }, [props.disabled]);
