@@ -1,11 +1,10 @@
 import { h } from 'preact';
-import React, {Component} from "react";
+import * as React from "react";
 import FocusLockUI from "react-focus-lock/UI";
 import {sidecar} from "use-sidecar";
 
 const styles = {
   fontFamily: "sans-serif",
-  textAlign: "center",
   fontSize: "16px"
 };
 
@@ -15,7 +14,7 @@ const bg = {
 
 const FocusLockSidecar = sidecar(() => import("react-focus-lock/sidecar"));
 
-class Trap extends Component {
+class Trap extends React.Component {
   state = {
     disabled: true
   }
