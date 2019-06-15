@@ -61,7 +61,9 @@ const extractRef = ref => ((ref && 'current' in ref) ? ref.current : ref);
 const activateTrap = () => {
   let result = false;
   if (lastActiveTrap) {
-    const { observed, persistentFocus, autoFocus, shards } = lastActiveTrap;
+    const {
+      observed, persistentFocus, autoFocus, shards,
+    } = lastActiveTrap;
     const workingNode = observed || (lastPortaledElement && lastPortaledElement.portaledElement);
     const activeElement = document && document.activeElement;
     if (workingNode) {
@@ -72,15 +74,15 @@ const activateTrap = () => {
 
       if (!activeElement || focusWhitelisted(activeElement)) {
         if (
-          (persistentFocus || focusWasOutsideWindow) ||
-          !isFreeFocus() ||
-          (!lastActiveFocus && autoFocus)
+          (persistentFocus || focusWasOutsideWindow)
+          || !isFreeFocus()
+          || (!lastActiveFocus && autoFocus)
         ) {
           if (
-            workingNode &&
-            !(
-              focusInside(workingArea) ||
-              focusIsPortaledPair(activeElement, workingNode)
+            workingNode
+            && !(
+              focusInside(workingArea)
+              || focusIsPortaledPair(activeElement, workingNode)
             )
           ) {
             if (document && !lastActiveFocus && activeElement && !autoFocus) {

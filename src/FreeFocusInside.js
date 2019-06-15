@@ -15,7 +15,6 @@ FreeFocusInside.propTypes = {
 };
 
 FreeFocusInside.defaultProps = {
-  disabled: false,
   className: undefined,
 };
 

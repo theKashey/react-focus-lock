@@ -9,7 +9,7 @@ const FocusLockCombination = props => (
   />
 );
 
-const { sideCar, ...propTypes } = FocusLockUI.propTypes;
+const { sideCar, ...propTypes } = FocusLockUI.propTypes || {};
 
 FocusLockCombination.propTypes = propTypes;
 

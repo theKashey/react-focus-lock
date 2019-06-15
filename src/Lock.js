@@ -1,5 +1,7 @@
 import React, { useState, useRef, useCallback } from 'react';
-import { node, bool, string, any, arrayOf, oneOfType, object, func } from 'prop-types';
+import {
+  node, bool, string, any, arrayOf, oneOfType, object, func,
+} from 'prop-types';
 import * as constants from 'focus-lock/constants';
 import { hiddenGuard } from './FocusGuard';
 import { mediumFocus, mediumBlur, mediumSidecar } from './medium';
@@ -121,8 +123,8 @@ function FocusLock(props) {
         {children}
       </Container>
       {
-        hasTailingGuards &&
-        <div data-focus-guard tabIndex={disabled ? -1 : 0} style={hiddenGuard} />
+        hasTailingGuards
+        && <div data-focus-guard tabIndex={disabled ? -1 : 0} style={hiddenGuard} />
       }
     </React.Fragment>
   );

@@ -4,9 +4,9 @@ import * as constants from 'focus-lock/constants';
 import { inlineProp } from './util';
 import { mediumEffect } from './medium';
 
-function MoveFocusInside(props) {
+function MoveFocusInside({ disabled: isDisabled, className, children }) {
   const ref = React.useRef(null);
-  const disabled = React.useRef(props.disabled);
+  const disabled = React.useRef(isDisabled);
   const moveFocus = () => {
     const observed = ref.current;
     mediumEffect.useMedium((car) => {
@@ -19,17 +19,17 @@ function MoveFocusInside(props) {
   };
 
   React.useLayoutEffect(() => {
-    disabled.current = props.disabled;
+    disabled.current = isDisabled;
     moveFocus();
-  }, [props.disabled]);
+  }, [isDisabled]);
 
   return (
     <div
-      {...inlineProp(constants.FOCUS_AUTO, !props.disabled)}
+      {...inlineProp(constants.FOCUS_AUTO, !isDisabled)}
       ref={ref}
-      className={props.className}
+      className={className}
     >
-      {props.children}
+      {children}
     </div>
   );
 }

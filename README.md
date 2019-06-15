@@ -87,15 +87,19 @@ By default `tabbing` in OSX `sees` only controls, but not links or anything else
 Press Option+Tab in Safary to loop across all tabbables, or change the Safary settings. There is no way to _fix_ FireFox, unless change system settings (Control+F7). See [this issue](https://github.com/theKashey/react-focus-lock/issues/24) for more information.
 
 ## Set up
+### Requirements
+- version 1x is React 15/16 compatible
+- version 2+ requires React 16.8+ (hooks)
+### Import
 `react-focus-lock` exposed __3 entry points__: for the classical usage, and a _sidecar_ one.
-### Default usage
+#### Default usage
 - 4kb, `import FocusLock from 'react-focus-lock` would give you component you are looking for.
 
-## Separated usage
+#### Separated usage
 Meanwhile - you dont need any focus related logic until it's needed.
 Thus - you may defer that logic till Lock activation and move all related code to a _sidecar_.
 
-- UI, 1.5kb, `import FocusLockUI from 'react-focus-lock/UI` - a DOM part of a lock.
+- UI, __1.5kb__, `import FocusLockUI from 'react-focus-lock/UI` - a DOM part of a lock.
 - Sidecar, 3.5kb, `import Sidecar from 'react-focus-lock/sidecar` - which is the real focus lock.
 
 ```js
@@ -115,8 +119,9 @@ const FocusLockSidecar = sidecar(
 </FocusLockUI> 
 ```
 That would split FocusLock into two pieces, reducing app size and improving the first load.
+The cost of focus-lock is just 1.5kb!
 
-> 3.5kb? 3.5kb here and 3.5kb here, and your 20mb bundle is ready.
+> Saved 3.5kb?! 🤷‍♂️ 3.5kb here and 3.5kb here, and your 20mb bundle is ready.
 
 # Autofocus
  As long you cannot use `autoFocus` prop - 
