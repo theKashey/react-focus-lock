@@ -1,167 +1,156 @@
-import React, { Component } from 'react';
-import PropTypes from 'prop-types';
+import React, { useState, useRef, useCallback } from 'react';
+import { node, bool, string, any, arrayOf, oneOfType, object, func } from 'prop-types';
 import * as constants from 'focus-lock/constants';
 import { hiddenGuard } from './FocusGuard';
 import { mediumFocus, mediumBlur, mediumSidecar } from './medium';
 
-const RenderChildren = ({ children }) => <div>{children}</div>;
-RenderChildren.propTypes = {
-  children: PropTypes.node.isRequired,
-};
-
-const Fragment = React.Fragment ? React.Fragment : RenderChildren;
-
 const emptyArray = [];
 
-class FocusLock extends Component {
-  state = {
-    observed: undefined,
-  };
+function FocusLock(props) {
+  const [realObserved, setObserved] = useState();
+  const observed = useRef();
+  const isActive = useRef(false);
+  const originalFocusedElement = useRef(null);
 
-  onActivation = () => {
-    this.originalFocusedElement = (
-      this.originalFocusedElement || (document && document.activeElement)
+  // SIDE EFFECT CALLBACKS
+
+  const onActivation = useCallback(() => {
+    originalFocusedElement.current = (
+      originalFocusedElement.current || (document && document.activeElement)
     );
-    if (this.state.observed && this.props.onActivation) {
-      this.props.onActivation(this.state.observed);
+    if (observed.current && props.onActivation) {
+      props.onActivation(observed.current);
     }
-    this.isActive = true;
-  };
+    isActive.current = true;
+  }, []);
 
-  onDeactivation = () => {
-    this.isActive = false;
-    if (this.props.onDeactivation) {
-      this.props.onDeactivation(this.state.observed);
+  const onDeactivation = useCallback(() => {
+    isActive.current = false;
+    if (props.onDeactivation) {
+      props.onDeactivation(observed.current);
     }
-  };
+  }, []);
 
-  onFocus = (event) => {
-    if (this.isActive) {
+  const returnFocus = useCallback(() => {
+    const { current } = originalFocusedElement;
+    if (props.returnFocus && current && current.focus) {
+      current.focus();
+      originalFocusedElement.current = null;
+    }
+  }, []);
+
+  // MEDUIM CALLBACKS
+
+  const onFocus = useCallback((event) => {
+    if (isActive.current) {
       mediumFocus.useMedium(event);
     }
-  };
+  }, []);
 
-  onBlur = mediumBlur.useMedium;
+  const onBlur = mediumBlur.useMedium;
 
-  setObserveNode = (observed) => {
-    if (this.state.observed !== observed) {
-      this.setState({
-        observed,
-      });
+  // REF PROPAGATION
+  // not using real refs due to race conditions
+
+  const setObserveNode = useCallback((newObserved) => {
+    if (observed.current !== newObserved) {
+      observed.current = realObserved;
+      setObserved(newObserved);
     }
-  };
+  }, []);
 
-  returnFocus = () => {
-    if (
-      this.props.returnFocus &&
-      this.originalFocusedElement &&
-      this.originalFocusedElement.focus
-    ) {
-      this.originalFocusedElement.focus();
-      this.originalFocusedElement = null;
+  const {
+    children,
+    disabled,
+    noFocusGuards,
+    persistentFocus,
+    autoFocus,
+    allowTextSelection,
+    group,
+    className,
+    whiteList,
+    shards = emptyArray,
+    as: Container = 'div',
+    lockProps: containerProps = {},
+    sideCar: SideCar,
+  } = props;
+
+  if (process.env.NODE_ENV !== 'production') {
+    if (typeof allowTextSelection !== 'undefined') {
+      // eslint-disable-next-line no-console
+      console.warn('React-Focus-Lock: allowTextSelection is deprecated and enabled by default');
     }
-  };
-
-  // active status is tracked outside React state
-  isActive = false;
-
-  originalFocusedElement = null;
-
-  render() {
-    const {
-      children,
-      disabled,
-      noFocusGuards,
-      persistentFocus,
-      autoFocus,
-      allowTextSelection,
-      group,
-      className,
-      whiteList,
-      shards = emptyArray,
-      as: Container = 'div',
-      lockProps: containerProps = {},
-      sideCar: SideCar,
-    } = this.props;
-    const { observed } = this.state;
-
-    if (process.env.NODE_ENV !== 'production') {
-      if (typeof allowTextSelection !== 'undefined') {
-        // eslint-disable-next-line no-console
-        console.warn('React-Focus-Lock: allowTextSelection is deprecated and enabled by default');
-      }
-    }
-
-    const lockProps = {
-      [constants.FOCUS_DISABLED]: disabled && 'disabled',
-      [constants.FOCUS_GROUP]: group,
-      ...containerProps,
-    };
-
-    const hasLeadingGuards = noFocusGuards !== true;
-    const hasTailingGuards = hasLeadingGuards && (noFocusGuards !== 'tail');
-
-    return (
-      <Fragment>
-        {hasLeadingGuards && [
-          <div key="guard-first" data-focus-guard tabIndex={disabled ? -1 : 0} style={hiddenGuard} />, // nearest focus guard
-          <div key="guard-nearest" data-focus-guard tabIndex={disabled ? -1 : 1} style={hiddenGuard} />, // first tabbed element guard
-        ]}
-        <Container
-          ref={this.setObserveNode}
-          {...lockProps}
-          className={className}
-          onBlur={this.onBlur}
-          onFocus={this.onFocus}
-        >
-          {!disabled && (
-            <SideCar
-              sideCar={mediumSidecar}
-              observed={observed}
-              disabled={disabled}
-              persistentFocus={persistentFocus}
-              autoFocus={autoFocus}
-              whiteList={whiteList}
-              shards={shards}
-              onActivation={this.onActivation}
-              onDeactivation={this.onDeactivation}
-              returnFocus={this.returnFocus}
-            />
-          )}
-          {children}
-        </Container>
-        {
-          hasTailingGuards &&
-          <div data-focus-guard tabIndex={disabled ? -1 : 0} style={hiddenGuard} />
-        }
-      </Fragment>
-    );
   }
+
+  const lockProps = {
+    [constants.FOCUS_DISABLED]: disabled && 'disabled',
+    [constants.FOCUS_GROUP]: group,
+    ...containerProps,
+  };
+
+  const hasLeadingGuards = noFocusGuards !== true;
+  const hasTailingGuards = hasLeadingGuards && (noFocusGuards !== 'tail');
+
+  return (
+    <React.Fragment>
+      {hasLeadingGuards && [
+        <div key="guard-first" data-focus-guard tabIndex={disabled ? -1 : 0} style={hiddenGuard} />, // nearest focus guard
+        <div key="guard-nearest" data-focus-guard tabIndex={disabled ? -1 : 1} style={hiddenGuard} />, // first tabbed element guard
+      ]}
+      <Container
+        ref={setObserveNode}
+        {...lockProps}
+        className={className}
+        onBlur={onBlur}
+        onFocus={onFocus}
+      >
+        {!disabled && (
+          <SideCar
+            sideCar={mediumSidecar}
+            observed={realObserved}
+            disabled={disabled}
+            persistentFocus={persistentFocus}
+            autoFocus={autoFocus}
+            whiteList={whiteList}
+            shards={shards}
+            onActivation={onActivation}
+            onDeactivation={onDeactivation}
+            returnFocus={returnFocus}
+          />
+        )}
+        {children}
+      </Container>
+      {
+        hasTailingGuards &&
+        <div data-focus-guard tabIndex={disabled ? -1 : 0} style={hiddenGuard} />
+      }
+    </React.Fragment>
+  );
 }
 
 FocusLock.propTypes = {
-  children: PropTypes.node.isRequired,
-  disabled: PropTypes.bool,
-  returnFocus: PropTypes.bool,
-  noFocusGuards: PropTypes.bool,
+  children: node.isRequired,
+  disabled: bool,
+  returnFocus: bool,
+  noFocusGuards: bool,
 
-  allowTextSelection: PropTypes.bool,
-  autoFocus: PropTypes.bool,
-  persistentFocus: PropTypes.bool,
+  allowTextSelection: bool,
+  autoFocus: bool,
+  persistentFocus: bool,
 
-  group: PropTypes.string,
-  className: PropTypes.string,
+  group: string,
+  className: string,
 
-  whiteList: PropTypes.func,
-  shards: PropTypes.arrayOf(PropTypes.any),
+  whiteList: func,
+  shards: arrayOf(any),
 
-  as: PropTypes.oneOfType([PropTypes.string, PropTypes.func, PropTypes.object]),
-  lockProps: PropTypes.object,
+  as: oneOfType([string, func, object]),
+  lockProps: object,
 
-  onActivation: PropTypes.func,
-  onDeactivation: PropTypes.func,
+  onActivation: func,
+  onDeactivation: func,
 
-  sideCar: PropTypes.any.isRequired,
+  sideCar: any.isRequired,
 };
 
 FocusLock.defaultProps = {
@@ -181,6 +170,5 @@ FocusLock.defaultProps = {
   onActivation: undefined,
   onDeactivation: undefined,
 };
-
 
 export default FocusLock;
