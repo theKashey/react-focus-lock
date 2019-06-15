@@ -16,18 +16,20 @@ module.exports = {
     strictExportPresence: true,
     rules: [
       {
-        test: /\.js$/,
+        test: /\.(js|tsx)$/,
         exclude: /node_modules/,
         use: ['babel-loader'],
       },
     ],
   },
-  // resolve: {
-  //   alias: {
-  //     "react": "preact/compat",
-  //     "react-dom": "preact/compat",
-  //   }
-  // },
+
+  resolve: {
+    extensions: ['.js', '.json', '.ts', '.tsx'],
+    //   alias: {
+    //     "react": "preact/compat",
+    //     "react-dom": "preact/compat",
+    //   }
+  },
   optimization: {
     concatenateModules: false,
   },
