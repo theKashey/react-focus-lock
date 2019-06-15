@@ -10,6 +10,7 @@
     "mocha": true,
   },
   "rules": {
+    "no-cond-assign": "off",
     "jsx-a11y/href-no-hash": "off",
     // Override airbnb to disable devDependencies check until we figure out how to exclude tests files
     "import/no-extraneous-dependencies": [2, {"optionalDependencies": false}],
@@ -19,6 +20,7 @@
 
     // Turn off https://github.com/yannickcr/eslint-plugin-react/blob/master/docs/rules/jsx-filename-extension.md
     "react/jsx-filename-extension": 0,
+    "react/forbid-prop-types" : 0,
 
     // Turn off https://github.com/benmosher/eslint-plugin-import/blob/master/docs/rules/no-named-as-default-member.md
     "import/no-named-as-default-member": 0,

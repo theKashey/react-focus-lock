@@ -1,0 +1,14 @@
+version: 2
+jobs:
+  build:
+    docker:
+      - image: circleci/node:latest-browsers
+
+    working_directory: ~/repo
+
+    steps:
+      - checkout
+      - run: yarn
+      - run: yarn lint
+      - run: yarn size
+      - run: yarn test

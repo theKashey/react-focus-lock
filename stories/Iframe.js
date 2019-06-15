@@ -30,31 +30,19 @@ class Trap extends Component {
           <br />
         </div>
         }
+        You will cycle over this. Never leaving <br/>
         <input placeholder="input1"/>
 
+        <iframe src="/" style={{width:'100%', height: '60%'}}/>
+
         <input placeholder="input2"/>
-
-        <input placeholder="input3"/> <br />
-
-        <button>A BUTTON</button>
-        <br />
-
-        <div>
-          <span tabIndex={2}> tabbable-Next</span> <br />
-          <span tabIndex={1}> tabbable-First</span> <br />
-        </div>
-
-        <a href='#'>link somethere</a> <br />
 
         { !disabled && <div>
           <br /><br />PRESS this to end the trial.<br/><br/>
           <button onClick={this.toggle}>ESCAPE!!!</button>
           <br/>
+          All your focus belongs to us!
         </div>}
-        <button tabIndex={-1}>TAB -1 BUTTON</button>
-        <button style={{visibility: 'hidden'}}>hidden</button>
-        <button style={{display: 'none'}}>node</button>
-
       </FocusLock>
     )
   }
@@ -62,10 +50,11 @@ class Trap extends Component {
 
 const App = () =>
   <div style={styles}>
+    <input placeholder="input1"/>
     <div style={bg}> Inaccessible <a href='#'>Link</a> outside</div>
     <Trap />
     <div style={bg}> Inaccessible <a href='#'>Link</a> outside</div>
-    <button tabIndex={-1}>TAB -1 BUTTON OUTSIDE</button>
+    <input placeholder="input1"/>
   </div>;
 
 export default App;

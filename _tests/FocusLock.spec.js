@@ -3,7 +3,7 @@
 import React, {Component} from 'react';
 import ReactDOM, {createPortal} from 'react-dom';
 import {expect} from 'chai';
-import {mount, configure as configureEnzyme} from 'enzyme';
+import {mount as emount, configure as configureEnzyme} from 'enzyme';
 import sinon from 'sinon'
 import FocusLock, {AutoFocusInside, MoveFocusInside} from '../src/index';
 
@@ -11,6 +11,7 @@ import EnzymeReactAdapter from 'enzyme-adapter-react-16';
 
 configureEnzyme({adapter: new EnzymeReactAdapter()});
 
+const tick = () => new Promise(resolve => setTimeout(resolve, 1));
 
 describe('react-focus-lock', () => {
   beforeEach(() => {
@@ -23,27 +24,61 @@ describe('react-focus-lock', () => {
     console.error.restore();
   });
 
+  class FocusLockWithState extends React.Component {
+    state = {
+      enabled: this.props.defaultEnabled,
+    };
+
+    render() {
+      const {enabled} = this.state;
+      return (
+        <FocusLock disabled={!enabled}>
+          {this.props.children(enabled, () =>
+            this.setState({enabled: !enabled}),
+          )}
+        </FocusLock>
+      );
+    }
+  }
+
   describe('FocusTrap', () => {
   });
 
   describe('FocusLock', () => {
-    let mountPoint;
-
+    let mountPoint = [];
+    const mount = code => {
+      const wrapper = emount(code);
+      mountPoint.push(wrapper);
+      return wrapper;
+    };
     beforeEach(() => {
-      mountPoint = document.createElement('div');
-      document.body.appendChild(mountPoint);
+      mountPoint = [];
     });
 
     afterEach(() => {
-      ReactDOM.unmountComponentAtNode(mountPoint);
-      document.body.removeChild(mountPoint);
-      document.body.innerHTML = '';
+      mountPoint.forEach(wrapper => wrapper.unmount());
       document.body.focus();
     });
 
     it('Is rendered', () => {
       mount(<FocusLock><p>children</p></FocusLock>)
-    })
+    });
+
+    it('should focus on inner lock', () => {
+      const outer = React.createRef();
+      const inner = React.createRef();
+      mount(
+        <FocusLock>
+          <button ref={outer}>t1 - Button 1</button>
+          <FocusLock>
+            <button ref={inner}>t2 - Button 2</button>
+          </FocusLock>
+        </FocusLock>
+      );
+      expect(inner.current).to.be.equal(document.activeElement);
+      expect(inner.current.innerHTML).to.include('Button 2');
+    });
+
 
     it('Should not focus on inputs', () => {
       const wrapper = mount((
@@ -59,7 +94,7 @@ describe('react-focus-lock', () => {
             text
           </div>
         </div>
-      ), mountPoint);
+      ));
       wrapper.find('.action1').getDOMNode().focus();
       expect(document.activeElement.innerHTML).to.be.equal('action1');
       wrapper.find('.action2').getDOMNode().focus();
@@ -105,13 +140,90 @@ describe('react-focus-lock', () => {
           </div>
           <Test/>
         </div>
-      ), mountPoint);
+      ));
       expect(document.activeElement.innerHTML).to.be.equal('d-action2');
       wrapper.find('.clickTarget').simulate('click');
       setTimeout(() => {
         expect(document.activeElement.innerHTML).to.be.equal('d-action3');
         done();
       }, 1);
+    });
+
+    it('Should return focus to the original place - nested case', async () => {
+      let counter = 0;
+
+      class Test extends Component {
+        state = {
+          focused: false,
+          c: counter++,
+        };
+
+        toggle = () => {
+          this.setState({
+            focused: !this.state.focused,
+          });
+        };
+
+        render() {
+          return (
+            <div>
+              <FocusLock returnFocus>
+                <div>
+                  <span className={`clickTarget${this.state.c}`} onClick={this.toggle}/>
+                  text
+                  <button className="action2">d-action{this.state.c}</button>
+                  {this.state.focused && <Test/>}
+                  text
+                </div>
+              </FocusLock>
+            </div>
+          );
+        }
+      }
+
+      const wrapper = mount((
+        <div>
+          <div>
+            text
+            <button className="action1">d-action1</button>
+            text
+            <button className="action1" autoFocus>top focused</button>
+          </div>
+          <Test/>
+        </div>
+      ));
+
+      expect(document.activeElement.innerHTML).to.be.equal('d-action0');
+      wrapper.find('.clickTarget0').simulate('click');
+
+      await tick();
+
+      expect(document.activeElement.innerHTML).to.be.equal('d-action1');
+      wrapper.find('.clickTarget1').simulate('click');
+
+      await tick();
+
+      expect(document.activeElement.innerHTML).to.be.equal('d-action2');
+      wrapper.find('.clickTarget2').simulate('click');
+
+      await tick();
+
+      expect(document.activeElement.innerHTML).to.be.equal('d-action3');
+      wrapper.find('.clickTarget2').simulate('click');
+
+      await tick();
+
+      expect(document.activeElement.innerHTML).to.be.equal('d-action2');
+      wrapper.find('.clickTarget1').simulate('click');
+
+      await tick();
+
+      expect(document.activeElement.innerHTML).to.be.equal('d-action1');
+      wrapper.find('.clickTarget0').simulate('click');
+
+      await tick();
+
+      expect(document.activeElement.innerHTML).to.be.equal('d-action0');
     });
 
     it('Should focus on inputs', (done) => {
@@ -129,7 +241,31 @@ describe('react-focus-lock', () => {
             text
           </div>
         </FocusLock>
-      </div>, mountPoint);
+      </div>);
+      wrapper.find('.action1').getDOMNode().focus();
+      expect(document.activeElement.innerHTML).to.be.equal('action1');
+      setTimeout(() => {
+        expect(document.activeElement.innerHTML).to.be.equal('2-action2');
+        done();
+      }, 10);
+    });
+
+    it('Should focus on inputs with tab indexes', (done) => {
+      const wrapper = mount(<div>
+        <div>
+          text
+          <button className="action1">action1</button>
+          text
+        </div>
+        <FocusLock>
+          <div>
+            text
+            <button className="action2-false" tabIndex={1} disabled>action2-false</button>
+            <button className="action2" tabIndex={1}>2-action2</button>
+            text
+          </div>
+        </FocusLock>
+      </div>);
       wrapper.find('.action1').getDOMNode().focus();
       expect(document.activeElement.innerHTML).to.be.equal('action1');
       setTimeout(() => {
@@ -153,11 +289,11 @@ describe('react-focus-lock', () => {
             text
           </div>
         </FocusLock>
-      </div>, mountPoint);
-      setTimeout(() => {
-        expect(document.activeElement.innerHTML).to.be.equal('1-action2');
-        done();
-      }, 10);
+      </div>);
+      // setTimeout(() => {
+      expect(document.activeElement.innerHTML).to.be.equal('1-action2');
+      done();
+      // }, 10);
     });
 
     it('Should blur focus on inputs, when autoFocus is false', (done) => {
@@ -175,7 +311,7 @@ describe('react-focus-lock', () => {
             text
           </div>
         </FocusLock>
-      </div>, mountPoint);
+      </div>);
       setTimeout(() => {
         expect(document.activeElement).to.be.equal(document.body);
         done();
@@ -197,7 +333,7 @@ describe('react-focus-lock', () => {
             text
           </div>
         </FocusLock>
-      </div>, mountPoint);
+      </div>);
       wrapper.find('.action1').getDOMNode().focus();
       expect(document.activeElement.innerHTML).to.be.equal('action1');
       setTimeout(() => {
@@ -222,7 +358,7 @@ describe('react-focus-lock', () => {
             text
           </div>
         </FocusLock>
-      </div>, mountPoint);
+      </div>);
       // wrapper.find('.action1').getDOMNode().focus();
       // expect(document.activeElement.innerHTML).to.be.equal('action1');
       setTimeout(() => {
@@ -254,7 +390,7 @@ describe('react-focus-lock', () => {
               text
             </div>
           </FocusLock>
-        </div>, mountPoint);
+        </div>);
         wrapper.find('.action1').getDOMNode().focus();
         expect(document.activeElement.innerHTML).to.be.equal('action1');
         setImmediate(() => {
@@ -284,7 +420,7 @@ describe('react-focus-lock', () => {
               text
             </div>
           </FocusLock>
-        </div>, mountPoint);
+        </div>);
         wrapper.find('.action1').getDOMNode().focus();
         expect(document.activeElement.innerHTML).to.be.equal('action1');
         setTimeout(() => {
@@ -308,7 +444,7 @@ describe('react-focus-lock', () => {
             </div>
             <button className="action2">5-action4</button>
           </FocusLock>
-        </div>, mountPoint);
+        </div>);
         wrapper.find('.action1').getDOMNode().focus();
         expect(document.activeElement.innerHTML).to.be.equal('action1');
         setTimeout(() => {
@@ -329,7 +465,7 @@ describe('react-focus-lock', () => {
               </div>
             </FocusLock>
           </div>
-        ), mountPoint);
+        ));
 
         wrapper.find('.action1').getDOMNode().focus();
         expect(document.activeElement.innerHTML).to.be.equal('action1');
@@ -353,13 +489,83 @@ describe('react-focus-lock', () => {
               </div>
             </FocusLock>
           </div>
-        ), mountPoint);
+        ));
         wrapper.find('.action1').getDOMNode().focus();
         expect(document.activeElement.innerHTML).to.be.equal('action1');
         setImmediate(() => {
           expect(document.activeElement.value).to.be.equal('second');
           done();
         });
+      });
+    });
+
+    it('should focus on previous lock after state change', (done) => {
+      const ref = React.createRef();
+      const wrapper = mount(
+        <div>
+          <FocusLock>
+            <button ref={ref}>Button 1</button>
+          </FocusLock>
+          <FocusLockWithState defaultEnabled>
+            {(enabled, toggle) => (
+              <button id="button-2" onClick={toggle}>
+                {`Button 2 ${enabled ? 'locked' : 'unlocked'}`}
+              </button>
+            )}
+          </FocusLockWithState>
+        </div>,
+      );
+      wrapper.find('#button-2').simulate('click');
+      setImmediate(() => {
+        expect(document.activeElement.innerHTML).to.be.equal('Button 1'),
+          done()
+      });
+    });
+
+    it('should keep active event after state change', (done) => {
+      const ref = React.createRef();
+      const wrapper = mount(
+        <div>
+          <FocusLock>
+            <button ref={ref}>Button 1</button>
+            <FocusLockWithState defaultEnabled>
+              {(enabled, toggle) => (
+                <button id="button-2" onClick={toggle}>
+                  {`Button 2 ${enabled ? 'locked' : 'unlocked'}`}
+                </button>
+              )}
+            </FocusLockWithState>
+          </FocusLock>
+        </div>,
+      );
+      wrapper.find('#button-2').simulate('click');
+      setImmediate(() => {
+        expect(document.activeElement.innerHTML).to.be.equal('Button 2 unlocked'),
+          done()
+      });
+    });
+
+    it('should focus on previous lock after a couple of state changes', (done) => {
+      const ref = React.createRef();
+      const wrapper = mount(
+        <div>
+          <FocusLock enabled>
+            <button>Button 1</button>
+          </FocusLock>
+          <FocusLockWithState defaultEnabled>
+            {(enabled, toggle) => (
+              <button id="button-2" onClick={toggle} ref={ref}>
+                {`Button 2 ${enabled ? 'locked' : 'unlocked'}`}
+              </button>
+            )}
+          </FocusLockWithState>
+        </div>,
+      );
+      wrapper.find('#button-2').simulate('click');
+      wrapper.find('#button-2').simulate('click');
+      setImmediate(() => {
+        expect(document.activeElement.innerHTML).to.be.equal('Button 2 locked'),
+          done()
       });
     });
 
@@ -440,7 +646,7 @@ describe('react-focus-lock', () => {
               </div>
             </FocusLock>
           </div>
-        ), mountPoint);
+        ));
         wrapper.find('.action1').getDOMNode().focus();
         expect(document.activeElement.innerHTML).to.be.equal('action1');
         setImmediate(() => {
@@ -449,7 +655,7 @@ describe('react-focus-lock', () => {
         });
       });
 
-      it.skip('Do the same with AutoFocusIncide', (done) => {
+      it.skip('Do the same with AutoFocusInside', (done) => {
         const wrapper = mount((
           <div>
             <FocusLock>
@@ -465,7 +671,7 @@ describe('react-focus-lock', () => {
               </div>
             </FocusLock>
           </div>
-        ), mountPoint);
+        ));
         wrapper.find('.action1').getDOMNode().focus();
         expect(document.activeElement.innerHTML).to.be.equal('action1');
         setImmediate(() => {
@@ -490,7 +696,7 @@ describe('react-focus-lock', () => {
             <button>6-action3</button>
             <button>6-action4</button>
           </FocusLock>
-        </div>, mountPoint);
+        </div>);
         expect(document.activeElement.innerHTML).to.be.equal('button-action');
         setTimeout(() => {
           wrapper.find('.action1').simulate('focus');
@@ -516,7 +722,7 @@ describe('react-focus-lock', () => {
             <button>6-action3</button>
             <button>6-action4</button>
           </FocusLock>
-        </div>, mountPoint);
+        </div>);
         expect(document.activeElement.innerHTML).to.be.equal('button-action');
         setTimeout(() => {
           wrapper.find('.action1').simulate('focus');
@@ -554,7 +760,7 @@ describe('react-focus-lock', () => {
             <button id="portaled1" autoFocus>i am out portaled</button>,
             makeElement()
           )}</div>
-        </div>, mountPoint);
+        </div>);
         document.getElementById('portaled1').focus();
         expect(document.activeElement.innerHTML).to.be.equal('i am out portaled');
         setTimeout(() => {
@@ -582,7 +788,7 @@ describe('react-focus-lock', () => {
             </MoveFocusInside>,
             makeElement()
           )}</div>
-        </div>, mountPoint);
+        </div>);
         sinon.assert.calledOnce(focusSpy);
         setTimeout(() => {
           expect(document.activeElement.innerHTML).to.be.equal('button-action');
@@ -609,7 +815,7 @@ describe('react-focus-lock', () => {
             )}</div>
             <button>6-action4</button>
           </FocusLock>
-        </div>, mountPoint);
+        </div>);
         document.getElementById('portaled2').focus();
         expect(document.activeElement.innerHTML).to.be.equal('i am portaled');
         setTimeout(() => {
@@ -618,7 +824,7 @@ describe('react-focus-lock', () => {
           setTimeout(() => {
             expect(document.activeElement.innerHTML).to.be.equal('and i am portaled');
             done();
-          },1);
+          }, 1);
         }, 1);
       });
 
@@ -635,14 +841,14 @@ describe('react-focus-lock', () => {
             <div>{ReactDOM.createPortal(
               <div>
                 <MoveFocusInside>
-                <button id="portaled2" autoFocus>i am portaled</button>
+                  <button id="portaled2" autoFocus>i am portaled</button>
                 </MoveFocusInside>
               </div>,
               makeElement()
             )}</div>
             <button>6-action4</button>
           </FocusLock>
-        </div>, mountPoint);
+        </div>);
         expect(document.activeElement.innerHTML).to.be.equal('i am portaled');
         setTimeout(() => {
           expect(document.activeElement.innerHTML).to.be.equal('i am portaled');
@@ -678,7 +884,7 @@ describe('react-focus-lock', () => {
             <button className="action1">action1</button>
             text
           </div>
-        </div>, mountPoint);
+        </div>);
         wrapper.find('#b2').simulate('focus');
         wrapper.find('#b2').getDOMNode().focus();
         expect(document.activeElement.innerHTML).to.be.equal('button2');
@@ -714,7 +920,7 @@ describe('react-focus-lock', () => {
               <button className="action3">action1</button>
               text
             </div>
-          </div>, mountPoint);
+          </div>);
         wrapper.find('#b2').simulate('focus');
         wrapper.find('#b2').getDOMNode().focus();
         expect(document.activeElement.innerHTML).to.be.equal('button2');
@@ -751,7 +957,7 @@ describe('react-focus-lock', () => {
               <button className="action3">action1</button>
               text
             </div>
-          </div>, mountPoint);
+          </div>);
         wrapper.find('#b2').simulate('focus');
         wrapper.find('#b2').getDOMNode().focus();
         expect(document.activeElement.innerHTML).to.be.equal('button2');
@@ -763,6 +969,64 @@ describe('react-focus-lock', () => {
           setTimeout(() => {
             expect(document.activeElement.innerHTML).to.be.equal('button3');
             done();
+          }, 1);
+        }, 1);
+      });
+
+      it('Should handle focus groups - shard', (done) => {
+        const ref1 = React.createRef();
+        const ref2 = React.createRef();
+        const TestCase = () => (
+          <div>
+            <div>
+              text
+              <button className="action1">action1</button>
+              text
+            </div>
+            <FocusLock shards={[ref1, ref2.current, null]} autoFocus>
+              <button id="b1">button1</button>
+              <button id="b2">button2</button>
+            </FocusLock>
+            <button id="b3" ref={ref1}>button3</button>
+            <button id="b5">button5</button>
+            <button id="b4" ref={ref2}>button4</button>
+            <div>
+              text
+              <button className="action3">action1</button>
+              text
+            </div>
+          </div>
+        );
+
+        const wrapper = mount(<TestCase/>);
+        wrapper.update().find('#b2').getDOMNode().focus();
+        // update wrapper to propagate ref2
+        wrapper.setProps({});
+        expect(document.activeElement.innerHTML).to.be.equal('button2');
+        setTimeout(() => {
+          expect(document.activeElement.innerHTML).to.be.equal('button2');
+          wrapper.find('#b3').simulate('focus');
+          wrapper.find('#b3').getDOMNode().focus();
+          wrapper.find('#b1').simulate('blur');
+          expect(document.activeElement.innerHTML).to.be.equal('button3');
+          setTimeout(() => {
+            expect(document.activeElement.innerHTML).to.be.equal('button3');
+            wrapper.find('#b4').simulate('focus');
+            wrapper.find('#b4').getDOMNode().focus();
+            wrapper.find('#b1').simulate('blur');
+            expect(document.activeElement.innerHTML).to.be.equal('button4');
+            setTimeout(() => {
+              expect(document.activeElement.innerHTML).to.be.equal('button4');
+              wrapper.find('#b5').simulate('focus');
+              wrapper.find('#b5').getDOMNode().focus();
+              expect(document.activeElement.innerHTML).to.be.equal('button5');
+              wrapper.find('#b1').simulate('blur');
+              setTimeout(() => {
+                // it should be 3 :(
+                expect(document.activeElement.innerHTML).to.be.equal('button3');
+                done();
+              }, 1);
+            }, 1);
           }, 1);
         }, 1);
       });
@@ -793,7 +1057,7 @@ describe('react-focus-lock', () => {
               <button className="action3">action1</button>
               text
             </div>
-          </div>, mountPoint);
+          </div>);
         wrapper.find('#b2').simulate('focus');
         wrapper.find('#b2').getDOMNode().focus();
         expect(document.activeElement.innerHTML).to.be.equal('button2');

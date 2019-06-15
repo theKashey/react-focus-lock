@@ -2,35 +2,44 @@
   <h1 align="center">REACT FOCUS LOCK</h1>
   <img src="./assets/ackbar.png" alt="it-is-a-trap" width="200" height="200" align="right">
   
-  The way to manage your focus.<br/>
-  The way to lock it inside.<br/>
-  The way to team up with a11y.<br/> <br/>
-  Make you site a better place. For everyone.<br/>
+  - browser friendly focus lock<br/>
+  - matching all your use cases<br/>
+  - trusted by best UI frameworks<br/>
+  - the thing Admiral Ackbar was talking about<br/>
+  <br/>
 
 [![CircleCI status](https://img.shields.io/circleci/project/github/theKashey/react-focus-lock/master.svg?style=flat-square)](https://circleci.com/gh/theKashey/react-focus-lock/tree/master)
-
+[![npm](https://img.shields.io/npm/v/react-focus-lock.svg)](https://www.npmjs.com/package/react-focus-lock)
+[![bundle size](https://badgen.net/bundlephobia/minzip/react-focus-lock)](https://bundlephobia.com/result?p=react-focus-lock)
+[![downloads](https://badgen.net/npm/dm/react-focus-lock)](https://www.npmtrends.com/react-focus-lock)
+[![Greenkeeper badge](https://badges.greenkeeper.io/theKashey/react-focus-lock.svg)](https://greenkeeper.io/)
   <hr/>  
 </div>
 
-
 It is a trap! We got your focus and will not let him out!
 
-[![NPM](https://nodei.co/npm/react-focus-lock.png?downloads=true&stars=true)](https://nodei.co/npm/react-focus-lock/) [![Greenkeeper badge](https://badges.greenkeeper.io/theKashey/react-focus-lock.svg)](https://greenkeeper.io/)
+- Modal dialogs. You can not leave it with "Tab", ie do a "tab-out".
+- Focused tasks. It will aways brings you back, as you can "lock" user inside a component.
+- Any any other case, when you have to lock user _intention_ and _focus_, if that's what `a11y` is asking for.
 
-This is a small, but very useful for:
- - Modal dialogs. You can not leave it with "Tab", ie tab-out.
- - Focused tasks. It will aways brings you back.
+### Trusted
+Trusted by 
+[Atlassian AtlasKit](https://atlaskit.atlassian.com), 
+[ReachUI](https://ui.reach.tech/), 
+[SmoothUI](https://smooth-ui.smooth-code.com/), 
+[Storybook](https://storybook.js.org/)
+and we will do our best to earn your trust too!
  
-You have to use it in _every_ modal dialog, or you `a11y` will be shitty.
-
-This is most comprehensive focus lock/trap ever built. 
-
 # Features
- - no keyboard control, everything is done watching a __focus behavior__. Thus works always and everywhere.
- - React __Portals__ support. Even if some data is in outerspace - it is [still in lock](https://github.com/theKashey/react-focus-lock/issues/19).
- - _Scattered_ locks, or focus lock groups - you can setup different isolated locks, and _tab_ from from to another.
+ - no keyboard control, everything is done watching a __focus behavior__, not emulating it. Thus works always and everywhere.
+ - React __Portals__ support. Even if some data is in outer space - it is [still in lock](https://github.com/theKashey/react-focus-lock/issues/19).
+ - _Scattered_ locks, or focus lock groups - you can setup different isolated locks, and _tab_ from one to another.
  - Controllable isolation level.
+ - variable size bundle. Uses sidecar to trim UI part to 1.5kb. 
  
+> 💡 __focus__ locks is only the first part, there are also __scroll lock__ and __text-to-speech__ lock
+you have to use to really "lock" the user.
+Try [react-focus-on](https://github.com/theKashey/react-focus-on) to archive everything above, assembled in the right order. 
  
 # How to use
 Just wrap something with focus lock, and focus will be `moved inside` on mount.
@@ -40,14 +49,11 @@ Just wrap something with focus lock, and focus will be `moved inside` on mount.
  const JailForAFocus = ({onClose}) => (
     <FocusLock>
       You can not leave this form
-      <button onClick={onClick} />
+      <button onClick={onClose} />
     </FocusLock>
  );
 ```
 Demo - https://codesandbox.io/s/5wmrwlvxv4.
-
-That is actually not enough, as long it is better to "shadow" rest of the page, to make it unclickable or
-unscrollable. And there is [react-locky](https://github.com/theKashey/react-locky) to do this job.
 
 # WHY?
 From [MDN Article about accessible dialogs](https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/ARIA_Techniques/Using_the_dialog_role):
@@ -56,35 +62,63 @@ From [MDN Article about accessible dialogs](https://developer.mozilla.org/en-US/
  
 This one is about managing the focus.
 
-I'v got a good [article about focus management, dialogs and  WAI-ARIA](https://medium.com/@antonkorzunov/its-a-focus-trap-699a04d66fb5).    
+I've got a good [article about focus management, dialogs and  WAI-ARIA](https://medium.com/@antonkorzunov/its-a-focus-trap-699a04d66fb5).    
 
 # API
- FocusLock has few props to tune behavior
-  - `disabled`, to disable(enable) behavior without altering the tree.
+> FocusLock would work perfectly even with no props set.
+
+ FocusLock has few props to tune behavior, all props are optional:
+  - `[disabled`, to disable(enable) behavior without altering the tree.
   - `returnFocus`, to return focus into initial position on unmount(not disable).
+> By default `returnFocus` is disabled, so FocusLock will not restore original focus on deactivation.
+    
   This is expected behavior for Modals, but it is better to implement it by your self.
-  - `persistentFocus`, default false, requires any element to be focused. This also disables text selections inside, and __outside__ focus lock.
-  - `autoFocus`, default true, enables or disables focusing into on Lock activation. If disabled Lock will blur an active focus.
-  - `noFocusGuards` disabled _focus guards_ - virtual inputs which secure tab index.
-  - `group` named focus group for focus scattering aka [combined lock targets](https://github.com/theKashey/vue-focus-lock/issues/2)
+  - `persistentFocus=false`, requires any element to be focused. This also disables text selections inside, and __outside__ focus lock.
+  - `autoFocus=true`, enables or disables focusing into on Lock activation. If disabled Lock will blur an active focus.
+  - `noFocusGuards=false` disabled _focus guards_ - virtual inputs which secure tab index.
+  - `group='''` named focus group for focus scattering aka [combined lock targets](https://github.com/theKashey/vue-focus-lock/issues/2)
+  - `shards=[]` an array of `ref` pointing to the nodes, which focus lock should consider and a part of it. This is another way focus scattering.  
+  - `whiteList=fn` you could _whitelist_ locations FocusLock should carry about. Everything outside it will ignore. For example - any modals.
+  - `as='div'` if you need to change internal `div` element, to any other. Use ref forwarding to give FocusLock the node to work with.
+  - `lockProps={}` to pass any extra props (except className) to the internal wrapper.
 
-# Behavior
- 0. It will always keep focus inside Lock.
- 1. It will cycle forward then you press Tab.
- 2. It will cycle in reverse direction on Shift+Tab.
- 3. It will do it using _browser_ tools, not emulation.
- 4. It will handle positive tabIndex inside form.
- 5. It will prevent any jump outside, returning focus to the last element.
-
-### Focusing in OSX (Safary/FireFox) is strange!
-By default `tabbing` in OSX `sees` only control, but not links or anything else `tabbable`. This is system settings, and Safary/FireFox obey.
+### Focusing in OSX (Safari/FireFox) is strange!
+By default `tabbing` in OSX `sees` only controls, but not links or anything else `tabbable`. This is system settings, and Safari/FireFox obey.
 Press Option+Tab in Safary to loop across all tabbables, or change the Safary settings. There is no way to _fix_ FireFox, unless change system settings (Control+F7). See [this issue](https://github.com/theKashey/react-focus-lock/issues/24) for more information.
 
-You can use nested Locks or have more than one Lock on the page.
-Only `last`, or `deepest` one will work. No fighting.
-     
-# Autofocus
+## Set up
+`react-focus-lock` exposed __3 entry points__: for the classical usage, and a _sidecar_ one.
+### Default usage
+- 4kb, `import FocusLock from 'react-focus-lock` would give you component you are looking for.
 
+## Separated usage
+Meanwhile - you dont need any focus related logic until it's needed.
+Thus - you may defer that logic till Lock activation and move all related code to a _sidecar_.
+
+- UI, 1.5kb, `import FocusLockUI from 'react-focus-lock/UI` - a DOM part of a lock.
+- Sidecar, 3.5kb, `import Sidecar from 'react-focus-lock/sidecar` - which is the real focus lock.
+
+```js
+import FocusLockUI from "react-focus-lock/UI";
+import {sidecar} from "use-sidecar";
+
+// prefetch sidecar. data would be loaded, but js would not be executed
+const FocusLockSidecar = sidecar(  
+  () => import(/* webpackPrefetch: true */ "react-focus-lock/sidecar")
+);
+
+<FocusLockUI
+    disabled={this.state.disabled}
+    sideCar={FocusLockSidecar}
+>
+ {content}
+</FocusLockUI> 
+```
+That would split FocusLock into two pieces, reducing app size and improving the first load.
+
+> 3.5kb? 3.5kb here and 3.5kb here, and your 20mb bundle is ready.
+
+# Autofocus
  As long you cannot use `autoFocus` prop - 
  cos "focusing" should be delayed to Trap activation, and autoFocus will effect immediately - 
  Focus Lock provide a special API for it
@@ -93,7 +127,8 @@ Only `last`, or `deepest` one will work. No fighting.
  - prop `data-autofocus-inside` on the element to focus on something inside.
  - `AutoFocusInside` component, as named export of this library.
 ```js
- import FocusLock, { AutoFocusInside } from 'focus-lock';
+ import FocusLock, { AutoFocusInside } from 'react-focus-lock';
+ 
  <FocusLock>
    <button>Click</button>
    <AutoFocusInside>
@@ -106,9 +141,8 @@ Only `last`, or `deepest` one will work. No fighting.
    <button>Click</button>
     <button data-autofocus>will be focused</button>
  </FocusLock>
-
-``` 
-
+ ```
+ 
  If there is more than one auto-focusable target - the first will be selected.
  If it is a part of radio group, and __rest of radio group element are also autofocusable__(just put them into AutoFocusInside) - 
  checked one fill be selected.
@@ -116,14 +150,98 @@ Only `last`, or `deepest` one will work. No fighting.
  `AutoFocusInside` will work only on Lock activation, and does nothing, then used outside of the lock.
  You can use `MoveFocusInside` to move focus inside with or without lock.
  
- ```js
 ```js
- import { MoveFocusInside } from 'focus-lock';
+ import { MoveFocusInside } from 'react-focus-lock';
     
-   <MoveFocusInside>
-    <button>will be focused</button>
-   </MoveFocusInside>
+ <MoveFocusInside>
+  <button>will be focused</button>
+ </MoveFocusInside>
  ```
+ 
+# Portals
+Use focus scattering to handle portals
+
+- using `groups`. Just create a few locks (only one could be active) with a same group name
+```js
+const PortaledElement = () => (
+   <FocusLock group="group42" disabled={true}>
+     // "discoverable" portaled content
+   </FocusLock>  
+);
+
+<FocusLock group="group42">
+  // main content
+</FocusLock>
+```
+- using `shards`. Just pass all the pieces to the "shards" prop. 
+```js
+const PortaledElement = () => (
+   <div ref={ref}>
+     // "discoverable" portaled content
+   </div>  
+);
+
+<FocusLock shards={[ref]}>
+  // main content
+</FocusLock>
+```
+- without anything. FocusLock will not prevent focusing portaled element, but will not include them in to tab order 
+```js
+const PortaledElement = () => (
+   <div>
+     // NON-"discoverable" portaled content
+   </div>  
+);
+
+<FocusLock shards={[ref]}>
+  // main content
+  <PortaledElement />
+</FocusLock>
+```
+
+### Using your own `Components`
+You may use `as` prop to change _what_ Focus-Lock will render around `children`.
+```js
+<FocusLock as="section">
+    <button>Click</button>
+    <button data-autofocus>will be focused</button>
+ </FocusLock>
+ 
+ <FocusLock as={AnotherComponent} lockProps={{anyAnotherComponentProp: 4}}>
+    <button>Click</button>
+    <span>Hello there!</span>
+ </FocusLock>
+``` 
+
+### Guarding
+As you may know - FocusLock is adding `Focus Guards` before and after lock to remove some side effects, like page scrolling.
+But `shards` will not have such guards, and it might be not so cool to use them - for example if no `tabbable` would be
+defined after shard - you will tab to the browser chrome.
+
+You may wrap shard  with `InFocusGuard` or just drop `InFocusGuard` here and there - that would solve the problem.
+```js
+import {InFocusGuard} from 'react-focus-lock';
+
+// wrap with
+<InFocusGuard>
+  <button />
+</InFocusGuard>
+
+// place before and after
+<InFocusGuard />
+<button />
+<InFocusGuard />
+```
+InFocusGuards would be active(tabbable) only when tabble, it protecting, is focused.
+
+#### Removing Tailing Guard
+If only your modal is the last tabble element on the body - you might remove the Tailing Guard,
+to allow user _tab_ into address bar.
+```js
+<InFocusGuard/>
+<button />  
+// there is no "tailing" guard :)
+```
  
 # Unmounting and focus management
  - In case FocusLock has `returnFocus` enabled, and it's gonna to be unmounted - focus will be returned after zero-timeout.
@@ -131,17 +249,54 @@ Only `last`, or `deepest` one will work. No fighting.
  >> React will first call Parent.componentWillUnmount, and next Child.componentWillUnmount
  
  Thus means - Trap will be still active, be the time you _may_ want move(return) focus on componentWillUnmount. Please deffer this action with a zero-timeout. 
-     
-     
-
-# How it works
- Everything thing is simple - react-focus-lock just dont left focus left boundaries of component, and
- do something only if escape attempt was succeeded.
- 
- It is not altering tabbing behavior at all. We are good citizens.
 
 # Not only for React
  Uses [focus-lock](https://github.com/theKashey/focus-lock/) under the hood. It does also provide support for Vue.js and Vanilla DOM solutions
+ 
+# Warning!
+Two different _focus-lock-managers_ or even different version of a single one, active
+simultaneously will FIGHT!
+
+__Focus-lock will surrender__, as long any other focus management library will not.
+
+## Focus fighting
+You may wrap some render branch with `FreeFocusInside`, and react-focus-lock __will ignore__
+any focus inside marked node, thus landing a peace.
+
+```js
+import { FreeFocusInside } from 'react-focus-lock';
+
+<FreeFocusInside>
+ <div id="portal-for-modals">
+   in this div i am going to portal my modals, dont fight with them please
+ </div>
+</FreeFocusInside>
+```
+
+Even the better is to `whiteList` FocusLock areas - for example "you should handle only React Stuff in React Root"
+```js
+<FocusLock whiteList={node => document.getElementById('root').contains(node)}>
+ ...
+</FocusLock>
+```
+
+PS: __please use webpack or yarn resolution for force one version of react-focus-lock used__
+
+> webpack.conf
+```js
+ resolve: {    
+    alias: {
+      'react-focus-lock': path.resolve(path.join(__dirname, './node_modules/react-focus-lock'))
+ ...
+```
+
+# More
+To create a "right" modal dialog you have to:
+- manage a focus. Use this library
+- block document scroll. Use [react-scroll-locky](https://github.com/theKashey/react-scroll-locky).
+- hide everything else from screen readers. Use [aria-hidden](https://github.com/theKashey/aria-hidden)
+
+You may use [react-focus-on](https://github.com/theKashey/react-focus-on) to archive everything above, assembled in the right order.
 
 # Licence
  MIT

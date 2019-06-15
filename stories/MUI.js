@@ -22,6 +22,47 @@ export const MUISelect = () => (
           <MenuItem value={4} primaryText="Weekends"/>
           <MenuItem value={5} primaryText="Weekly"/>
         </SelectField>
+
+        <SelectField floatingLabelText="Handle focus">
+          <MenuItem value={1} primaryText="Never"/>
+          <MenuItem value={2} primaryText="Every Night"/>
+          <MenuItem value={3} primaryText="Weeknights"/>
+          <MenuItem value={4} primaryText="Weekends"/>
+          <MenuItem value={5} primaryText="Weekly"/>
+        </SelectField>
+      </FocusLock>
+      <br/>
+    </MuiThemeProvider>
+  </div>
+);
+
+export const MUISelectWhite = () => (
+  <div>
+    <h2>With focus lock active</h2>
+    <h3>
+      will work, due to whitelisting
+    </h3>
+    <MuiThemeProvider>
+      <FocusLock
+        noFocusGuards
+        persistentFocus={true}
+        whiteList={node => document.getElementById('root').contains(node)}
+      >
+        <SelectField floatingLabelText="Frequency">
+          <MenuItem value={1} primaryText="Never"/>
+          <MenuItem value={2} primaryText="Every Night"/>
+          <MenuItem value={3} primaryText="Weeknights"/>
+          <MenuItem value={4} primaryText="Weekends"/>
+          <MenuItem value={5} primaryText="Weekly"/>
+        </SelectField>
+
+        <SelectField floatingLabelText="Handle focus">
+          <MenuItem value={1} primaryText="Never"/>
+          <MenuItem value={2} primaryText="Every Night"/>
+          <MenuItem value={3} primaryText="Weeknights"/>
+          <MenuItem value={4} primaryText="Weekends"/>
+          <MenuItem value={5} primaryText="Weekly"/>
+        </SelectField>
       </FocusLock>
       <br/>
     </MuiThemeProvider>

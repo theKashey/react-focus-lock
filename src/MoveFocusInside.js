@@ -1,47 +1,48 @@
-import React, { Component } from 'react';
+import React from 'react';
 import PropTypes from 'prop-types';
-import moveFocusInside, { focusInside } from 'focus-lock';
+import * as constants from 'focus-lock/constants';
+import { inlineProp } from './util';
+import { mediumEffect } from './medium';
 
-export default class MoveFocusInside extends Component {
-  static propTypes = {
-    children: PropTypes.node.isRequired,
-    disabled: PropTypes.bool,
-  };
-
-  static defaultProps = {
-    disabled: false,
-  }
-
-  componentDidMount() {
-    this.moveFocus();
-  }
-
-  componentDidUpdate(prevProps) {
-    if (prevProps.disabled && !this.props.disabled) {
-      this.moveFocus();
-    }
-  }
-
-  setObserveNode = (ref) => {
-    this.observed = ref;
-    this.moveFocus();
-  };
-
-  moveFocus() {
-    const observed = this.observed;
-    if (!this.props.disabled && observed) {
-      if (!focusInside(observed)) {
-        moveFocusInside(observed, null);
+function MoveFocusInside(props) {
+  const ref = React.useRef(null);
+  const disabled = React.useRef(props.disabled);
+  const moveFocus = () => {
+    const observed = ref.current;
+    mediumEffect.useMedium((car) => {
+      if (!disabled.current && observed) {
+        if (!car.focusInside(observed)) {
+          car.moveFocusInside(observed, null);
+        }
       }
-    }
-  }
+    });
+  };
 
-  render() {
-    const { children, disabled } = this.props;
-    return (
-      <div data-autofocus-inside={!disabled} ref={this.setObserveNode}>
-        {children}
-      </div>
-    );
-  }
+  React.useLayoutEffect(() => {
+    disabled.current = props.disabled;
+    moveFocus();
+  }, [props.disabled]);
+
+  return (
+    <div
+      {...inlineProp(constants.FOCUS_AUTO, !props.disabled)}
+      ref={ref}
+      className={props.className}
+    >
+      {props.children}
+    </div>
+  );
 }
+
+MoveFocusInside.propTypes = {
+  children: PropTypes.node.isRequired,
+  disabled: PropTypes.bool,
+  className: PropTypes.string,
+};
+
+MoveFocusInside.defaultProps = {
+  disabled: false,
+  className: undefined,
+};
+
+export default MoveFocusInside;

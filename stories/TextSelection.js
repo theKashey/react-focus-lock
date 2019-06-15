@@ -31,8 +31,10 @@ class Trap extends Component {
         <br/>
         <br/>
         Some text
+        {this.props.children}
         <input placeholder="input2"/>
         <input placeholder="input3"/> <br/>
+        { Array(100).fill(1).map(x => <div>{x}---</div>)}
         Some text
         <button>A BUTTON</button>
       </FocusLock>
@@ -62,8 +64,25 @@ const TextSelectionDisabled = () =>
     <input placeholder="input1"/>
   </div>;
 
+const TextSelectionTabIndexEnabled = () =>
+  <div style={styles}>
+    <input placeholder="input1"/>
+    Some text
+    <div style={bg}>
+      <Trap allowTextSelection>
+        <div tabIndex={-1}>
+          test
+          <input />
+          set
+        </div>
+      </Trap>
+    </div>
+    Some text
+    <input placeholder="input1"/>
+  </div>;
 
 export {
   TextSelectionEnabled,
-  TextSelectionDisabled
+  TextSelectionDisabled,
+  TextSelectionTabIndexEnabled,
 }

@@ -11,19 +11,27 @@ const bg = {
   backgroundColor: '#FEE'
 };
 
+let counter =0;
+
 class Trap1 extends Component {
   state = {
-    disabled: true
+    disabled: !this.props.active,
+    sub: false,
+    x: counter++,
   };
 
   toggle = () => {
     setTimeout(() => {
       this.setState({disabled: !this.state.disabled});
-    }, 1000);
+    }, 10);
   };
 
+  openNew = () => {
+    this.setState({sub: true});
+  }
+
   render() {
-    const {disabled} = this.state;
+    const {disabled, sub, x} = this.state;
     return (
       <div>
         Place focus here
@@ -40,6 +48,8 @@ class Trap1 extends Component {
           <button>BUTTON</button>
           <a href='#'>link somethere</a> <br/>
           <button onClick={this.toggle}>DEACTIVATE</button>
+          <button onClick={this.openNew}>Open another modal {x}</button>
+          {sub && <Trap1 active/>}
         </FocusLock>
         }
       </div>
