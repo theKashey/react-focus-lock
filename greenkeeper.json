@@ -1,0 +1,12 @@
+{
+  "groups": {
+    "default": {
+      "packages": [
+        "UI/package.json",
+        "examples/preact-parcel/package.json",
+        "package.json",
+        "sidecar/package.json"
+      ]
+    }
+  }
+}
