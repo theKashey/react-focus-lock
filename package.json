@@ -6,7 +6,9 @@
   "jsnext:main": "dist/es2015/index.js",
   "module": "dist/es2015/index.js",
   "types": "react-focus-lock.d.ts",
-  "sideEffects": false,
+  "sideEffects": [
+    "**/sidecar.js"
+  ],
   "scripts": {
     "build:cjs": "NODE_ENV=cjs babel src -d dist/cjs",
     "build:es5": "NODE_ENV=es2015 babel src -d dist/es2015",
@@ -19,13 +21,20 @@
     "storybook": "NODE_ENV=es2015 start-storybook -p 6006",
     "build-storybook": "NODE_ENV=es2015 build-storybook",
     "package-self": "package-self",
-    "size": "npm run build && size-limit",
+    "size": "npm run build && npx size-limit",
     "changelog": "conventional-changelog -p angular -i CHANGELOG.md -s -r 0"
   },
   "repository": {
     "type": "git",
     "url": "git+https://github.com/theKashey/react-focus-lock.git"
   },
+  "files": [
+    "dist",
+    "sidecar",
+    "UI",
+    "interfaces.d.ts",
+    "react-focus-lock.d.ts"
+  ],
   "keywords": [
     "react",
     "focus",
@@ -45,6 +54,7 @@
     "@babel/cli": "^7.0.0",
     "@babel/core": "^7.0.0",
     "@babel/plugin-proposal-class-properties": "^7.0.0",
+    "@babel/plugin-syntax-dynamic-import": "^7.2.0",
     "@babel/plugin-transform-runtime": "^7.1.0",
     "@babel/polyfill": "^7.0.0",
     "@babel/preset-env": "^7.0.0",
@@ -53,6 +63,7 @@
     "@storybook/addon-actions": "^4.0.4",
     "@storybook/addon-links": "^4.0.4",
     "@storybook/react": "^4.0.4",
+    "@types/react": "^16.8.19",
     "babel-eslint": "^9.0.0",
     "babel-loader": "^8.0.4",
     "babel-plugin-transform-react-remove-prop-types": "^0.4.19",
@@ -72,19 +83,19 @@
     "material-ui": "^0.20.0",
     "mocha": "^3.4.2",
     "package-self": "^1.1.1",
-    "react": "^16.6.1",
+    "react": "^16.8.6",
     "react-compat": "^0.0.1",
-    "react-dom": "^16.6.1",
+    "react-dom": "^16.8.6",
     "react-hot-loader": "^3.0.0-beta.7",
     "react-test-renderer": "^16.2.0",
-    "sinon": "3.2.1",
-    "size-limit": "^0.21.1"
+    "sinon": "3.2.1"
   },
   "homepage": "https://github.com/theKashey/react-focus-lock#readme",
   "dependencies": {
     "@babel/runtime": "^7.0.0",
-    "focus-lock": "^0.6.3",
+    "focus-lock": "^0.6.4",
     "prop-types": "^15.6.2",
-    "react-clientside-effect": "^1.2.0"
+    "react-clientside-effect": "^1.2.1",
+    "use-sidecar": "^0.2.0"
   }
 }

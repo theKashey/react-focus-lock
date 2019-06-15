@@ -11,6 +11,7 @@ import EnzymeReactAdapter from 'enzyme-adapter-react-16';
 
 configureEnzyme({adapter: new EnzymeReactAdapter()});
 
+const tick = () => new Promise(resolve => setTimeout(resolve, 1));
 
 describe('react-focus-lock', () => {
   beforeEach(() => {
@@ -146,6 +147,83 @@ describe('react-focus-lock', () => {
         expect(document.activeElement.innerHTML).to.be.equal('d-action3');
         done();
       }, 1);
+    });
+
+    it('Should return focus to the original place - nested case', async () => {
+      let counter = 0;
+
+      class Test extends Component {
+        state = {
+          focused: false,
+          c: counter++,
+        };
+
+        toggle = () => {
+          this.setState({
+            focused: !this.state.focused,
+          });
+        };
+
+        render() {
+          return (
+            <div>
+              <FocusLock returnFocus>
+                <div>
+                  <span className={`clickTarget${this.state.c}`} onClick={this.toggle}/>
+                  text
+                  <button className="action2">d-action{this.state.c}</button>
+                  {this.state.focused && <Test/>}
+                  text
+                </div>
+              </FocusLock>
+            </div>
+          );
+        }
+      }
+
+      const wrapper = mount((
+        <div>
+          <div>
+            text
+            <button className="action1">d-action1</button>
+            text
+            <button className="action1" autoFocus>top focused</button>
+          </div>
+          <Test/>
+        </div>
+      ));
+
+      expect(document.activeElement.innerHTML).to.be.equal('d-action0');
+      wrapper.find('.clickTarget0').simulate('click');
+
+      await tick();
+
+      expect(document.activeElement.innerHTML).to.be.equal('d-action1');
+      wrapper.find('.clickTarget1').simulate('click');
+
+      await tick();
+
+      expect(document.activeElement.innerHTML).to.be.equal('d-action2');
+      wrapper.find('.clickTarget2').simulate('click');
+
+      await tick();
+
+      expect(document.activeElement.innerHTML).to.be.equal('d-action3');
+      wrapper.find('.clickTarget2').simulate('click');
+
+      await tick();
+
+      expect(document.activeElement.innerHTML).to.be.equal('d-action2');
+      wrapper.find('.clickTarget1').simulate('click');
+
+      await tick();
+
+      expect(document.activeElement.innerHTML).to.be.equal('d-action1');
+      wrapper.find('.clickTarget0').simulate('click');
+
+      await tick();
+
+      expect(document.activeElement.innerHTML).to.be.equal('d-action0');
     });
 
     it('Should focus on inputs', (done) => {

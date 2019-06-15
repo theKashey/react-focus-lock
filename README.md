@@ -34,6 +34,7 @@ and we will do our best to earn your trust too!
  - React __Portals__ support. Even if some data is in outer space - it is [still in lock](https://github.com/theKashey/react-focus-lock/issues/19).
  - _Scattered_ locks, or focus lock groups - you can setup different isolated locks, and _tab_ from one to another.
  - Controllable isolation level.
+ - variable size bundle. Uses sidecar to trim UI part to 1.5kb. 
  
 > 💡 __focus__ locks is only the first part, there are also __scroll lock__ and __text-to-speech__ lock
 you have to use to really "lock" the user.
@@ -80,9 +81,41 @@ I've got a good [article about focus management, dialogs and  WAI-ARIA](https://
   - `as='div'` if you need to change internal `div` element, to any other. Use ref forwarding to give FocusLock the node to work with.
   - `lockProps={}` to pass any extra props (except className) to the internal wrapper.
 
-### Focusing in OSX (Safary/FireFox) is strange!
+### Focusing in OSX (Safari/FireFox) is strange!
 By default `tabbing` in OSX `sees` only controls, but not links or anything else `tabbable`. This is system settings, and Safari/FireFox obey.
 Press Option+Tab in Safary to loop across all tabbables, or change the Safary settings. There is no way to _fix_ FireFox, unless change system settings (Control+F7). See [this issue](https://github.com/theKashey/react-focus-lock/issues/24) for more information.
+
+## Set up
+`react-focus-lock` exposed __3 entry points__: for the classical usage, and a _sidecar_ one.
+### Default usage
+- 4kb, `import FocusLock from 'react-focus-lock` would give you component you are looking for.
+
+## Separated usage
+Meanwhile - you dont need any focus related logic until it's needed.
+Thus - you may defer that logic till Lock activation and move all related code to a _sidecar_.
+
+- UI, 1.5kb, `import FocusLockUI from 'react-focus-lock/UI` - a DOM part of a lock.
+- Sidecar, 3.5kb, `import Sidecar from 'react-focus-lock/sidecar` - which is the real focus lock.
+
+```js
+import FocusLockUI from "react-focus-lock/UI";
+import {sidecar} from "use-sidecar";
+
+// prefetch sidecar. data would be loaded, but js would not be executed
+const FocusLockSidecar = sidecar(  
+  () => import(/* webpackPrefetch: true */ "react-focus-lock/sidecar")
+);
+
+<FocusLockUI
+    disabled={this.state.disabled}
+    sideCar={FocusLockSidecar}
+>
+ {content}
+</FocusLockUI> 
+```
+That would split FocusLock into two pieces, reducing app size and improving the first load.
+
+> 3.5kb? 3.5kb here and 3.5kb here, and your 20mb bundle is ready.
 
 # Autofocus
  As long you cannot use `autoFocus` prop - 
@@ -215,12 +248,6 @@ to allow user _tab_ into address bar.
  >> React will first call Parent.componentWillUnmount, and next Child.componentWillUnmount
  
  Thus means - Trap will be still active, be the time you _may_ want move(return) focus on componentWillUnmount. Please deffer this action with a zero-timeout. 
-     
-# How it works
- Everything thing is simple - react-focus-lock just don't let focus leave boundaries of a component, and
- is doing something only if escape attempt was successful.
- 
- It is not altering tabbing behavior at all. We are good citizens.
 
 # Not only for React
  Uses [focus-lock](https://github.com/theKashey/focus-lock/) under the hood. It does also provide support for Vue.js and Vanilla DOM solutions
@@ -269,9 +296,6 @@ To create a "right" modal dialog you have to:
 - hide everything else from screen readers. Use [aria-hidden](https://github.com/theKashey/aria-hidden)
 
 You may use [react-focus-on](https://github.com/theKashey/react-focus-on) to archive everything above, assembled in the right order.
-
-# Package size
-About __3kb__, minified and gzipped.
 
 # Licence
  MIT

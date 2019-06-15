@@ -1,0 +1,48 @@
+{
+  "name": "preact-parcel",
+  "version": "1.0.0",
+  "main": "index.js",
+  "license": "MIT",
+  "devDependencies": {
+    "@babel/core": "^7.4.5",
+    "parcel": "^1.12.3",
+    "parcel-plugin-bundle-visualiser": "^1.2.0",
+    "typescript": "^3.5.1",
+    "webpack": "^4.32.2",
+    "webpack-bundle-analyzer": "^3.3.2",
+    "webpack-cli": "^3.3.2",
+    "webpack-dev-server": "^3.4.1"
+  },
+  "scripts": {
+    "clean": "rm -Rf ./dist",
+    "p:dev": "parcel app/index.html --no-cache",
+    "p:build": "yarn clean && NODE_ENV=production parcel build app/index.html -d dist/ --no-cache --experimental-scope-hoisting",
+    "w:dev": "webpack-dev-server --port:1234",
+    "w:build": "yarn clean && NODE_ENV=production webpack app/client.js -p"
+  },
+  "dependencies": {
+    "preact": "^10.0.0-beta.1",
+    "react-focus-lock": "^1.19.1",
+    "use-sidecar": "^0.1.1"
+  },
+  "alias": {
+    "react": "preact/compat",
+    "react-dom": "preact/compat"
+  },
+  "babel": {
+    "presets": [
+      [
+        "@babel/preset-env",
+        {
+          "modules": false,
+          "loose": true
+        }
+      ],
+      "@babel/preset-react"
+    ],
+    "plugins": [
+      "@babel/plugin-syntax-dynamic-import",
+      "@babel/plugin-proposal-class-properties"
+    ]
+  }
+}

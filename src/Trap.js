@@ -3,6 +3,7 @@ import PropTypes from 'prop-types';
 import withSideEffect from 'react-clientside-effect';
 import moveFocusInside, { focusInside, focusIsHidden, getFocusabledIn } from 'focus-lock';
 import { deferAction } from './util';
+import { mediumFocus, mediumBlur, mediumEffect } from './medium';
 
 const focusOnBody = () => (
   document && document.activeElement === document.body
@@ -123,11 +124,11 @@ const onTrap = (event) => {
   }
 };
 
-export const onBlur = () => (
+const onBlur = () => (
   deferAction(activateTrap)
 );
 
-export const onFocus = (event) => {
+const onFocus = (event) => {
   // detect portal
   const source = event.target;
   const currentNode = event.currentTarget;
@@ -166,11 +167,11 @@ const detachHandler = () => {
 
 function reducePropsToState(propsList) {
   return propsList
-    .filter(({ disabled }) => !disabled)
-    .slice(-1)[0];
+    .filter(({ disabled }) => !disabled);
 }
 
-function handleStateChangeOnClient(trap) {
+function handleStateChangeOnClient(traps) {
+  const trap = traps.slice(-1)[0];
   if (trap && !lastActiveTrap) {
     attachHandler();
   }
@@ -182,6 +183,10 @@ function handleStateChangeOnClient(trap) {
 
   if (lastTrap && !sameTrap) {
     lastTrap.onDeactivation();
+    // return focus only of last trap was removed
+    if (!traps.filter(({ onActivation }) => onActivation === lastTrap.onActivation).length) {
+      lastTrap.returnFocus();
+    }
   }
 
   if (trap) {
@@ -196,6 +201,14 @@ function handleStateChangeOnClient(trap) {
     lastActiveFocus = null;
   }
 }
+
+// bind medium
+mediumFocus.assignMedium(onFocus);
+mediumBlur.assignMedium(onBlur);
+mediumEffect.assignMedium(cb => cb({
+  moveFocusInside,
+  focusInside,
+}));
 
 export default withSideEffect(
   reducePropsToState,
