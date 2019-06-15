@@ -5,7 +5,7 @@ import {ReactFocusLockProps, AutoFocusProps, FreeFocusProps, InFocusGuardProps} 
  * Traps Focus inside a Lock
  */
 export default class ReactFocusLock extends React.Component<ReactFocusLockProps & {
-  sideCar: React.SFC
+  sideCar: React.SFC<any>
 }> {
 }
 

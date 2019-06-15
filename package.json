@@ -6,7 +6,9 @@
   "jsnext:main": "dist/es2015/index.js",
   "module": "dist/es2015/index.js",
   "types": "react-focus-lock.d.ts",
-  "sideEffects": false,
+  "sideEffects": [
+    "**/sidecar.js"
+  ],
   "scripts": {
     "build:cjs": "NODE_ENV=cjs babel src -d dist/cjs",
     "build:es5": "NODE_ENV=es2015 babel src -d dist/es2015",
@@ -94,6 +96,6 @@
     "focus-lock": "^0.6.4",
     "prop-types": "^15.6.2",
     "react-clientside-effect": "^1.2.1",
-    "use-sidecar": "^0.1.1"
+    "use-sidecar": "^0.2.0"
   }
 }
