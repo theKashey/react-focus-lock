@@ -167,11 +167,11 @@ const detachHandler = () => {
 
 function reducePropsToState(propsList) {
   return propsList
-    .filter(({ disabled }) => !disabled)
-    .slice(-1)[0];
+    .filter(({ disabled }) => !disabled);
 }
 
-function handleStateChangeOnClient(trap) {
+function handleStateChangeOnClient(traps) {
+  const trap = traps.slice(-1)[0];
   if (trap && !lastActiveTrap) {
     attachHandler();
   }
@@ -183,6 +183,10 @@ function handleStateChangeOnClient(trap) {
 
   if (lastTrap && !sameTrap) {
     lastTrap.onDeactivation();
+    // return focus only of last trap was removed
+    if (!traps.filter(({ onActivation }) => onActivation === lastTrap.onActivation).length) {
+      lastTrap.returnFocus();
+    }
   }
 
   if (trap) {

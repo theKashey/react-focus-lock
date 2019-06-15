@@ -30,14 +30,6 @@ class FocusLock extends Component {
 
   onDeactivation = () => {
     this.isActive = false;
-    if (
-      this.props.returnFocus &&
-      this.originalFocusedElement &&
-      this.originalFocusedElement.focus
-    ) {
-      this.originalFocusedElement.focus();
-      this.originalFocusedElement = null;
-    }
     if (this.props.onDeactivation) {
       this.props.onDeactivation(this.state.observed);
     }
@@ -56,6 +48,17 @@ class FocusLock extends Component {
       this.setState({
         observed,
       });
+    }
+  };
+
+  returnFocus = () => {
+    if (
+      this.props.returnFocus &&
+      this.originalFocusedElement &&
+      this.originalFocusedElement.focus
+    ) {
+      this.originalFocusedElement.focus();
+      this.originalFocusedElement = null;
     }
   };
 
@@ -122,6 +125,7 @@ class FocusLock extends Component {
               shards={shards}
               onActivation={this.onActivation}
               onDeactivation={this.onDeactivation}
+              returnFocus={this.returnFocus}
             />
           )}
           {children}
