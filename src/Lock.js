@@ -41,7 +41,7 @@ function FocusLock(props) {
     }
   }, []);
 
-  // MEDUIM CALLBACKS
+  // MEDIUM CALLBACKS
 
   const onFocus = useCallback((event) => {
     if (isActive.current) {

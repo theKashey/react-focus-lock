@@ -8,4 +8,6 @@ export const mediumBlur = createMedium();
 
 export const mediumEffect = createMedium();
 
-export const mediumSidecar = createSidecarMedium();
+export const mediumSidecar = createSidecarMedium({
+  async: true
+});

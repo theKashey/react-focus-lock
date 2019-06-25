@@ -600,13 +600,15 @@ describe('react-focus-lock', () => {
         expect(document.activeElement.innerHTML).to.be.equal('action');
       });
 
-      it('MoveFocusInside works without FocusLock', () => {
+      it('MoveFocusInside works without FocusLock', async () => {
         mount(<MoveFocusInside>
           <div>text
             <button>action</button>
             text
           </div>
         </MoveFocusInside>);
+        expect(document.activeElement.innerHTML).not.to.be.equal('action');
+        await tick();
         expect(document.activeElement.innerHTML).to.be.equal('action');
       });
 

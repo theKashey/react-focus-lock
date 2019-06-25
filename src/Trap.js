@@ -205,7 +205,7 @@ function handleStateChangeOnClient(traps) {
 }
 
 // bind medium
-mediumFocus.assignMedium(onFocus);
+mediumFocus.assignSyncMedium(onFocus);
 mediumBlur.assignMedium(onBlur);
 mediumEffect.assignMedium(cb => cb({
   moveFocusInside,

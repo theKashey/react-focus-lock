@@ -18,7 +18,7 @@ function MoveFocusInside({ disabled: isDisabled, className, children }) {
     });
   };
 
-  React.useLayoutEffect(() => {
+  React.useEffect(() => {
     disabled.current = isDisabled;
     moveFocus();
   }, [isDisabled]);
