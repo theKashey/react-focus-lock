@@ -1,17 +1,30 @@
-# [2.0.0](https://github.com/theKashey/react-focus-lock/compare/v1.19.1...v2.0.0) (2019-06-15)
+## [2.0.3](https://github.com/theKashey/react-focus-lock/compare/v2.0.2...v2.0.3) (2019-07-02)
 
 
-### Breaking change
+### Bug Fixes
 
-* no API changes, but the __minimal React version is 16.8__
+* onActivation hooks not called in v2 ([ee1cb14](https://github.com/theKashey/react-focus-lock/commit/ee1cb14))
+
+
+
+## [2.0.2](https://github.com/theKashey/react-focus-lock/compare/v2.0.1...v2.0.2) (2019-06-29)
+
+
+
+## [2.0.1](https://github.com/theKashey/react-focus-lock/compare/v1.19.1...v2.0.1) (2019-06-28)
+
 
 ### Bug Fixes
 
 * nested return focus, fixes [#68](https://github.com/theKashey/react-focus-lock/issues/68) ([df4b313](https://github.com/theKashey/react-focus-lock/commit/df4b313))
+* useLayoutEffect for focus actions ([254e2ae](https://github.com/theKashey/react-focus-lock/commit/254e2ae))
+
 
 ### Features
 
-* [sidecar](https://github.com/theKashey/react-focus-lock/issues/62) code splitting pattern ([187c3c8](https://github.com/theKashey/react-focus-lock/commit/187c3c8)) ([5493986](https://github.com/theKashey/react-focus-lock/commit/5493986))
+* sidecar code splitting pattern ([187c3c8](https://github.com/theKashey/react-focus-lock/commit/187c3c8))
+* sidecar FocusLock ([5493986](https://github.com/theKashey/react-focus-lock/commit/5493986))
+
 
 
 ## [1.19.1](https://github.com/theKashey/react-focus-lock/compare/v1.19.0...v1.19.1) (2019-04-24)
