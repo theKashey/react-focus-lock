@@ -1069,5 +1069,27 @@ describe('react-focus-lock', () => {
         }, 1);
       });
     });
+
+    describe('Hooks',  () => {
+      it('onActivation/Deactivation', () => {
+        const onActivation = sinon.spy();
+        const onDeactivation = sinon.spy();
+        const wrapper = mount(
+          <div>
+            <FocusLock onActivation={onActivation} onDeactivation={onDeactivation}>
+              <button id="b1">button1</button>
+              <button id="b2">button2</button>
+            </FocusLock>
+          </div>
+        );
+        sinon.assert.calledOnce(onActivation);
+        sinon.assert.notCalled(onDeactivation);
+
+        wrapper.unmount();
+
+        sinon.assert.calledOnce(onActivation);
+        sinon.assert.calledOnce(onDeactivation);
+      })
+    });
   });
 });

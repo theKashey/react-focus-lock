@@ -14,28 +14,49 @@ function FocusLock(props) {
   const isActive = useRef(false);
   const originalFocusedElement = useRef(null);
 
+  const {
+    children,
+    disabled,
+    noFocusGuards,
+    persistentFocus,
+    autoFocus,
+    allowTextSelection,
+    group,
+    className,
+    whiteList,
+    shards = emptyArray,
+    as: Container = 'div',
+    lockProps: containerProps = {},
+    sideCar: SideCar,
+
+    returnFocus: shouldReturnFocus,
+
+    onActivation: onActivationCallback,
+    onDeactivation: onDeactivationCallback,
+  } = props;
+
   // SIDE EFFECT CALLBACKS
 
   const onActivation = useCallback(() => {
     originalFocusedElement.current = (
       originalFocusedElement.current || (document && document.activeElement)
     );
-    if (observed.current && props.onActivation) {
-      props.onActivation(observed.current);
+    if (observed.current && onActivationCallback) {
+      onActivationCallback(observed.current);
     }
     isActive.current = true;
-  }, []);
+  }, [onActivationCallback]);
 
   const onDeactivation = useCallback(() => {
     isActive.current = false;
-    if (props.onDeactivation) {
-      props.onDeactivation(observed.current);
+    if (onDeactivationCallback) {
+      onDeactivationCallback(observed.current);
     }
-  }, []);
+  }, [onDeactivationCallback]);
 
   const returnFocus = useCallback(() => {
     const { current } = originalFocusedElement;
-    if (props.returnFocus && current && current.focus) {
+    if (shouldReturnFocus && current && current.focus) {
       current.focus();
       originalFocusedElement.current = null;
     }
@@ -56,26 +77,10 @@ function FocusLock(props) {
 
   const setObserveNode = useCallback((newObserved) => {
     if (observed.current !== newObserved) {
-      observed.current = realObserved;
+      observed.current = newObserved;
       setObserved(newObserved);
     }
   }, []);
-
-  const {
-    children,
-    disabled,
-    noFocusGuards,
-    persistentFocus,
-    autoFocus,
-    allowTextSelection,
-    group,
-    className,
-    whiteList,
-    shards = emptyArray,
-    as: Container = 'div',
-    lockProps: containerProps = {},
-    sideCar: SideCar,
-  } = props;
 
   if (process.env.NODE_ENV !== 'production') {
     if (typeof allowTextSelection !== 'undefined') {
