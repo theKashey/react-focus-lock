@@ -68,7 +68,7 @@ I've got a good [article about focus management, dialogs and  WAI-ARIA](https://
 > FocusLock would work perfectly even with no props set.
 
  FocusLock has few props to tune behavior, all props are optional:
-  - `[disabled`, to disable(enable) behavior without altering the tree.
+  - `disabled`, to disable(enable) behavior without altering the tree.
   - `returnFocus`, to return focus into initial position on unmount(not disable).
 > By default `returnFocus` is disabled, so FocusLock will not restore original focus on deactivation.
     
