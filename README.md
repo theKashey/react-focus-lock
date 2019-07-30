@@ -72,7 +72,7 @@ I've got a good [article about focus management, dialogs and  WAI-ARIA](https://
   - `returnFocus`, to return focus into initial position on unmount(not disable).
 > By default `returnFocus` is disabled, so FocusLock will not restore original focus on deactivation.
     
-  This is expected behavior for Modals, but it is better to implement it by your self.
+  This is expected behavior for Modals, but it is better to implement it by your self. See [unmounting and focus management](https://github.com/theKashey/react-focus-lock#unmounting-and-focus-management) for details
   - `persistentFocus=false`, requires any element to be focused. This also disables text selections inside, and __outside__ focus lock.
   - `autoFocus=true`, enables or disables focusing into on Lock activation. If disabled Lock will blur an active focus.
   - `noFocusGuards=false` disabled _focus guards_ - virtual inputs which secure tab index.
@@ -249,11 +249,24 @@ to allow user _tab_ into address bar.
 ```
  
 # Unmounting and focus management
- - In case FocusLock has `returnFocus` enabled, and it's gonna to be unmounted - focus will be returned after zero-timeout.
- - In case `returnFocus` did not set, and you are going to control focus change by your own - keep in mind
+ - In case FocusLock has `returnFocus` enabled, and it's going to be unmounted - focus will be returned after zero-timeout.
+ - In case `returnFocus` is set to `false`, and you are going to control focus change on your own - keep in mind
  >> React will first call Parent.componentWillUnmount, and next Child.componentWillUnmount
  
- Thus means - Trap will be still active, be the time you _may_ want move(return) focus on componentWillUnmount. Please deffer this action with a zero-timeout. 
+ This means - Trap will be still active by the time you _may_ want move(return) focus on componentWillUnmount. Please deffer this action with a zero-timeout.
+ 
+ Similarly, if you are using the `disabled` prop to control FocusLock, you will need a zero-timeout to correctly restore focus.
+ 
+```
+<FocusLock
+  disabled={isFocusLockDisabled}
+  onDeactivation={() => {
+    // Without the zero-timeout, focus will likely remain on the button/control
+    // you used to set isFocusLockDisabled = true
+    window.setTimeout(() => myRef.current.focus(), 0);
+  }
+>
+```
 
 # Not only for React
  Uses [focus-lock](https://github.com/theKashey/focus-lock/) under the hood. It does also provide support for Vue.js and Vanilla DOM solutions
