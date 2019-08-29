@@ -21,6 +21,7 @@ import Fight from './FocusFighting';
 import {StyledComponent, StyledSection} from "./Custom";
 import {AutoDisabledForm, DisabledForm, DisabledFormWithTabIndex} from "./Disabled";
 import {Video} from "./Exotic";
+import {TabbableParent} from "./TabbableParent";
 
 const frameStyle = {
   width: '400px',
@@ -77,4 +78,5 @@ storiesOf('Disabled', module)
 storiesOf('Excotic', module)
   .add('video', () => <Frame><Video/></Frame>)
   .add('iframe', () => <Frame><Iframe/></Frame>)
-  .add('sidecar', () => <Frame><SideCar/></Frame>);
+  .add('sidecar', () => <Frame><SideCar/></Frame>)
+  .add('tabbable parent', () => <Frame><TabbableParent/></Frame>);
