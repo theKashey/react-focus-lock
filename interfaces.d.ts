@@ -4,9 +4,11 @@ export interface ReactFocusLockProps {
   disabled?: boolean;
 
   /**
-   * will return focus to the previous position on trap disable.
+   * if true, will return focus to the previous position on trap disable.
+   * Optionally, can pass focus options instead of `true` to control the focus
+   * more precisely (ie. `{ preventScroll: true }`)
    */
-  returnFocus?: boolean;
+  returnFocus?: boolean | FocusOptions;
 
   /**
    * @deprecated Use persistentFocus=false instead
