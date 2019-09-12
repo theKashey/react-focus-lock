@@ -56,8 +56,9 @@ function FocusLock(props) {
 
   const returnFocus = useCallback(() => {
     const { current } = originalFocusedElement;
-    if (shouldReturnFocus && current && current.focus) {
-      current.focus();
+    if (Boolean(shouldReturnFocus) && current && current.focus) {
+      const focusOptions = typeof shouldReturnFocus === 'object' ? shouldReturnFocus : undefined;
+      current.focus(focusOptions);
       originalFocusedElement.current = null;
     }
   }, []);
@@ -138,7 +139,7 @@ function FocusLock(props) {
 FocusLock.propTypes = {
   children: node.isRequired,
   disabled: bool,
-  returnFocus: bool,
+  returnFocus: oneOfType([bool, object]),
   noFocusGuards: bool,
 
   allowTextSelection: bool,
