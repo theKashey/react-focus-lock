@@ -69,7 +69,7 @@ I've got a good [article about focus management, dialogs and  WAI-ARIA](https://
  FocusLock has few props to tune behavior, all props are optional:
   - `disabled`, to disable(enable) behavior without altering the tree.
   - `returnFocus`, to return focus into initial position on unmount(not disable).
-> By default `returnFocus` is disabled, so FocusLock will not restore original focus on deactivation.
+> By default `returnFocus` is disabled, so FocusLock will __not__ restore original focus on deactivation.
     
   This is expected behavior for Modals, but it is better to implement it by your self. See [unmounting and focus management](https://github.com/theKashey/react-focus-lock#unmounting-and-focus-management) for details
   - `persistentFocus=false`, requires any element to be focused. This also disables text selections inside, and __outside__ focus lock.
@@ -266,6 +266,18 @@ to allow user _tab_ into address bar.
   }
 >
 ```
+
+## Return focus with no scroll
+> read more at the [issue #83](https://github.com/theKashey/react-focus-lock/issues/83) or
+[mdn article](https://developer.mozilla.org/en-US/docs/Web/API/HTMLElement/focus).
+
+To return focus, but without _jumpy_ page scroll returning a focus you might specify a focus option
+```js
+<FocusLock
+  returnFocus={{ preventScroll: false }} // working not in all browsers
+>   
+```  
+Not supported by Edge and Safari.
 
 # Not only for React
  Uses [focus-lock](https://github.com/theKashey/focus-lock/) under the hood. It does also provide support for Vue.js and Vanilla DOM solutions
