@@ -137,7 +137,7 @@ function FocusLock(props) {
 }
 
 FocusLock.propTypes = {
-  children: node.isRequired,
+  children: oneOfType([node, arrayOf(node)]),
   disabled: bool,
   returnFocus: oneOfType([bool, object]),
   noFocusGuards: bool,
