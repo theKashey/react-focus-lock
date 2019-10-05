@@ -162,6 +162,7 @@ FocusLock.propTypes = {
 };
 
 FocusLock.defaultProps = {
+  children: undefined,
   disabled: false,
   returnFocus: false,
   noFocusGuards: false,
