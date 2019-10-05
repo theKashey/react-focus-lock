@@ -35,6 +35,8 @@ function FocusLock(props) {
     onDeactivation: onDeactivationCallback,
   } = props;
 
+  const [id] = useState({});
+
   // SIDE EFFECT CALLBACKS
 
   const onActivation = useCallback(() => {
@@ -54,14 +56,21 @@ function FocusLock(props) {
     }
   }, [onDeactivationCallback]);
 
-  const returnFocus = useCallback(() => {
+  const returnFocus = useCallback((allowDefer) => {
     const { current } = originalFocusedElement;
     if (Boolean(shouldReturnFocus) && current && current.focus) {
       const focusOptions = typeof shouldReturnFocus === 'object' ? shouldReturnFocus : undefined;
-      current.focus(focusOptions);
       originalFocusedElement.current = null;
+
+      if (allowDefer) {
+        // React might return focus after update
+        // it's safer to defer the action
+        Promise.resolve().then(() => current.focus(focusOptions));
+      } else {
+        current.focus(focusOptions);
+      }
     }
-  }, []);
+  }, [shouldReturnFocus]);
 
   // MEDIUM CALLBACKS
 
@@ -114,6 +123,7 @@ function FocusLock(props) {
       >
         {!disabled && (
           <SideCar
+            id={id}
             sideCar={mediumSidecar}
             observed={realObserved}
             disabled={disabled}

@@ -179,15 +179,16 @@ function handleStateChangeOnClient(traps) {
   }
 
   const lastTrap = lastActiveTrap;
-  const sameTrap = lastTrap && trap && trap.onActivation === lastTrap.onActivation;
+  const sameTrap = lastTrap && trap && trap.id === lastTrap.id;
 
   lastActiveTrap = trap;
 
   if (lastTrap && !sameTrap) {
     lastTrap.onDeactivation();
     // return focus only of last trap was removed
-    if (!traps.filter(({ onActivation }) => onActivation === lastTrap.onActivation).length) {
-      lastTrap.returnFocus();
+    if (!traps.filter(({ id }) => id === lastTrap.id).length) {
+      // allow defer is no other trap is awaiting restore
+      lastTrap.returnFocus(!trap);
     }
   }
 
