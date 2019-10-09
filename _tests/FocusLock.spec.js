@@ -79,6 +79,18 @@ describe('react-focus-lock', () => {
       expect(inner.current.innerHTML).to.include('Button 2');
     });
 
+    it('should work with as prop', () => {
+      const inner = React.createRef();
+      const Comp = React.forwardRef((_, ref) => <button ref={ref}>t2 - Button 2</button>);
+      mount(
+        <div>
+          <button >t1 - Button 1</button>
+          <FocusLock as={Comp} ref={inner}/>
+        </div>
+      );
+      expect(inner.current).to.be.equal(document.activeElement);
+      expect(document.activeElement.innerHTML).to.include('Button 2');
+    });
 
     it('Should not focus on inputs', () => {
       const wrapper = mount((
@@ -1070,7 +1082,7 @@ describe('react-focus-lock', () => {
       });
     });
 
-    describe('Hooks',  () => {
+    describe('Hooks', () => {
       it('onActivation/Deactivation', () => {
         const onActivation = sinon.spy();
         const onDeactivation = sinon.spy();
