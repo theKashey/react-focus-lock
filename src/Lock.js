@@ -3,7 +3,8 @@ import {
   node, bool, string, any, arrayOf, oneOfType, object, func,
 } from 'prop-types';
 import * as constants from 'focus-lock/constants';
-import { mergeRefs } from 'use-callback-ref';
+import { useMergeRefs } from 'use-callback-ref';
+
 import { hiddenGuard } from './FocusGuard';
 import { mediumFocus, mediumBlur, mediumSidecar } from './medium';
 
@@ -116,6 +117,8 @@ const FocusLock = React.forwardRef((props, parentRef) => {
   const hasLeadingGuards = noFocusGuards !== true;
   const hasTailingGuards = hasLeadingGuards && (noFocusGuards !== 'tail');
 
+  const mergedRef = useMergeRefs([parentRef, setObserveNode])
+
   return (
     <React.Fragment>
       {hasLeadingGuards && [
@@ -138,7 +141,7 @@ const FocusLock = React.forwardRef((props, parentRef) => {
         />
       )}
       <Container
-        ref={mergeRefs([parentRef, setObserveNode])}
+        ref={mergedRef}
         {...lockProps}
         className={className}
         onBlur={onBlur}

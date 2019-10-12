@@ -14989,10 +14989,10 @@ url@^0.11.0:
     punycode "1.3.2"
     querystring "0.2.0"
 
-use-callback-ref@^1.1.0:
-  version "1.1.0"
-  resolved "https://registry.yarnpkg.com/use-callback-ref/-/use-callback-ref-1.1.0.tgz#e41d2b29aea8a568a6dbefe0af56155eac1b6884"
-  integrity sha512-a2j1dVM9UTxdIfZjbdhcD8nCDMDBkTp9rFasSBj3QPcVclYdpKbmLzqLddH3R6WuOff9W6Xo50VedPoVNu8z8A==
+use-callback-ref@^1.2.1:
+  version "1.2.1"
+  resolved "https://registry.yarnpkg.com/use-callback-ref/-/use-callback-ref-1.2.1.tgz#898759ccb9e14be6c7a860abafa3ffbd826c89bb"
+  integrity sha512-C3nvxh0ZpaOxs9RCnWwAJ+7bJPwQI8LHF71LzbQ3BvzH5XkdtlkMadqElGevg5bYBDFip4sAnD4m06zAKebg1w==
 
 use-sidecar@^1.0.1:
   version "1.0.1"
