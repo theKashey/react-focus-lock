@@ -117,7 +117,7 @@ const FocusLock = React.forwardRef((props, parentRef) => {
   const hasLeadingGuards = noFocusGuards !== true;
   const hasTailingGuards = hasLeadingGuards && (noFocusGuards !== 'tail');
 
-  const mergedRef = useMergeRefs([parentRef, setObserveNode])
+  const mergedRef = useMergeRefs([parentRef, setObserveNode]);
 
   return (
     <React.Fragment>
