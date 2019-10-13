@@ -1,3 +1,28 @@
+# [2.2.0](https://github.com/theKashey/react-focus-lock/compare/v2.1.1...v2.2.0) (2019-10-13)
+
+
+### Features
+
+* use forwardRef, and allow custom as prop ([af0e560](https://github.com/theKashey/react-focus-lock/commit/af0e560))
+
+
+
+## [2.1.1](https://github.com/theKashey/react-focus-lock/compare/v2.1.0...v2.1.1) (2019-10-05)
+
+
+
+# [2.1.0](https://github.com/theKashey/react-focus-lock/compare/v2.0.5...v2.1.0) (2019-09-13)
+
+
+
+## [2.0.5](https://github.com/theKashey/react-focus-lock/compare/v2.0.4...v2.0.5) (2019-08-01)
+
+
+
+## [2.0.4](https://github.com/theKashey/react-focus-lock/compare/v2.0.3...v2.0.4) (2019-07-16)
+
+
+
 ## [2.0.3](https://github.com/theKashey/react-focus-lock/compare/v2.0.2...v2.0.3) (2019-07-02)
 
 
