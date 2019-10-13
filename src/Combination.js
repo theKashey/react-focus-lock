@@ -11,12 +11,13 @@ const RequireSideCar = (props) => {
 };
 */
 
-const FocusLockCombination = props => (
+const FocusLockCombination = React.forwardRef((props, ref) => (
   <FocusLockUI
     sideCar={FocusTrap}
+    ref={ref}
     {...props}
   />
-);
+));
 
 const { sideCar, ...propTypes } = FocusLockUI.propTypes || {};
 

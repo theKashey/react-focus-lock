@@ -1,6 +1,7 @@
 import * as React from 'react';
+import {Ref} from "react";
 
-export interface ReactFocusLockProps {
+export interface ReactFocusLockProps<ChildrenType = React.ReactNode, LockProps=Record<string, any>> {
   disabled?: boolean;
 
   /**
@@ -58,8 +59,10 @@ export interface ReactFocusLockProps {
   /**
    * Component to use, defaults to 'div'
    */
-  as?: React.ReactType,
-  lockProps?: { [key: string]: any },
+  as?: string | React.ElementType<LockProps & {children: ChildrenType}>,
+  lockProps?: LockProps,
+
+  ref?: Ref<HTMLElement>;
 
   /**
    * Controls focus lock working areas. Lock will silently ignore all the events from `not allowed` areas
@@ -73,7 +76,7 @@ export interface ReactFocusLockProps {
    */
   shards?: Array<React.RefObject<any> | HTMLElement>;
 
-  children: React.ReactNode;
+  children?: ChildrenType;
 }
 
 export interface AutoFocusProps {
