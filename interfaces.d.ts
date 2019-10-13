@@ -62,7 +62,7 @@ export interface ReactFocusLockProps<ChildrenType = React.ReactNode, LockProps=R
   as?: string | React.ElementType<LockProps & {children: ChildrenType}>,
   lockProps?: LockProps,
 
-  ref: Ref<HTMLElement>;
+  ref?: Ref<HTMLElement>;
 
   /**
    * Controls focus lock working areas. Lock will silently ignore all the events from `not allowed` areas
