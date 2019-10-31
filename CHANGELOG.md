@@ -206,7 +206,7 @@
 
 ### Bug Fixes
 
-* Safary and Negative TabIndex, [#33](https://github.com/theKashey/react-focus-lock/issues/33) ([f4a6a6d](https://github.com/theKashey/react-focus-lock/commit/f4a6a6d))
+* Safari and Negative TabIndex, [#33](https://github.com/theKashey/react-focus-lock/issues/33) ([f4a6a6d](https://github.com/theKashey/react-focus-lock/commit/f4a6a6d))
 
 
 

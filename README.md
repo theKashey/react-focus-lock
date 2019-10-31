@@ -81,9 +81,9 @@ I've got a good [article about focus management, dialogs and  WAI-ARIA](https://
   - `as='div'` if you need to change internal `div` element, to any other. Use ref forwarding to give FocusLock the node to work with.
   - `lockProps={}` to pass any extra props (except className) to the internal wrapper.
 
-### Focusing in OSX (Safari/FireFox) is strange!
-By default `tabbing` in OSX `sees` only controls, but not links or anything else `tabbable`. This is system settings, and Safari/FireFox obey.
-Press Option+Tab in Safary to loop across all tabbables, or change the Safary settings. There is no way to _fix_ FireFox, unless change system settings (Control+F7). See [this issue](https://github.com/theKashey/react-focus-lock/issues/24) for more information.
+### Focusing in OSX (Safari/Firefox) is strange!
+By default `tabbing` in OSX `sees` only controls, but not links or anything else `tabbable`. This is system settings, and Safari/Firefox obey.
+Press Option+Tab in Safari to loop across all tabbables, or change the Safari settings. There is no way to _fix_ Firefox, unless change system settings (Control+F7). See [this issue](https://github.com/theKashey/react-focus-lock/issues/24) for more information.
 
 ## Set up
 ### Requirements
