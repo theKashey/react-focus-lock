@@ -1,6 +1,6 @@
 /* eslint-disable */
 
-import React from 'react';
+import * as React from 'react';
 
 // NOT USED
 

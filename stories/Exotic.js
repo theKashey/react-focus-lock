@@ -1,4 +1,4 @@
-import React from "react";
+import * as React from "react";
 import FocusLock from "../src/index";
 
 export class Video extends React.Component {
