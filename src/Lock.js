@@ -1,4 +1,4 @@
-import React, { useState, useRef, useCallback } from 'react';
+import * as React from 'react';
 import {
   node, bool, string, any, arrayOf, oneOfType, object, func,
 } from 'prop-types';
@@ -11,10 +11,10 @@ import { mediumFocus, mediumBlur, mediumSidecar } from './medium';
 const emptyArray = [];
 
 const FocusLock = React.forwardRef((props, parentRef) => {
-  const [realObserved, setObserved] = useState();
-  const observed = useRef();
-  const isActive = useRef(false);
-  const originalFocusedElement = useRef(null);
+  const [realObserved, setObserved] = React.useState();
+  const observed = React.useRef();
+  const isActive = React.useRef(false);
+  const originalFocusedElement = React.useRef(null);
 
   const {
     children,
@@ -37,11 +37,11 @@ const FocusLock = React.forwardRef((props, parentRef) => {
     onDeactivation: onDeactivationCallback,
   } = props;
 
-  const [id] = useState({});
+  const [id] = React.useState({});
 
   // SIDE EFFECT CALLBACKS
 
-  const onActivation = useCallback(() => {
+  const onActivation = React.useCallback(() => {
     originalFocusedElement.current = (
       originalFocusedElement.current || (document && document.activeElement)
     );
@@ -51,14 +51,14 @@ const FocusLock = React.forwardRef((props, parentRef) => {
     isActive.current = true;
   }, [onActivationCallback]);
 
-  const onDeactivation = useCallback(() => {
+  const onDeactivation = React.useCallback(() => {
     isActive.current = false;
     if (onDeactivationCallback) {
       onDeactivationCallback(observed.current);
     }
   }, [onDeactivationCallback]);
 
-  const returnFocus = useCallback((allowDefer) => {
+  const returnFocus = React.useCallback((allowDefer) => {
     const { current } = originalFocusedElement;
     if (Boolean(shouldReturnFocus) && current && current.focus) {
       const focusOptions = typeof shouldReturnFocus === 'object' ? shouldReturnFocus : undefined;
@@ -76,7 +76,7 @@ const FocusLock = React.forwardRef((props, parentRef) => {
 
   // MEDIUM CALLBACKS
 
-  const onFocus = useCallback((event) => {
+  const onFocus = React.useCallback((event) => {
     if (isActive.current) {
       mediumFocus.useMedium(event);
     }
@@ -87,7 +87,7 @@ const FocusLock = React.forwardRef((props, parentRef) => {
   // REF PROPAGATION
   // not using real refs due to race conditions
 
-  const setObserveNode = useCallback((newObserved) => {
+  const setObserveNode = React.useCallback((newObserved) => {
     if (observed.current !== newObserved) {
       observed.current = newObserved;
       setObserved(newObserved);

@@ -1,4 +1,5 @@
-import React, {Component} from "react";
+import * as React from "react";
+import { Component } from "react";
 import {sidecar} from "use-sidecar";
 import {FocusLockUI} from "../src/index";
 

@@ -1,4 +1,5 @@
-import React, {Component} from "react";
+import * as React from "react";
+import { Component } from "react";
 import FocusLock from "../src/index";
 
 export class DisabledForm extends React.Component {

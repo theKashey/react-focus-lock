@@ -1,4 +1,4 @@
-import React from 'react';
+import * as React from 'react';
 import PropTypes from 'prop-types';
 import * as constants from 'focus-lock/constants';
 import { inlineProp } from './util';

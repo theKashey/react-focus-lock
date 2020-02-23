@@ -1,7 +1,7 @@
 /* eslint-disable jsx-a11y/no-autofocus, jsx-a11y/no-static-element-interactions */
 
-import React, {Component} from 'react';
-import ReactDOM, {createPortal} from 'react-dom';
+import * as React from 'react';
+import * as ReactDOM from 'react-dom';
 import {expect} from 'chai';
 import {mount as emount, configure as configureEnzyme} from 'enzyme';
 import sinon from 'sinon'
@@ -114,7 +114,7 @@ describe('react-focus-lock', () => {
     });
 
     it('Should return focus to the original place', (done) => {
-      class Test extends Component {
+      class Test extends React.Component {
         state = {
           focused: true,
         };
@@ -164,7 +164,7 @@ describe('react-focus-lock', () => {
     it('Should return focus to the original place - nested case', async () => {
       let counter = 0;
 
-      class Test extends Component {
+      class Test extends React.Component {
         state = {
           focused: false,
           c: counter++,
