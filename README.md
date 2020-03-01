@@ -123,9 +123,7 @@ The cost of focus-lock is just 1.5kb!
 > Saved 3.5kb?! 🤷‍♂️ 3.5kb here and 3.5kb here, and your 20mb bundle is ready.
 
 # Autofocus
- As long you cannot use `autoFocus` prop - 
- cos "focusing" should be delayed to Trap activation, and autoFocus will effect immediately - 
- Focus Lock provide a special API for it
+ Use when you cannot use the native `autoFocus` prop - because you only want to autofocus once the Trap has been activated
       
  - prop `data-autofocus` on the element.
  - prop `data-autofocus-inside` on the element to focus on something inside.
