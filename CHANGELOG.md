@@ -1,3 +1,21 @@
+# [2.3.0](https://github.com/theKashey/react-focus-lock/compare/v2.2.1...v2.3.0) (2020-04-17)
+
+
+### Bug Fixes
+
+* correct behavior for radio buttons at the edge of lock, fixes [#103](https://github.com/theKashey/react-focus-lock/issues/103) ([9dac851](https://github.com/theKashey/react-focus-lock/commit/9dac851))
+
+
+### Features
+
+* add crossFrame property to control iframe behaviour, fixes [#104](https://github.com/theKashey/react-focus-lock/issues/104) ([486a7e0](https://github.com/theKashey/react-focus-lock/commit/486a7e0))
+
+
+
+## [2.2.1](https://github.com/theKashey/react-focus-lock/compare/v2.2.0...v2.2.1) (2019-10-17)
+
+
+
 # [2.2.0](https://github.com/theKashey/react-focus-lock/compare/v2.1.1...v2.2.0) (2019-10-13)
 
 
@@ -206,7 +224,7 @@
 
 ### Bug Fixes
 
-* Safari and Negative TabIndex, [#33](https://github.com/theKashey/react-focus-lock/issues/33) ([f4a6a6d](https://github.com/theKashey/react-focus-lock/commit/f4a6a6d))
+* Safary and Negative TabIndex, [#33](https://github.com/theKashey/react-focus-lock/issues/33) ([f4a6a6d](https://github.com/theKashey/react-focus-lock/commit/f4a6a6d))
 
 
 
