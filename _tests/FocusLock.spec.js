@@ -2,14 +2,14 @@
 
 import * as React from 'react';
 import * as ReactDOM from 'react-dom';
-import {expect} from 'chai';
-import {mount as emount, configure as configureEnzyme} from 'enzyme';
-import sinon from 'sinon'
-import FocusLock, {AutoFocusInside, MoveFocusInside} from '../src/index';
-
+import { expect } from 'chai';
+import { mount as emount, configure as configureEnzyme } from 'enzyme';
+import sinon from 'sinon';
 import EnzymeReactAdapter from 'enzyme-adapter-react-16';
+import FocusLock, { AutoFocusInside, MoveFocusInside } from '../src/index';
 
-configureEnzyme({adapter: new EnzymeReactAdapter()});
+
+configureEnzyme({ adapter: new EnzymeReactAdapter() });
 
 const tick = () => new Promise(resolve => setTimeout(resolve, 1));
 
@@ -30,12 +30,10 @@ describe('react-focus-lock', () => {
     };
 
     render() {
-      const {enabled} = this.state;
+      const { enabled } = this.state;
       return (
         <FocusLock disabled={!enabled}>
-          {this.props.children(enabled, () =>
-            this.setState({enabled: !enabled}),
-          )}
+          {this.props.children(enabled, () => this.setState({ enabled: !enabled }))}
         </FocusLock>
       );
     }
@@ -46,7 +44,7 @@ describe('react-focus-lock', () => {
 
   describe('FocusLock', () => {
     let mountPoint = [];
-    const mount = code => {
+    const mount = (code) => {
       const wrapper = emount(code);
       mountPoint.push(wrapper);
       return wrapper;
@@ -61,7 +59,7 @@ describe('react-focus-lock', () => {
     });
 
     it('Is rendered', () => {
-      mount(<FocusLock><p>children</p></FocusLock>)
+      mount(<FocusLock><p>children</p></FocusLock>);
     });
 
     it('should focus on inner lock', () => {
@@ -73,7 +71,7 @@ describe('react-focus-lock', () => {
           <FocusLock>
             <button ref={inner}>t2 - Button 2</button>
           </FocusLock>
-        </FocusLock>
+        </FocusLock>,
       );
       expect(inner.current).to.be.equal(document.activeElement);
       expect(inner.current.innerHTML).to.include('Button 2');
@@ -84,9 +82,9 @@ describe('react-focus-lock', () => {
       const Comp = React.forwardRef((_, ref) => <button ref={ref}>t2 - Button 2</button>);
       mount(
         <div>
-          <button >t1 - Button 1</button>
-          <FocusLock as={Comp} ref={inner}/>
-        </div>
+          <button>t1 - Button 1</button>
+          <FocusLock as={Comp} ref={inner} />
+        </div>,
       );
       expect(inner.current).to.be.equal(document.activeElement);
       expect(document.activeElement.innerHTML).to.include('Button 2');
@@ -129,13 +127,15 @@ describe('react-focus-lock', () => {
           return (
             <div className="clickTarget" onClick={this.deactivate}>
               {
-                this.state.focused && <FocusLock returnFocus>
+                this.state.focused && (
+                <FocusLock returnFocus>
                   <div>
                     text
                     <button className="action2">d-action2</button>
                     text
                   </div>
                 </FocusLock>
+                )
               }
             </div>
           );
@@ -150,7 +150,7 @@ describe('react-focus-lock', () => {
             text
             <button className="action1" autoFocus>d-action3</button>
           </div>
-          <Test/>
+          <Test />
         </div>
       ));
       expect(document.activeElement.innerHTML).to.be.equal('d-action2');
@@ -181,10 +181,13 @@ describe('react-focus-lock', () => {
             <div>
               <FocusLock returnFocus>
                 <div>
-                  <span className={`clickTarget${this.state.c}`} onClick={this.toggle}/>
+                  <span className={`clickTarget${this.state.c}`} onClick={this.toggle} />
                   text
-                  <button className="action2">d-action{this.state.c}</button>
-                  {this.state.focused && <Test/>}
+                  <button className="action2">
+d-action
+                    {this.state.c}
+                  </button>
+                  {this.state.focused && <Test />}
                   text
                 </div>
               </FocusLock>
@@ -201,7 +204,7 @@ describe('react-focus-lock', () => {
             text
             <button className="action1" autoFocus>top focused</button>
           </div>
-          <Test/>
+          <Test />
         </div>
       ));
 
@@ -293,7 +296,7 @@ describe('react-focus-lock', () => {
           <button className="action1">action1</button>
           text
         </div>
-        <FocusLock autoFocus={true}>
+        <FocusLock autoFocus>
           <div>
             text
             <button className="action2">1-action2</button>
@@ -449,9 +452,9 @@ describe('react-focus-lock', () => {
             text
           </div>
           <FocusLock>
-            <input type="hidden" className="action2"/>
-            <button style={{visibility: 'hidden'}}>hidden</button>
-            <div style={{display: 'none'}}>
+            <input type="hidden" className="action2" />
+            <button style={{ visibility: 'hidden' }}>hidden</button>
+            <div style={{ display: 'none' }}>
               <button className="action2">5-action3</button>
             </div>
             <button className="action2">5-action4</button>
@@ -471,9 +474,9 @@ describe('react-focus-lock', () => {
             <button className="action1">action1</button>
             <FocusLock>
               <div>
-                <input type="text" name="first"/>
-                <input type="text" name="second"/>
-                <input type="text" name="third"/>
+                <input type="text" name="first" />
+                <input type="text" name="second" />
+                <input type="text" name="third" />
               </div>
             </FocusLock>
           </div>
@@ -493,11 +496,11 @@ describe('react-focus-lock', () => {
             <button className="action1">action1</button>
             <FocusLock>
               <div>
-                <input name="group" type="radio" defaultValue="first"/>
-                <input name="group" type="radio" defaultValue="second" defaultChecked/>
-                <input name="group" type="radio" defaultValue="third"/>
+                <input name="group" type="radio" defaultValue="first" />
+                <input name="group" type="radio" defaultValue="second" defaultChecked />
+                <input name="group" type="radio" defaultValue="third" />
 
-                <input type="text" defaultValue="mistake"/>
+                <input type="text" defaultValue="mistake" />
               </div>
             </FocusLock>
           </div>
@@ -530,7 +533,7 @@ describe('react-focus-lock', () => {
       wrapper.find('#button-2').simulate('click');
       setImmediate(() => {
         expect(document.activeElement.innerHTML).to.be.equal('Button 1'),
-          done()
+        done();
       });
     });
 
@@ -553,7 +556,7 @@ describe('react-focus-lock', () => {
       wrapper.find('#button-2').simulate('click');
       setImmediate(() => {
         expect(document.activeElement.innerHTML).to.be.equal('Button 2 unlocked'),
-          done()
+        done();
       });
     });
 
@@ -577,22 +580,24 @@ describe('react-focus-lock', () => {
       wrapper.find('#button-2').simulate('click');
       setImmediate(() => {
         expect(document.activeElement.innerHTML).to.be.equal('Button 2 locked'),
-          done()
+        done();
       });
     });
 
     describe('AutoFocus', () => {
-
       it('Should not focus by default', () => {
-        mount(<div>text
+        mount(<div>
+text
           <button>action</button>
-          text</div>);
+          text
+              </div>);
         expect(document.activeElement.innerHTML).not.to.be.equal('action');
       });
 
       it('AutoFocus do nothing without FocusLock', () => {
         mount(<AutoFocusInside>
-          <div>text
+          <div>
+text
             <button>action</button>
             text
           </div>
@@ -603,7 +608,8 @@ describe('react-focus-lock', () => {
       it('AutoFocus works with FocusLock', () => {
         mount(<FocusLock>
           <AutoFocusInside>
-            <div>text
+            <div>
+text
               <button>action</button>
               text
             </div>
@@ -614,7 +620,8 @@ describe('react-focus-lock', () => {
 
       it('MoveFocusInside works without FocusLock', async () => {
         mount(<MoveFocusInside>
-          <div>text
+          <div>
+text
             <button>action</button>
             text
           </div>
@@ -627,7 +634,8 @@ describe('react-focus-lock', () => {
       it('MoveFocusInside works with FocusLock', () => {
         mount(<FocusLock>
           <MoveFocusInside>
-            <div>text
+            <div>
+text
               <button>action</button>
               text
             </div>
@@ -638,7 +646,8 @@ describe('react-focus-lock', () => {
 
       it('FocusLock do nothing', () => {
         mount(<FocusLock autoFocus={false}>
-          <div>text
+          <div>
+text
             <button>action</button>
             text
           </div>
@@ -652,11 +661,11 @@ describe('react-focus-lock', () => {
             <FocusLock>
               <div>
                 <button className="action1">action1</button>
-                <input name="group" type="radio" value="first" data-autofocus/>
-                <input name="group" type="radio" value="second" data-autofocus defaultChecked/>
-                <input name="group" type="radio" value="third" data-autofocus/>
+                <input name="group" type="radio" value="first" data-autofocus />
+                <input name="group" type="radio" value="second" data-autofocus defaultChecked />
+                <input name="group" type="radio" value="third" data-autofocus />
 
-                <input type="text" value="mistake"/>
+                <input type="text" value="mistake" />
               </div>
             </FocusLock>
           </div>
@@ -676,12 +685,12 @@ describe('react-focus-lock', () => {
               <div>
                 <button className="action1">action1</button>
                 <AutoFocusInside>
-                  <input name="group" type="radio" value="first"/>
-                  <input name="group" type="radio" value="second" defaultChecked/>
-                  <input name="group" type="radio" value="third"/>
+                  <input name="group" type="radio" value="first" />
+                  <input name="group" type="radio" value="second" defaultChecked />
+                  <input name="group" type="radio" value="third" />
                 </AutoFocusInside>
 
-                <input type="text" value="mistake"/>
+                <input type="text" value="mistake" />
               </div>
             </FocusLock>
           </div>
@@ -770,10 +779,12 @@ describe('react-focus-lock', () => {
             <button>6-action3</button>
             <button>6-action4</button>
           </FocusLock>
-          <div>{ReactDOM.createPortal(
-            <button id="portaled1" autoFocus>i am out portaled</button>,
-            makeElement()
-          )}</div>
+          <div>
+            {ReactDOM.createPortal(
+              <button id="portaled1" autoFocus>i am out portaled</button>,
+              makeElement(),
+            )}
+          </div>
         </div>);
         document.getElementById('portaled1').focus();
         expect(document.activeElement.innerHTML).to.be.equal('i am out portaled');
@@ -796,12 +807,14 @@ describe('react-focus-lock', () => {
             <button>6-action3</button>
             <button>6-action4</button>
           </FocusLock>
-          <div>{ReactDOM.createPortal(
-            <MoveFocusInside>
-              <button id="portaled1" autoFocus onFocus={focusSpy}>i am out portaled</button>
-            </MoveFocusInside>,
-            makeElement()
-          )}</div>
+          <div>
+            {ReactDOM.createPortal(
+              <MoveFocusInside>
+                <button id="portaled1" autoFocus onFocus={focusSpy}>i am out portaled</button>
+              </MoveFocusInside>,
+              makeElement(),
+            )}
+          </div>
         </div>);
         sinon.assert.calledOnce(focusSpy);
         setTimeout(() => {
@@ -820,13 +833,15 @@ describe('react-focus-lock', () => {
           <FocusLock noFocusGuards>
             <button>button-action</button>
             <button>6-action3</button>
-            <div>{ReactDOM.createPortal(
-              <div>
-                <button id="portaled2" autoFocus>i am portaled</button>
-                <button id="portaled3" autoFocus>and i am portaled</button>
-              </div>,
-              makeElement()
-            )}</div>
+            <div>
+              {ReactDOM.createPortal(
+                <div>
+                  <button id="portaled2" autoFocus>i am portaled</button>
+                  <button id="portaled3" autoFocus>and i am portaled</button>
+                </div>,
+                makeElement(),
+              )}
+            </div>
             <button>6-action4</button>
           </FocusLock>
         </div>);
@@ -852,14 +867,16 @@ describe('react-focus-lock', () => {
           <FocusLock noFocusGuards>
             <button>button-action</button>
             <button>6-action3</button>
-            <div>{ReactDOM.createPortal(
-              <div>
-                <MoveFocusInside>
-                  <button id="portaled2" autoFocus>i am portaled</button>
-                </MoveFocusInside>
-              </div>,
-              makeElement()
-            )}</div>
+            <div>
+              {ReactDOM.createPortal(
+                <div>
+                  <MoveFocusInside>
+                    <button id="portaled2" autoFocus>i am portaled</button>
+                  </MoveFocusInside>
+                </div>,
+                makeElement(),
+              )}
+            </div>
             <button>6-action4</button>
           </FocusLock>
         </div>);
@@ -869,7 +886,6 @@ describe('react-focus-lock', () => {
           done();
         }, 1);
       });
-
     });
 
     describe('groups', () => {
@@ -934,7 +950,8 @@ describe('react-focus-lock', () => {
               <button className="action3">action1</button>
               text
             </div>
-          </div>);
+          </div>,
+        );
         wrapper.find('#b2').simulate('focus');
         wrapper.find('#b2').getDOMNode().focus();
         expect(document.activeElement.innerHTML).to.be.equal('button2');
@@ -971,7 +988,8 @@ describe('react-focus-lock', () => {
               <button className="action3">action1</button>
               text
             </div>
-          </div>);
+          </div>,
+        );
         wrapper.find('#b2').simulate('focus');
         wrapper.find('#b2').getDOMNode().focus();
         expect(document.activeElement.innerHTML).to.be.equal('button2');
@@ -1012,7 +1030,7 @@ describe('react-focus-lock', () => {
           </div>
         );
 
-        const wrapper = mount(<TestCase/>);
+        const wrapper = mount(<TestCase />);
         wrapper.update().find('#b2').getDOMNode().focus();
         // update wrapper to propagate ref2
         wrapper.setProps({});
@@ -1071,7 +1089,8 @@ describe('react-focus-lock', () => {
               <button className="action3">action1</button>
               text
             </div>
-          </div>);
+          </div>,
+        );
         wrapper.find('#b2').simulate('focus');
         wrapper.find('#b2').getDOMNode().focus();
         expect(document.activeElement.innerHTML).to.be.equal('button2');
@@ -1092,7 +1111,7 @@ describe('react-focus-lock', () => {
               <button id="b1">button1</button>
               <button id="b2">button2</button>
             </FocusLock>
-          </div>
+          </div>,
         );
         sinon.assert.calledOnce(onActivation);
         sinon.assert.notCalled(onDeactivation);
@@ -1101,7 +1120,7 @@ describe('react-focus-lock', () => {
 
         sinon.assert.calledOnce(onActivation);
         sinon.assert.calledOnce(onDeactivation);
-      })
+      });
     });
   });
 });
