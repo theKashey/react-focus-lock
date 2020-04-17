@@ -32,7 +32,7 @@ const frameStyle = {
 const Frame = ({children}) => (<div style={frameStyle}>{children}</div>);
 
 storiesOf('Focus lock', module)
-  .add('codesanbox example', () => <Frame><DefaultAll/></Frame>)
+  .add('codesandbox example', () => <Frame><DefaultAll/></Frame>)
   .add('TabIndex example', () => <Frame><TabIndex/></Frame>)
   .add('autofocus', () => <Frame><AutoFocus/></Frame>)
   .add('return focus', () => <Frame><ReturnFocus/></Frame>);
@@ -77,6 +77,7 @@ storiesOf('Disabled', module)
 
 storiesOf('Excotic', module)
   .add('video', () => <Frame><Video/></Frame>)
-  .add('iframe', () => <Frame><Iframe/></Frame>)
+  .add('iframe - crossframe', () => <Frame><Iframe crossFrame/></Frame>)
+  .add('iframe - free', () => <Frame><Iframe crossFrame={false}/></Frame>)
   .add('sidecar', () => <Frame><SideCar/></Frame>)
   .add('tabbable parent', () => <Frame><TabbableParent/></Frame>);

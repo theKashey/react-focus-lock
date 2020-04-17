@@ -21,6 +21,7 @@ const FocusLock = React.forwardRef((props, parentRef) => {
     disabled,
     noFocusGuards,
     persistentFocus,
+    crossFrame,
     autoFocus,
     allowTextSelection,
     group,
@@ -132,6 +133,7 @@ const FocusLock = React.forwardRef((props, parentRef) => {
           observed={realObserved}
           disabled={disabled}
           persistentFocus={persistentFocus}
+          crossFrame={crossFrame}
           autoFocus={autoFocus}
           whiteList={whiteList}
           shards={shards}
@@ -166,6 +168,7 @@ FocusLock.propTypes = {
   allowTextSelection: bool,
   autoFocus: bool,
   persistentFocus: bool,
+  crossFrame: bool,
 
   group: string,
   className: string,
@@ -189,6 +192,7 @@ FocusLock.defaultProps = {
   noFocusGuards: false,
   autoFocus: true,
   persistentFocus: false,
+  crossFrame: true,
   allowTextSelection: undefined,
   group: undefined,
   className: undefined,

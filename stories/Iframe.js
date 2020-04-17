@@ -21,6 +21,7 @@ class Trap extends Component {
 
   render() {
     const {disabled} = this.state;
+    const {crossFrame} = this.props;
     return (
       <FocusLock disabled={this.state.disabled}>
         {disabled && <div>
@@ -34,7 +35,7 @@ class Trap extends Component {
         You will cycle over this. Never leaving <br/>
         <input placeholder="input1"/>
 
-        <iframe src="/" style={{width:'100%', height: '60%'}}/>
+        <iframe src={`/iframe.html?id=focus-lock--codesandbox-example&crossFrame=${crossFrame}`} style={{width:'100%', height: '400px'}}/>
 
         <input placeholder="input2"/>
 
@@ -49,11 +50,11 @@ class Trap extends Component {
   }
 }
 
-const App = () =>
+const App = (props) =>
   <div style={styles}>
     <input placeholder="input1"/>
     <div style={bg}> Inaccessible <a href='#'>Link</a> outside</div>
-    <Trap />
+    <Trap {...props} />
     <div style={bg}> Inaccessible <a href='#'>Link</a> outside</div>
     <input placeholder="input1"/>
   </div>;

@@ -32,6 +32,8 @@ class Trap1 extends Component {
           <button onClick={this.toggle}>!ACTIVATE THE TRAP!</button>
         </div>
 
+        <p>hint: guards are disabled</p>
+
         {!disabled && <FocusLock returnFocus noFocusGuards>
           <button>BUTTON-2</button>
           <a href='#'>link somethere</a> <br/>

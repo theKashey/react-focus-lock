@@ -21,8 +21,12 @@ class Trap extends Component {
 
   render() {
     const {disabled} = this.state;
+    const query = (new URL(document.location)).searchParams;
     return (
-      <FocusLock disabled={this.state.disabled}>
+      <FocusLock
+        disabled={this.state.disabled}
+        crossFrame={query.get('crossFrame')==="true"}
+      >
         {disabled && <div>
           ! this is a <b>real trap</b>.<br/>
           We will steal your focus ! <br /><br />
