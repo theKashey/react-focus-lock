@@ -30,7 +30,7 @@ export interface ReactFocusLockProps<ChildrenType = React.ReactNode, LockProps=R
    * - once enabled keep focus in the lock, no matter where lock is active (default)
    * @default true
    */
-  crossFrame: boolean;
+  crossFrame?: boolean;
 
   /**
    * enables or disables autoFocusing feature.
