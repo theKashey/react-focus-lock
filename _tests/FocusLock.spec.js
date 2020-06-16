@@ -54,7 +54,13 @@ describe('react-focus-lock', () => {
     });
 
     afterEach(() => {
-      mountPoint.forEach(wrapper => wrapper.unmount());
+      mountPoint.forEach(wrapper => {
+        try {
+          wrapper.unmount()
+        } catch (e){
+
+        }
+      });
       document.body.focus();
     });
 

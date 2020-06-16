@@ -7,12 +7,12 @@
 
 ### Bug Fixes
 
-* correct behavior for radio buttons at the edge of lock, fixes [#103](https://github.com/theKashey/react-focus-lock/issues/103) ([9dac851](https://github.com/theKashey/react-focus-lock/commit/9dac851))
+* correct behavior for radio buttons at the edge of lock, fixes [#103](https://github.com/theKashey/react-focus-lock/issues/103) ([9dac851](https://github.com/theKashey/react-focus-lock/commit/9dac85167508ed3e761545ffcc877ef891013d2c))
 
 
 ### Features
 
-* add crossFrame property to control iframe behaviour, fixes [#104](https://github.com/theKashey/react-focus-lock/issues/104) ([486a7e0](https://github.com/theKashey/react-focus-lock/commit/486a7e0))
+* add crossFrame property to control iframe behaviour, fixes [#104](https://github.com/theKashey/react-focus-lock/issues/104) ([486a7e0](https://github.com/theKashey/react-focus-lock/commit/486a7e08428487286d09ef7bfeaa701e8376318d))
 
 
 
@@ -25,7 +25,7 @@
 
 ### Features
 
-* use forwardRef, and allow custom as prop ([af0e560](https://github.com/theKashey/react-focus-lock/commit/af0e560))
+* use forwardRef, and allow custom as prop ([af0e560](https://github.com/theKashey/react-focus-lock/commit/af0e560966ce3dd936d6fb7f3665ecab972bdd20))
 
 
 
@@ -50,7 +50,7 @@
 
 ### Bug Fixes
 
-* onActivation hooks not called in v2 ([ee1cb14](https://github.com/theKashey/react-focus-lock/commit/ee1cb14))
+* onActivation hooks not called in v2 ([ee1cb14](https://github.com/theKashey/react-focus-lock/commit/ee1cb14b8cd3c28f5ce8e093f1b7aa95779f3563))
 
 
 
@@ -63,14 +63,14 @@
 
 ### Bug Fixes
 
-* nested return focus, fixes [#68](https://github.com/theKashey/react-focus-lock/issues/68) ([df4b313](https://github.com/theKashey/react-focus-lock/commit/df4b313))
-* useLayoutEffect for focus actions ([254e2ae](https://github.com/theKashey/react-focus-lock/commit/254e2ae))
+* nested return focus, fixes [#68](https://github.com/theKashey/react-focus-lock/issues/68) ([df4b313](https://github.com/theKashey/react-focus-lock/commit/df4b31389494a3dc7a3ebe5ce928721b1c289490))
+* useLayoutEffect for focus actions ([254e2ae](https://github.com/theKashey/react-focus-lock/commit/254e2aee9433da048704dda159582fcb90b7f4c1))
 
 
 ### Features
 
-* sidecar code splitting pattern ([187c3c8](https://github.com/theKashey/react-focus-lock/commit/187c3c8))
-* sidecar FocusLock ([5493986](https://github.com/theKashey/react-focus-lock/commit/5493986))
+* sidecar code splitting pattern ([187c3c8](https://github.com/theKashey/react-focus-lock/commit/187c3c8adc3d5613a7a3092398e024b78e545d02))
+* sidecar FocusLock ([5493986](https://github.com/theKashey/react-focus-lock/commit/5493986ccb49b3f3a189a8859c478fbb7089d520))
 
 
 
@@ -83,12 +83,12 @@
 
 ### Bug Fixes
 
-* infinite loop on ref set ([29e9691](https://github.com/theKashey/react-focus-lock/commit/29e9691))
+* infinite loop on ref set ([29e9691](https://github.com/theKashey/react-focus-lock/commit/29e9691fb516a92e99322a9832ceb120bb2e475e))
 
 
 ### Features
 
-* no tail guard ([c0c5fde](https://github.com/theKashey/react-focus-lock/commit/c0c5fde))
+* no tail guard ([c0c5fde](https://github.com/theKashey/react-focus-lock/commit/c0c5fde64d6d07414ab5a57c807dc8ac6bdb2ac3))
 
 
 
@@ -97,7 +97,7 @@
 
 ### Bug Fixes
 
-* simplify proptype for shards, fixes [#59](https://github.com/theKashey/react-focus-lock/issues/59) ([55b7129](https://github.com/theKashey/react-focus-lock/commit/55b7129))
+* simplify proptype for shards, fixes [#59](https://github.com/theKashey/react-focus-lock/issues/59) ([55b7129](https://github.com/theKashey/react-focus-lock/commit/55b7129eb117aaf66c0c835d89deb74c27d59446))
 
 
 
@@ -106,7 +106,7 @@
 
 ### Bug Fixes
 
-* use only auto guards ([12dab4a](https://github.com/theKashey/react-focus-lock/commit/12dab4a))
+* use only auto guards ([12dab4a](https://github.com/theKashey/react-focus-lock/commit/12dab4a636b96a12fc19f4ad4574d4498c25407a))
 
 
 
@@ -115,7 +115,7 @@
 
 ### Bug Fixes
 
-* support old refs ([8b87c2f](https://github.com/theKashey/react-focus-lock/commit/8b87c2f))
+* support old refs ([8b87c2f](https://github.com/theKashey/react-focus-lock/commit/8b87c2f938e5dba4b303625068b9eaafe858d51b))
 
 
 
@@ -124,7 +124,7 @@
 
 ### Features
 
-* introduce shards ([7bc46f0](https://github.com/theKashey/react-focus-lock/commit/7bc46f0))
+* introduce shards ([7bc46f0](https://github.com/theKashey/react-focus-lock/commit/7bc46f0f81255455238999f56bf001c5c83797ea))
 
 
 
@@ -133,7 +133,7 @@
 
 ### Bug Fixes
 
-* nested portals ([9878ba7](https://github.com/theKashey/react-focus-lock/commit/9878ba7))
+* nested portals ([9878ba7](https://github.com/theKashey/react-focus-lock/commit/9878ba72550272c7638781db7b923bf4c138bf4e))
 
 
 
@@ -146,7 +146,7 @@
 
 ### Bug Fixes
 
-* initially disabled buttons with tabindex set, [#50](https://github.com/theKashey/react-focus-lock/issues/50) ([12e33e5](https://github.com/theKashey/react-focus-lock/commit/12e33e5))
+* initially disabled buttons with tabindex set, [#50](https://github.com/theKashey/react-focus-lock/issues/50) ([12e33e5](https://github.com/theKashey/react-focus-lock/commit/12e33e5e3d721d48045d7f8ba40d68cdd04db866))
 
 
 
@@ -195,7 +195,7 @@
 
 ### Features
 
-* add 'as' and 'lockProps', [#44](https://github.com/theKashey/react-focus-lock/issues/44) ([5274e24](https://github.com/theKashey/react-focus-lock/commit/5274e24))
+* add 'as' and 'lockProps', [#44](https://github.com/theKashey/react-focus-lock/issues/44) ([5274e24](https://github.com/theKashey/react-focus-lock/commit/5274e2433a471c70640675a72a8285d563aaba88))
 
 
 
@@ -228,7 +228,7 @@
 
 ### Bug Fixes
 
-* Safary and Negative TabIndex, [#33](https://github.com/theKashey/react-focus-lock/issues/33) ([f4a6a6d](https://github.com/theKashey/react-focus-lock/commit/f4a6a6d))
+* Safary and Negative TabIndex, [#33](https://github.com/theKashey/react-focus-lock/issues/33) ([f4a6a6d](https://github.com/theKashey/react-focus-lock/commit/f4a6a6d2aaf3b52deaa376f497b6a329f9b2a7e3))
 
 
 
