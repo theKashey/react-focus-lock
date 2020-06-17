@@ -19,7 +19,7 @@
   },
   {
     "path": "dist/es2015/index.js",
-    "limit": "4.2 KB",
+    "limit": "4.3 KB",
     "ignore": [
       "prop-types",
       "@babel/runtime",

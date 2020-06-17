@@ -21,7 +21,7 @@
     "storybook": "NODE_ENV=es2015 start-storybook -p 6006",
     "build-storybook": "NODE_ENV=es2015 build-storybook",
     "package-self": "package-self",
-    "size": "npm run build && npx size-limit",
+    "size": "yarn build && yarn size-limit",
     "changelog": "conventional-changelog -p angular -i CHANGELOG.md -s -r 0"
   },
   "repository": {
@@ -88,7 +88,8 @@
     "react-dom": "^16.8.6",
     "react-hot-loader": "^4.11.0",
     "react-test-renderer": "^16.2.0",
-    "sinon": "7.3.2"
+    "sinon": "7.3.2",
+    "size-limit": "^4.5.0"
   },
   "homepage": "https://github.com/theKashey/react-focus-lock#readme",
   "dependencies": {
