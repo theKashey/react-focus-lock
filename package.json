@@ -60,7 +60,7 @@
     "@babel/preset-env": "^7.0.0",
     "@babel/preset-react": "^7.0.0",
     "@babel/register": "^7.0.0",
-    "@size-limit/preset-small-lib": "^2.1.1",
+    "@size-limit/preset-small-lib": "^4.5.0",
     "@storybook/addon-actions": "^5.1.8",
     "@storybook/addon-links": "^5.1.8",
     "@storybook/react": "^5.1.8",
