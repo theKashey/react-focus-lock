@@ -1,3 +1,14 @@
+# [2.4.0](https://github.com/theKashey/react-focus-lock/compare/v2.3.1...v2.4.0) (2020-06-18)
+
+
+### Bug Fixes
+
+* avoid crash on IE ([1cbc9e5](https://github.com/theKashey/react-focus-lock/commit/1cbc9e53a14eb196ef74397d03cfaa1e91eaf909))
+* tabIndex=-1 elements should be autofocusable if pointed, fixes [#108](https://github.com/theKashey/react-focus-lock/issues/108) ([258e6aa](https://github.com/theKashey/react-focus-lock/commit/258e6aa4e1b09c12e8ff1e59bb00247ea3bf06bb))
+* update interfaces ([7f977fb](https://github.com/theKashey/react-focus-lock/commit/7f977fb409fc84f028cd39f2d95aa761e572bdd3))
+
+
+
 ## [2.3.1](https://github.com/theKashey/react-focus-lock/compare/v2.3.0...v2.3.1) (2020-04-17)
 
 
