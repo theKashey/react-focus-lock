@@ -89,6 +89,7 @@ export interface ReactFocusLockProps<ChildrenType = React.ReactNode, LockProps=R
 
 export interface AutoFocusProps {
   children: React.ReactNode;
+  disabled?: boolean;
   className?: string;
 }
 

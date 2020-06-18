@@ -31,3 +31,8 @@ export class FreeFocusInside extends React.Component<FreeFocusProps> {
  */
 export class InFocusGuard extends React.Component<InFocusGuardProps> {
 }
+
+/**
+ * Moves focus inside a given node
+ */
+export function useFocusInside(node: React.RefObject<HTMLElement>):void;

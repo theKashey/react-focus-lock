@@ -54,7 +54,13 @@ describe('react-focus-lock', () => {
     });
 
     afterEach(() => {
-      mountPoint.forEach(wrapper => wrapper.unmount());
+      mountPoint.forEach(wrapper => {
+        try {
+          wrapper.unmount()
+        } catch (e){
+
+        }
+      });
       document.body.focus();
     });
 
@@ -644,10 +650,23 @@ text
         expect(document.activeElement.innerHTML).to.be.equal('action');
       });
 
+      it('MoveFocusInside works with non-tabbable elements', () => {
+        mount(<FocusLock>
+          <MoveFocusInside>
+            <div>
+              text
+              <button tabIndex={-1}>action</button>
+              text
+            </div>
+          </MoveFocusInside>
+        </FocusLock>);
+        expect(document.activeElement.innerHTML).to.be.equal('action');
+      });
+
       it('FocusLock do nothing', () => {
         mount(<FocusLock autoFocus={false}>
           <div>
-text
+            text
             <button>action</button>
             text
           </div>

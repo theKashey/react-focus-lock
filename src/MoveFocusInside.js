@@ -4,24 +4,26 @@ import * as constants from 'focus-lock/constants';
 import { inlineProp } from './util';
 import { mediumEffect } from './medium';
 
-function MoveFocusInside({ disabled: isDisabled, className, children }) {
-  const ref = React.useRef(null);
-  const disabled = React.useRef(isDisabled);
-  const moveFocus = () => {
-    const observed = ref.current;
+export const useFocusInside = (observedRef) => {
+  React.useEffect(() => {
+    let enabled = true;
     mediumEffect.useMedium((car) => {
-      if (!disabled.current && observed) {
+      const observed = observedRef && observedRef.current;
+      if (enabled && observed) {
         if (!car.focusInside(observed)) {
           car.moveFocusInside(observed, null);
         }
       }
     });
-  };
+    return () => {
+      enabled = false;
+    };
+  }, [observedRef]);
+};
 
-  React.useEffect(() => {
-    disabled.current = isDisabled;
-    moveFocus();
-  }, [isDisabled]);
+function MoveFocusInside({ disabled: isDisabled, className, children }) {
+  const ref = React.useRef(null);
+  useFocusInside(isDisabled ? undefined : ref);
 
   return (
     <div
