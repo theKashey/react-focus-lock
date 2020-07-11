@@ -113,14 +113,13 @@ const activateTrap = () => {
       if (document) {
         const newActiveElement = document && document.activeElement;
         const allNodes = getFocusabledIn(workingArea);
-        const focusedItem = allNodes.find(({ node }) => node === newActiveElement);
-        if (focusedItem) {
+        const focusedIndex = allNodes.map(({ node }) => node).indexOf(newActiveElement);
+        if (focusedIndex > -1) {
           // remove old focus
           allNodes
             .filter(({ guard, node }) => guard && node.dataset.focusAutoGuard)
             .forEach(({ node }) => node.removeAttribute('tabIndex'));
 
-          const focusedIndex = allNodes.indexOf(focusedItem);
           autoGuard(focusedIndex, allNodes.length, +1, allNodes);
           autoGuard(focusedIndex, -1, -1, allNodes);
         }
