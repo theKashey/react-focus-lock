@@ -1,3 +1,12 @@
+## [2.4.1](https://github.com/theKashey/react-focus-lock/compare/v2.4.0...v2.4.1) (2020-07-18)
+
+
+### Bug Fixes
+
+* FocusLock compoenents does not have name. Used named components inside forwardRefs ([a2d781d](https://github.com/theKashey/react-focus-lock/commit/a2d781d310185ab67a19a9d56752209de15aacb2))
+
+
+
 # [2.4.0](https://github.com/theKashey/react-focus-lock/compare/v2.3.1...v2.4.0) (2020-06-18)
 
 
