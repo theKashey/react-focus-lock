@@ -10,7 +10,7 @@ import { mediumFocus, mediumBlur, mediumSidecar } from './medium';
 
 const emptyArray = [];
 
-const FocusLock = React.forwardRef((props, parentRef) => {
+const FocusLock = React.forwardRef(function FocusLockUI(props, parentRef) {
   const [realObserved, setObserved] = React.useState();
   const observed = React.useRef();
   const isActive = React.useRef(false);
