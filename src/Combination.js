@@ -18,7 +18,7 @@ const FocusLockCombination = React.forwardRef(function FocusLockUICombination(pr
       ref={ref}
       {...props}
     />
-  )
+  );
 });
 
 const { sideCar, ...propTypes } = FocusLockUI.propTypes || {};
