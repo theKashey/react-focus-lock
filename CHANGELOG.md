@@ -1,3 +1,17 @@
+# [2.5.0](https://github.com/theKashey/react-focus-lock/compare/v2.4.2...v2.5.0) (2020-11-16)
+
+
+
+## [2.4.2](https://github.com/theKashey/react-focus-lock/compare/v2.4.1...v2.4.2) (2020-11-16)
+
+
+### Bug Fixes
+
+* update focus-lock ([30f8459](https://github.com/theKashey/react-focus-lock/commit/30f84595bfcf3b866c6802bfc0662741967ae21b))
+* widen peerDeps to React 17 ([e32e793](https://github.com/theKashey/react-focus-lock/commit/e32e7932043551c3339d2ad5e0a08a925e67f780))
+
+
+
 ## [2.4.1](https://github.com/theKashey/react-focus-lock/compare/v2.4.0...v2.4.1) (2020-07-18)
 
 
