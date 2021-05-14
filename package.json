@@ -1,6 +1,6 @@
 {
   "name": "react-focus-lock",
-  "version": "2.5.0",
+  "version": "2.5.1",
   "description": "It is a trap! (for a focus)",
   "main": "dist/cjs/index.js",
   "jsnext:main": "dist/es2015/index.js",
@@ -80,9 +80,9 @@
     "eslint-plugin-mocha": "^5.3.0",
     "eslint-plugin-react": "^7.13.0",
     "jsdom": "15.1.1",
-    "jsdom-global": "3.0.2",
+    "jsdom-global": "^3.0.2",
     "material-ui": "^0.20.0",
-    "mocha": "^6.1.4",
+    "mocha": "^8.3.2",
     "package-self": "^1.1.1",
     "react": "^16.8.6",
     "react-dom": "^16.8.6",
@@ -94,7 +94,7 @@
   "homepage": "https://github.com/theKashey/react-focus-lock#readme",
   "dependencies": {
     "@babel/runtime": "^7.0.0",
-    "focus-lock": "^0.8.1",
+    "focus-lock": "^0.9.1",
     "prop-types": "^15.6.2",
     "react-clientside-effect": "^1.2.2",
     "use-callback-ref": "^1.2.1",
