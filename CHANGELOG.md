@@ -1,3 +1,12 @@
+## [2.5.1](https://github.com/theKashey/react-focus-lock/compare/v2.5.0...v2.5.1) (2021-05-13)
+
+
+### Bug Fixes
+
+* update focus-lock to speedup lock activation ([0835485](https://github.com/theKashey/react-focus-lock/commit/0835485df13f5bd42b3045615cc11d9f87e3145b))
+
+
+
 # [2.5.0](https://github.com/theKashey/react-focus-lock/compare/v2.4.2...v2.5.0) (2020-11-16)
 
 
