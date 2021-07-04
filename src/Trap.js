@@ -94,13 +94,7 @@ const activateTrap = () => {
               || focusIsPortaledPair(activeElement, workingNode)
             )
           ) {
-            if (document && !lastActiveFocus && activeElement && !autoFocus) {
-              // Check if blur() exists, which is missing on certain elements on IE
-              if (activeElement.blur) {
-                activeElement.blur();
-              }
-              document.body.focus();
-            } else {
+            if (!document || lastActiveFocus || !activeElement || autoFocus) {
               result = moveFocusInside(workingArea, lastActiveFocus);
               lastPortaledElement = {};
             }
