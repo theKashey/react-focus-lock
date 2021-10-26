@@ -324,7 +324,7 @@ To create a "right" modal dialog you have to:
 - block document scroll. Use [react-scroll-locky](https://github.com/theKashey/react-scroll-locky).
 - hide everything else from screen readers. Use [aria-hidden](https://github.com/theKashey/aria-hidden)
 
-You may use [react-focus-on](https://github.com/theKashey/react-focus-on) to archive everything above, assembled in the right order.
+You may use [react-focus-on](https://github.com/theKashey/react-focus-on) to achieve everything above, assembled in the right order.
 
 # Licence
  MIT
