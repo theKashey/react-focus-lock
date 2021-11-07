@@ -835,6 +835,7 @@ text
             )}
           </div>
         </div>);
+        // will be never focused at React 17
         sinon.assert.calledOnce(focusSpy);
         setTimeout(() => {
           expect(document.activeElement.innerHTML).to.be.equal('button-action');
@@ -864,6 +865,7 @@ text
             <button>6-action4</button>
           </FocusLock>
         </div>);
+        // setTimeout(() => { // React 17
         document.getElementById('portaled2').focus();
         expect(document.activeElement.innerHTML).to.be.equal('i am portaled');
         setTimeout(() => {
@@ -899,11 +901,13 @@ text
             <button>6-action4</button>
           </FocusLock>
         </div>);
+        // setTimeout(() => { // React 17
         expect(document.activeElement.innerHTML).to.be.equal('i am portaled');
         setTimeout(() => {
           expect(document.activeElement.innerHTML).to.be.equal('i am portaled');
           done();
         }, 1);
+        // },16);
       });
     });
 
