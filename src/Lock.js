@@ -7,6 +7,7 @@ import {useMergeRefs} from 'use-callback-ref';
 
 import {hiddenGuard} from './FocusGuard';
 import {mediumFocus, mediumBlur, mediumSidecar} from './medium';
+import {useEffect} from "react";
 
 const emptyArray = [];
 
@@ -58,6 +59,14 @@ const FocusLock = React.forwardRef(function FocusLockUI(props, parentRef) {
       onDeactivationCallback(observed.current);
     }
   }, [onDeactivationCallback]);
+
+  useEffect(() => {
+    if(!disabled) {
+      // cleanup return focus on trap deactivation
+      // sideEffect/returnFocus should happen by this time
+      originalFocusedElement.current = null;
+    }
+  }, []);
 
   const returnFocus = React.useCallback((allowDefer) => {
     const {current: returnFocusTo} = originalFocusedElement;
