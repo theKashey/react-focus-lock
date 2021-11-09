@@ -10,7 +10,7 @@ export interface ReactFocusLockProps<ChildrenType = React.ReactNode, LockProps=R
    * more precisely (ie. `{ preventScroll: true }`)
    *
    * can also accept a function with the first argument equals to element focus will be returned to
-   * in order to
+   * in order to provide full control to the user space
    */
   returnFocus?: boolean | FocusOptions | ((returnTo: Element)=> boolean | FocusOptions);
 

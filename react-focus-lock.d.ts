@@ -4,7 +4,7 @@ import {ReactFocusLockProps, AutoFocusProps, FreeFocusProps, InFocusGuardProps} 
 /**
  * Traps Focus inside a Lock
  */
-declare const ReactFocusLock:React.FC<ReactFocusLockProps>;
+declare const ReactFocusLock: React.FC<ReactFocusLockProps>;
 
 export default ReactFocusLock;
 
