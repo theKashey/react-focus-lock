@@ -1,3 +1,18 @@
+# [2.6.0](https://github.com/theKashey/react-focus-lock/compare/v2.5.2...v2.6.0) (2021-11-09)
+
+
+### Bug Fixes
+
+* allow returnFocus to be garbage collected, fixes [#173](https://github.com/theKashey/react-focus-lock/issues/173) ([ad3a4a1](https://github.com/theKashey/react-focus-lock/commit/ad3a4a1747dc098715e6fe0d70c6cbe2ce63d663))
+* do not use capture phase for focus-in events, fixes [#134](https://github.com/theKashey/react-focus-lock/issues/134) ([d56f49e](https://github.com/theKashey/react-focus-lock/commit/d56f49eb723cdb8117d8f51a8160db5c60aed5cb))
+
+
+### Features
+
+* allow programatic control over returnFocus prop, fixes [#178](https://github.com/theKashey/react-focus-lock/issues/178) ([d5ec48b](https://github.com/theKashey/react-focus-lock/commit/d5ec48b93e7125259b0c64d6c57d1d7a6e88885b))
+
+
+
 ## [2.5.2](https://github.com/theKashey/react-focus-lock/compare/v2.5.1...v2.5.2) (2021-07-04)
 
 
