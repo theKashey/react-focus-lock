@@ -171,13 +171,13 @@ const onWindowBlur = () => {
 };
 
 const attachHandler = () => {
-  document.addEventListener('focusin', onTrap, true);
+  document.addEventListener('focusin', onTrap);
   document.addEventListener('focusout', onBlur);
   window.addEventListener('blur', onWindowBlur);
 };
 
 const detachHandler = () => {
-  document.removeEventListener('focusin', onTrap, true);
+  document.removeEventListener('focusin', onTrap);
   document.removeEventListener('focusout', onBlur);
   window.removeEventListener('blur', onWindowBlur);
 };

@@ -3,10 +3,11 @@ import {
   node, bool, string, any, arrayOf, oneOfType, object, func,
 } from 'prop-types';
 import * as constants from 'focus-lock/constants';
-import { useMergeRefs } from 'use-callback-ref';
+import {useMergeRefs} from 'use-callback-ref';
 
-import { hiddenGuard } from './FocusGuard';
-import { mediumFocus, mediumBlur, mediumSidecar } from './medium';
+import {hiddenGuard} from './FocusGuard';
+import {mediumFocus, mediumBlur, mediumSidecar} from './medium';
+import {useEffect} from "react";
 
 const emptyArray = [];
 
@@ -59,18 +60,29 @@ const FocusLock = React.forwardRef(function FocusLockUI(props, parentRef) {
     }
   }, [onDeactivationCallback]);
 
-  const returnFocus = React.useCallback((allowDefer) => {
-    const { current } = originalFocusedElement;
-    if (Boolean(shouldReturnFocus) && current && current.focus) {
-      const focusOptions = typeof shouldReturnFocus === 'object' ? shouldReturnFocus : undefined;
+  useEffect(() => {
+    if(!disabled) {
+      // cleanup return focus on trap deactivation
+      // sideEffect/returnFocus should happen by this time
       originalFocusedElement.current = null;
+    }
+  }, []);
 
-      if (allowDefer) {
-        // React might return focus after update
-        // it's safer to defer the action
-        Promise.resolve().then(() => current.focus(focusOptions));
-      } else {
-        current.focus(focusOptions);
+  const returnFocus = React.useCallback((allowDefer) => {
+    const {current: returnFocusTo} = originalFocusedElement;
+    if (returnFocusTo && returnFocusTo.focus) {
+      const howToReturnFocus = typeof shouldReturnFocus === 'function' ? shouldReturnFocus(returnFocusTo) : shouldReturnFocus;
+      if (Boolean(howToReturnFocus)) {
+        const focusOptions = typeof howToReturnFocus === 'object' ? howToReturnFocus : undefined;
+        originalFocusedElement.current = null;
+
+        if (allowDefer) {
+          // React might return focus after update
+          // it's safer to defer the action
+          Promise.resolve().then(() => returnFocusTo.focus(focusOptions));
+        } else {
+          returnFocusTo.focus(focusOptions);
+        }
       }
     }
   }, [shouldReturnFocus]);
@@ -123,8 +135,8 @@ const FocusLock = React.forwardRef(function FocusLockUI(props, parentRef) {
   return (
     <React.Fragment>
       {hasLeadingGuards && [
-        <div key="guard-first" data-focus-guard tabIndex={disabled ? -1 : 0} style={hiddenGuard} />, // nearest focus guard
-        <div key="guard-nearest" data-focus-guard tabIndex={disabled ? -1 : 1} style={hiddenGuard} />, // first tabbed element guard
+        <div key="guard-first" data-focus-guard tabIndex={disabled ? -1 : 0} style={hiddenGuard}/>, // nearest focus guard
+        <div key="guard-nearest" data-focus-guard tabIndex={disabled ? -1 : 1} style={hiddenGuard}/>, // first tabbed element guard
       ]}
       {!disabled && (
         <SideCar
@@ -153,7 +165,7 @@ const FocusLock = React.forwardRef(function FocusLockUI(props, parentRef) {
       </Container>
       {
         hasTailingGuards
-        && <div data-focus-guard tabIndex={disabled ? -1 : 0} style={hiddenGuard} />
+        && <div data-focus-guard tabIndex={disabled ? -1 : 0} style={hiddenGuard}/>
       }
     </React.Fragment>
   );

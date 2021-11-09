@@ -216,34 +216,28 @@ d-action
 
       expect(document.activeElement.innerHTML).to.be.equal('d-action0');
       wrapper.find('.clickTarget0').simulate('click');
-
       await tick();
-
       expect(document.activeElement.innerHTML).to.be.equal('d-action1');
+
       wrapper.find('.clickTarget1').simulate('click');
-
       await tick();
-
       expect(document.activeElement.innerHTML).to.be.equal('d-action2');
+
       wrapper.find('.clickTarget2').simulate('click');
-
       await tick();
-
       expect(document.activeElement.innerHTML).to.be.equal('d-action3');
+
+      // unlock
       wrapper.find('.clickTarget2').simulate('click');
-
       await tick();
-
       expect(document.activeElement.innerHTML).to.be.equal('d-action2');
+
       wrapper.find('.clickTarget1').simulate('click');
-
       await tick();
-
       expect(document.activeElement.innerHTML).to.be.equal('d-action1');
+
       wrapper.find('.clickTarget0').simulate('click');
-
       await tick();
-
       expect(document.activeElement.innerHTML).to.be.equal('d-action0');
     });
 
@@ -835,6 +829,7 @@ text
             )}
           </div>
         </div>);
+        // will be never focused at React 17
         sinon.assert.calledOnce(focusSpy);
         setTimeout(() => {
           expect(document.activeElement.innerHTML).to.be.equal('button-action');
@@ -864,6 +859,7 @@ text
             <button>6-action4</button>
           </FocusLock>
         </div>);
+        // setTimeout(() => { // React 17
         document.getElementById('portaled2').focus();
         expect(document.activeElement.innerHTML).to.be.equal('i am portaled');
         setTimeout(() => {
@@ -899,11 +895,13 @@ text
             <button>6-action4</button>
           </FocusLock>
         </div>);
+        // setTimeout(() => { // React 17
         expect(document.activeElement.innerHTML).to.be.equal('i am portaled');
         setTimeout(() => {
           expect(document.activeElement.innerHTML).to.be.equal('i am portaled');
           done();
         }, 1);
+        // },16);
       });
     });
 
