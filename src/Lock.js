@@ -1,6 +1,6 @@
 import * as React from 'react';
 import {
-  node, bool, string, any, arrayOf, oneOfType, object, func,
+  node, bool, string, any, arrayOf, oneOfType, object, func, number,
 } from 'prop-types';
 import * as constants from 'focus-lock/constants';
 import {useMergeRefs} from 'use-callback-ref';
@@ -28,6 +28,7 @@ const FocusLock = React.forwardRef(function FocusLockUI(props, parentRef) {
     group,
     className,
     whiteList,
+    maxTabIndex = 1,
     shards = emptyArray,
     as: Container = 'div',
     lockProps: containerProps = {},
@@ -136,7 +137,7 @@ const FocusLock = React.forwardRef(function FocusLockUI(props, parentRef) {
     <React.Fragment>
       {hasLeadingGuards && [
         <div key="guard-first" data-focus-guard tabIndex={disabled ? -1 : 0} style={hiddenGuard}/>, // nearest focus guard
-        <div key="guard-nearest" data-focus-guard tabIndex={disabled ? -1 : 1} style={hiddenGuard}/>, // first tabbed element guard
+        <div key="guard-nearest" data-focus-guard tabIndex={disabled ? -1 : maxTabIndex} style={hiddenGuard}/>, // first tabbed element guard
       ]}
       {!disabled && (
         <SideCar
@@ -176,6 +177,7 @@ FocusLock.propTypes = {
   disabled: bool,
   returnFocus: oneOfType([bool, object]),
   noFocusGuards: bool,
+  maxTabIndex: number,
 
   allowTextSelection: bool,
   autoFocus: bool,
@@ -210,6 +212,7 @@ FocusLock.defaultProps = {
   className: undefined,
   whiteList: undefined,
   shards: undefined,
+  maxTabIndex: 1,
   as: 'div',
   lockProps: {},
 
