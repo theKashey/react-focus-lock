@@ -1,6 +1,6 @@
 import * as React from 'react';
 import {
-  node, bool, string, any, arrayOf, oneOfType, object, func, number,
+  node, bool, string, any, arrayOf, oneOfType, object, func,
 } from 'prop-types';
 import * as constants from 'focus-lock/constants';
 import {useMergeRefs} from 'use-callback-ref';
@@ -28,7 +28,7 @@ const FocusLock = React.forwardRef(function FocusLockUI(props, parentRef) {
     group,
     className,
     whiteList,
-    maxTabIndex = 1,
+    usePositiveIndices,
     shards = emptyArray,
     as: Container = 'div',
     lockProps: containerProps = {},
@@ -39,6 +39,8 @@ const FocusLock = React.forwardRef(function FocusLockUI(props, parentRef) {
     onActivation: onActivationCallback,
     onDeactivation: onDeactivationCallback,
   } = props;
+
+  const maxTabIndex = usePositiveIndices ? 1 : 0;
 
   const [id] = React.useState({});
 
@@ -177,7 +179,7 @@ FocusLock.propTypes = {
   disabled: bool,
   returnFocus: oneOfType([bool, object]),
   noFocusGuards: bool,
-  maxTabIndex: number,
+  usePositiveIndices: bool,
 
   allowTextSelection: bool,
   autoFocus: bool,
@@ -207,12 +209,12 @@ FocusLock.defaultProps = {
   autoFocus: true,
   persistentFocus: false,
   crossFrame: true,
+  usePositiveIndices: undefined,
   allowTextSelection: undefined,
   group: undefined,
   className: undefined,
   whiteList: undefined,
   shards: undefined,
-  maxTabIndex: 1,
   as: 'div',
   lockProps: {},
 
