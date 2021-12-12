@@ -1,3 +1,12 @@
+# [2.7.0](https://github.com/theKashey/react-focus-lock/compare/v2.6.0...v2.7.0) (2021-12-12)
+
+
+### Features
+
+* support focusOptions, fixes [#162](https://github.com/theKashey/react-focus-lock/issues/162) ([f19e507](https://github.com/theKashey/react-focus-lock/commit/f19e507e1a730b50214896a31be5e3de54117d54))
+
+
+
 # [2.6.0](https://github.com/theKashey/react-focus-lock/compare/v2.5.2...v2.6.0) (2021-11-09)
 
 
