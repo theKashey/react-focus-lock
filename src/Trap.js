@@ -71,7 +71,7 @@ const activateTrap = () => {
   let result = false;
   if (lastActiveTrap) {
     const {
-      observed, persistentFocus, autoFocus, shards, crossFrame,
+      observed, persistentFocus, autoFocus, shards, crossFrame, focusOptions,
     } = lastActiveTrap;
     const workingNode = observed || (lastPortaledElement && lastPortaledElement.portaledElement);
     const activeElement = document && document.activeElement;
@@ -101,7 +101,7 @@ const activateTrap = () => {
               }
               document.body.focus();
             } else {
-              result = moveFocusInside(workingArea, lastActiveFocus);
+              result = moveFocusInside(workingArea, lastActiveFocus, {focusOptions});
               lastPortaledElement = {};
             }
           }
