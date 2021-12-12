@@ -34,6 +34,7 @@ const FocusLock = React.forwardRef(function FocusLockUI(props, parentRef) {
     sideCar: SideCar,
 
     returnFocus: shouldReturnFocus,
+    focusOptions,
 
     onActivation: onActivationCallback,
     onDeactivation: onDeactivationCallback,
@@ -73,15 +74,15 @@ const FocusLock = React.forwardRef(function FocusLockUI(props, parentRef) {
     if (returnFocusTo && returnFocusTo.focus) {
       const howToReturnFocus = typeof shouldReturnFocus === 'function' ? shouldReturnFocus(returnFocusTo) : shouldReturnFocus;
       if (Boolean(howToReturnFocus)) {
-        const focusOptions = typeof howToReturnFocus === 'object' ? howToReturnFocus : undefined;
+        const returnFocusOptions = typeof howToReturnFocus === 'object' ? howToReturnFocus : undefined;
         originalFocusedElement.current = null;
 
         if (allowDefer) {
           // React might return focus after update
           // it's safer to defer the action
-          Promise.resolve().then(() => returnFocusTo.focus(focusOptions));
+          Promise.resolve().then(() => returnFocusTo.focus(returnFocusOptions));
         } else {
-          returnFocusTo.focus(focusOptions);
+          returnFocusTo.focus(returnFocusOptions);
         }
       }
     }
@@ -152,6 +153,7 @@ const FocusLock = React.forwardRef(function FocusLockUI(props, parentRef) {
           onActivation={onActivation}
           onDeactivation={onDeactivation}
           returnFocus={returnFocus}
+          focusOptions={focusOptions}
         />
       )}
       <Container
@@ -174,7 +176,8 @@ const FocusLock = React.forwardRef(function FocusLockUI(props, parentRef) {
 FocusLock.propTypes = {
   children: node,
   disabled: bool,
-  returnFocus: oneOfType([bool, object]),
+  returnFocus: oneOfType([bool, object, func]),
+  focusOptions: object,
   noFocusGuards: bool,
 
   allowTextSelection: bool,
@@ -201,6 +204,7 @@ FocusLock.defaultProps = {
   children: undefined,
   disabled: false,
   returnFocus: false,
+  focusOptions: undefined,
   noFocusGuards: false,
   autoFocus: true,
   persistentFocus: false,

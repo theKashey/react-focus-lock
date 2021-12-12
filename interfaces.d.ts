@@ -15,6 +15,19 @@ export interface ReactFocusLockProps<ChildrenType = React.ReactNode, LockProps=R
   returnFocus?: boolean | FocusOptions | ((returnTo: Element)=> boolean | FocusOptions);
 
   /**
+   * used to control behavior or "returning focus back to the lock"
+   *
+   * @deprecated Can lead to a wrong user experience. Use this option only if you known what you are doing
+   * @see {@link https://github.com/theKashey/react-focus-lock/issues/162}
+   * @example
+   * prevent scroll example
+   * ```tsx
+   * <FocusLock focusOptions={{preventScroll: true}} />
+   * ```
+   */
+  focusOptions?: FocusOptions;
+
+  /**
    * @deprecated Use persistentFocus=false instead
    * enables(or disables) text selection. This also allows not to have ANY focus.
    */
