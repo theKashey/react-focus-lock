@@ -10,5 +10,5 @@ jobs:
       - checkout
       - run: yarn
       - run: yarn lint
-      - run: yarn size
+      - run: NODE_OPTIONS=--openssl-legacy-provider yarn size
       - run: yarn test

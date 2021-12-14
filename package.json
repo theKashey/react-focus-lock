@@ -14,7 +14,7 @@
     "build:es5": "NODE_ENV=es2015 babel src -d dist/es2015",
     "build": "rm -Rf ./dist && yarn build:es5 && yarn build:cjs",
     "test": "npm run test:pick -- '_tests/**/*spec.js'",
-    "test:pick": "NODE_ENV=cjs mocha --require @babel/register --require jsdom-global/register --require _tests/spinup/scaffolding ",
+    "test:pick": "NODE_ENV=cjs mocha --require @babel/register --require jsdom-global/register --require _tests/spinup/scaffolding --exit",
     "prepublish": "npm run lint:fix && npm run build && npm run changelog",
     "lint": "eslint src",
     "lint:fix": "eslint src --fix",
@@ -94,7 +94,7 @@
   "homepage": "https://github.com/theKashey/react-focus-lock#readme",
   "dependencies": {
     "@babel/runtime": "^7.0.0",
-    "focus-lock": "^0.9.2",
+    "focus-lock": "^0.10.1",
     "prop-types": "^15.6.2",
     "react-clientside-effect": "^1.2.5",
     "use-callback-ref": "^1.2.5",
