@@ -91,12 +91,20 @@ const FocusLock = React.forwardRef(function FocusLockUI(props, parentRef) {
   // MEDIUM CALLBACKS
 
   const onFocus = React.useCallback((event) => {
+    if (containerProps.onFocus) {
+      containerProps.onFocus(event);
+    }
     if (isActive.current) {
       mediumFocus.useMedium(event);
     }
-  }, []);
+  }, [containerProps.onFocus]);
 
-  const onBlur = mediumBlur.useMedium;
+  const onBlur = React.useCallback((event) => {
+    if (containerProps.onBlur) {
+      containerProps.onBlur(event);
+    }
+    mediumBlur.useMedium(event)
+  }, [containerProps.onBlur]);
 
   // REF PROPAGATION
   // not using real refs due to race conditions

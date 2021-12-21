@@ -382,6 +382,30 @@ d-action
       }, 10);
     });
 
+    it('User passed in onBlur and onFocus', () => {
+      const onFocus = sinon.spy();
+      const onBlur = sinon.spy();
+      const wrapper = mount(
+        <FocusLock lockProps={{
+          onFocus,
+          onBlur
+        }}>
+          <button id="b1">button1</button>
+          <button id="b2">button2</button>
+        </FocusLock>,
+      );
+
+      wrapper.find('#b1').simulate('focus');
+      wrapper.find('#b1').getDOMNode().focus();
+      sinon.assert.calledOnce(onFocus);
+
+      wrapper.find('#b2').simulate('focus');
+      wrapper.find('#b2').getDOMNode().focus();
+      wrapper.find('#b1').simulate('blur');
+      sinon.assert.calledOnce(onBlur);
+
+      wrapper.unmount();
+    });
 
     describe('order', () => {
       it('Should be enabled only on last node', (done) => {
