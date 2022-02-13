@@ -81,6 +81,7 @@ I've got a good [article about focus management, dialogs and  WAI-ARIA](https://
   - `whiteList=fn` you could _whitelist_ locations FocusLock should carry about. Everything outside it will ignore. For example - any modals.
   - `as='div'` if you need to change internal `div` element, to any other. Use ref forwarding to give FocusLock the node to work with.
   - `lockProps={}` to pass any extra props (except className) to the internal wrapper.
+  - `usePositiveIndices` to maintain a focus lock when elements exterior to the focus lock have a tabIndex greater than 0.
 
 ### Focusing in OSX (Safari/Firefox) is strange!
 By default `tabbing` in OSX `sees` only controls, but not links or anything else `tabbable`. This is system settings, and Safari/Firefox obey.

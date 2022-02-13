@@ -28,6 +28,7 @@ const FocusLock = React.forwardRef(function FocusLockUI(props, parentRef) {
     group,
     className,
     whiteList,
+    usePositiveIndices,
     shards = emptyArray,
     as: Container = 'div',
     lockProps: containerProps = {},
@@ -39,6 +40,8 @@ const FocusLock = React.forwardRef(function FocusLockUI(props, parentRef) {
     onActivation: onActivationCallback,
     onDeactivation: onDeactivationCallback,
   } = props;
+
+  const maxTabIndex = usePositiveIndices ? 1 : 0;
 
   const [id] = React.useState({});
 
@@ -137,7 +140,7 @@ const FocusLock = React.forwardRef(function FocusLockUI(props, parentRef) {
     <React.Fragment>
       {hasLeadingGuards && [
         <div key="guard-first" data-focus-guard tabIndex={disabled ? -1 : 0} style={hiddenGuard}/>, // nearest focus guard
-        <div key="guard-nearest" data-focus-guard tabIndex={disabled ? -1 : 1} style={hiddenGuard}/>, // first tabbed element guard
+        <div key="guard-nearest" data-focus-guard tabIndex={disabled ? -1 : maxTabIndex} style={hiddenGuard}/>, // first tabbed element guard
       ]}
       {!disabled && (
         <SideCar
@@ -179,6 +182,7 @@ FocusLock.propTypes = {
   returnFocus: oneOfType([bool, object, func]),
   focusOptions: object,
   noFocusGuards: bool,
+  usePositiveIndices: bool,
 
   allowTextSelection: bool,
   autoFocus: bool,
@@ -209,6 +213,7 @@ FocusLock.defaultProps = {
   autoFocus: true,
   persistentFocus: false,
   crossFrame: true,
+  usePositiveIndices: undefined,
   allowTextSelection: undefined,
   group: undefined,
   className: undefined,
