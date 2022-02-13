@@ -1,7 +1,7 @@
 import * as React from 'react';
 import {Ref} from "react";
 
-export interface ReactFocusLockProps<ChildrenType = React.ReactNode, LockProps=Record<string, any>> {
+export interface ReactFocusLockProps<ChildrenType = React.ReactNode, LockProps = Record<string, any>> {
   disabled?: boolean;
 
   /**
@@ -12,7 +12,7 @@ export interface ReactFocusLockProps<ChildrenType = React.ReactNode, LockProps=R
    * can also accept a function with the first argument equals to element focus will be returned to
    * in order to provide full control to the user space
    */
-  returnFocus?: boolean | FocusOptions | ((returnTo: Element)=> boolean | FocusOptions);
+  returnFocus?: boolean | FocusOptions | ((returnTo: Element) => boolean | FocusOptions);
 
   /**
    * used to control behavior or "returning focus back to the lock"
@@ -62,6 +62,13 @@ export interface ReactFocusLockProps<ChildrenType = React.ReactNode, LockProps=R
   noFocusGuards?: boolean | "tail";
 
   /**
+   * Controls support a focus lock behavior when any elements tabIndex greater than 0.
+   * @default false
+   * @see - https://github.com/theKashey/react-focus-lock/issues/32
+   */
+  hasPositiveIndices?: boolean;
+
+  /**
    * named focus group for focus scattering aka combined lock targets
    */
   group?: string;
@@ -83,7 +90,7 @@ export interface ReactFocusLockProps<ChildrenType = React.ReactNode, LockProps=R
   /**
    * Component to use, defaults to 'div'
    */
-  as?: string | React.ElementType<LockProps & {children: ChildrenType}>,
+  as?: string | React.ElementType<LockProps & { children: ChildrenType }>,
   lockProps?: LockProps,
 
   ref?: Ref<HTMLElement>;

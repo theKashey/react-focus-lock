@@ -28,7 +28,7 @@ const FocusLock = React.forwardRef(function FocusLockUI(props, parentRef) {
     group,
     className,
     whiteList,
-    usePositiveIndices,
+    hasPositiveIndices,
     shards = emptyArray,
     as: Container = 'div',
     lockProps: containerProps = {},
@@ -40,8 +40,6 @@ const FocusLock = React.forwardRef(function FocusLockUI(props, parentRef) {
     onActivation: onActivationCallback,
     onDeactivation: onDeactivationCallback,
   } = props;
-
-  const maxTabIndex = usePositiveIndices ? 1 : 0;
 
   const [id] = React.useState({});
 
@@ -65,7 +63,7 @@ const FocusLock = React.forwardRef(function FocusLockUI(props, parentRef) {
   }, [onDeactivationCallback]);
 
   useEffect(() => {
-    if(!disabled) {
+    if (!disabled) {
       // cleanup return focus on trap deactivation
       // sideEffect/returnFocus should happen by this time
       originalFocusedElement.current = null;
@@ -139,8 +137,13 @@ const FocusLock = React.forwardRef(function FocusLockUI(props, parentRef) {
   return (
     <React.Fragment>
       {hasLeadingGuards && [
-        <div key="guard-first" data-focus-guard tabIndex={disabled ? -1 : 0} style={hiddenGuard}/>, // nearest focus guard
-        <div key="guard-nearest" data-focus-guard tabIndex={disabled ? -1 : maxTabIndex} style={hiddenGuard}/>, // first tabbed element guard
+        // nearest focus guard
+        <div key="guard-first" data-focus-guard tabIndex={disabled ? -1 : 0} style={hiddenGuard}/>,
+
+        // first tabbed element guard
+        hasPositiveIndices
+          ? <div key="guard-nearest" data-focus-guard tabIndex={disabled ? -1 : 1} style={hiddenGuard}/>
+          : null,
       ]}
       {!disabled && (
         <SideCar
