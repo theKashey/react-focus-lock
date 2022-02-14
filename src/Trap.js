@@ -101,7 +101,7 @@ const activateTrap = () => {
               }
               document.body.focus();
             } else {
-              result = moveFocusInside(workingArea, lastActiveFocus, {focusOptions});
+              result = moveFocusInside(workingArea, lastActiveFocus, { focusOptions });
               lastPortaledElement = {};
             }
           }

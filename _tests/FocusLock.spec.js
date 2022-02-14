@@ -269,12 +269,12 @@ d-action
       const wrapper = mount(<div>
         <div>
           text
-          <button className="action1">action1</button>
+          <button className="action1" autoFocus>action1</button>
           text
         </div>
         <FocusLock>
           <div>
-            text
+            note - first action is disabled
             <button className="action2-false" tabIndex={1} disabled>action2-false</button>
             <button className="action2" tabIndex={1}>2-action2</button>
             text

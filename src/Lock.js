@@ -3,11 +3,11 @@ import {
   node, bool, string, any, arrayOf, oneOfType, object, func,
 } from 'prop-types';
 import * as constants from 'focus-lock/constants';
-import {useMergeRefs} from 'use-callback-ref';
+import { useMergeRefs } from 'use-callback-ref';
 
-import {hiddenGuard} from './FocusGuard';
-import {mediumFocus, mediumBlur, mediumSidecar} from './medium';
-import {useEffect} from "react";
+import { useEffect } from 'react';
+import { hiddenGuard } from './FocusGuard';
+import { mediumFocus, mediumBlur, mediumSidecar } from './medium';
 
 const emptyArray = [];
 
@@ -71,10 +71,10 @@ const FocusLock = React.forwardRef(function FocusLockUI(props, parentRef) {
   }, []);
 
   const returnFocus = React.useCallback((allowDefer) => {
-    const {current: returnFocusTo} = originalFocusedElement;
+    const { current: returnFocusTo } = originalFocusedElement;
     if (returnFocusTo && returnFocusTo.focus) {
       const howToReturnFocus = typeof shouldReturnFocus === 'function' ? shouldReturnFocus(returnFocusTo) : shouldReturnFocus;
-      if (Boolean(howToReturnFocus)) {
+      if (howToReturnFocus) {
         const returnFocusOptions = typeof howToReturnFocus === 'object' ? howToReturnFocus : undefined;
         originalFocusedElement.current = null;
 
@@ -138,11 +138,11 @@ const FocusLock = React.forwardRef(function FocusLockUI(props, parentRef) {
     <React.Fragment>
       {hasLeadingGuards && [
         // nearest focus guard
-        <div key="guard-first" data-focus-guard tabIndex={disabled ? -1 : 0} style={hiddenGuard}/>,
+        <div key="guard-first" data-focus-guard tabIndex={disabled ? -1 : 0} style={hiddenGuard} />,
 
         // first tabbed element guard
         hasPositiveIndices
-          ? <div key="guard-nearest" data-focus-guard tabIndex={disabled ? -1 : 1} style={hiddenGuard}/>
+          ? <div key="guard-nearest" data-focus-guard tabIndex={disabled ? -1 : 1} style={hiddenGuard} />
           : null,
       ]}
       {!disabled && (
@@ -173,7 +173,7 @@ const FocusLock = React.forwardRef(function FocusLockUI(props, parentRef) {
       </Container>
       {
         hasTailingGuards
-        && <div data-focus-guard tabIndex={disabled ? -1 : 0} style={hiddenGuard}/>
+        && <div data-focus-guard tabIndex={disabled ? -1 : 0} style={hiddenGuard} />
       }
     </React.Fragment>
   );
@@ -185,7 +185,7 @@ FocusLock.propTypes = {
   returnFocus: oneOfType([bool, object, func]),
   focusOptions: object,
   noFocusGuards: bool,
-  usePositiveIndices: bool,
+  hasPositiveIndices: bool,
 
   allowTextSelection: bool,
   autoFocus: bool,
@@ -216,7 +216,7 @@ FocusLock.defaultProps = {
   autoFocus: true,
   persistentFocus: false,
   crossFrame: true,
-  usePositiveIndices: undefined,
+  hasPositiveIndices: undefined,
   allowTextSelection: undefined,
   group: undefined,
   className: undefined,
