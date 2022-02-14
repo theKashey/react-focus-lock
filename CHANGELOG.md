@@ -1,3 +1,19 @@
+# [2.8.0](https://github.com/theKashey/react-focus-lock/compare/v2.7.1...v2.8.0) (2022-02-14)
+
+
+### Bug Fixes
+
+* disable positive index guard by default; use hasPositiveIndices to control behavior, fixes [#32](https://github.com/theKashey/react-focus-lock/issues/32) ([6db9980](https://github.com/theKashey/react-focus-lock/commit/6db99804f3931799f1d611eeb9eba67fe757302d))
+* remove positive tab indices ([a1f51e0](https://github.com/theKashey/react-focus-lock/commit/a1f51e09fa10e165e94aaea1e0489af9dad96416))
+* update focus-lock to support Shadow Dom ([668a559](https://github.com/theKashey/react-focus-lock/commit/668a559a7c6270f105166a02383171822eec420a))
+
+
+### Features
+
+* allow removal of positive tab indices ([b2a55a9](https://github.com/theKashey/react-focus-lock/commit/b2a55a943e9bbf24cdcdb3404de108c45d46cae9))
+
+
+
 ## [2.7.1](https://github.com/theKashey/react-focus-lock/compare/v2.7.0...v2.7.1) (2021-12-14)
 
 
