@@ -1,9 +1,9 @@
 import * as React from 'react';
 import PropTypes from 'prop-types';
 import withSideEffect from 'react-clientside-effect';
-import moveFocusInside, { focusInside, focusIsHidden, getFocusabledIn } from 'focus-lock';
-import { deferAction } from './util';
-import { mediumFocus, mediumBlur, mediumEffect } from './medium';
+import moveFocusInside, {focusInside, focusIsHidden, getFocusabledIn} from 'focus-lock';
+import {deferAction} from './util';
+import {mediumFocus, mediumBlur, mediumEffect} from './medium';
 
 const focusOnBody = () => (
   document && document.activeElement === document.body
@@ -25,7 +25,7 @@ const focusWhitelisted = activeElement => (
 );
 
 const recordPortal = (observerNode, portaledElement) => {
-  lastPortaledElement = { observerNode, portaledElement };
+  lastPortaledElement = {observerNode, portaledElement};
 };
 
 const focusIsPortaledPair = element => (
@@ -67,6 +67,17 @@ const focusWasOutside = (crossFrameOption) => {
   return focusWasOutsideWindow === 'meanwhile';
 };
 
+const checkInHost = (check, el, boundary) => (
+  el
+  // find host equal to active element and check nested active element
+  && (el.host === check && (!el.activeElement || boundary.contains(el.activeElement))
+  // dive up
+  || el.parentNode && checkInHost(check, el.parentNode, boundary)))
+
+const withinHost = (activeElement, workingArea) => {
+  return workingArea.some(area => checkInHost(activeElement, area, area))
+}
+
 const activateTrap = () => {
   let result = false;
   if (lastActiveTrap) {
@@ -90,7 +101,11 @@ const activateTrap = () => {
           if (
             workingNode
             && !(
-              focusInside(workingArea)
+              // active element is "inside" working area
+              (focusInside(workingArea) || (
+                  // check for shadow-dom contained elements
+                  activeElement && withinHost(activeElement, workingArea))
+              )
               || focusIsPortaledPair(activeElement, workingNode)
             )
           ) {
@@ -101,7 +116,7 @@ const activateTrap = () => {
               }
               document.body.focus();
             } else {
-              result = moveFocusInside(workingArea, lastActiveFocus, { focusOptions });
+              result = moveFocusInside(workingArea, lastActiveFocus, {focusOptions});
               lastPortaledElement = {};
             }
           }
@@ -113,12 +128,12 @@ const activateTrap = () => {
       if (document) {
         const newActiveElement = document && document.activeElement;
         const allNodes = getFocusabledIn(workingArea);
-        const focusedIndex = allNodes.map(({ node }) => node).indexOf(newActiveElement);
+        const focusedIndex = allNodes.map(({node}) => node).indexOf(newActiveElement);
         if (focusedIndex > -1) {
           // remove old focus
           allNodes
-            .filter(({ guard, node }) => guard && node.dataset.focusAutoGuard)
-            .forEach(({ node }) => node.removeAttribute('tabIndex'));
+            .filter(({guard, node}) => guard && node.dataset.focusAutoGuard)
+            .forEach(({node}) => node.removeAttribute('tabIndex'));
 
           autoGuard(focusedIndex, allNodes.length, +1, allNodes);
           autoGuard(focusedIndex, -1, -1, allNodes);
@@ -152,7 +167,7 @@ const onFocus = (event) => {
 
 const FocusWatcher = () => null;
 
-const FocusTrap = ({ children }) => (
+const FocusTrap = ({children}) => (
   <div onBlur={onBlur} onFocus={onFocus}>
     {children}
   </div>
@@ -184,7 +199,7 @@ const detachHandler = () => {
 
 function reducePropsToState(propsList) {
   return propsList
-    .filter(({ disabled }) => !disabled);
+    .filter(({disabled}) => !disabled);
 }
 
 function handleStateChangeOnClient(traps) {
@@ -201,7 +216,7 @@ function handleStateChangeOnClient(traps) {
   if (lastTrap && !sameTrap) {
     lastTrap.onDeactivation();
     // return focus only of last trap was removed
-    if (!traps.filter(({ id }) => id === lastTrap.id).length) {
+    if (!traps.filter(({id}) => id === lastTrap.id).length) {
       // allow defer is no other trap is awaiting restore
       lastTrap.returnFocus(!trap);
     }
