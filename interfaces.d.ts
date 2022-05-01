@@ -117,6 +117,7 @@ export interface AutoFocusProps {
 }
 
 export interface FreeFocusProps {
+  children: React.ReactNode;
   className?: string;
 }
 

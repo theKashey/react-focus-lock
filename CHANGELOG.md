@@ -1,3 +1,12 @@
+## [2.8.1](https://github.com/theKashey/react-focus-lock/compare/v2.8.0...v2.8.1) (2022-02-14)
+
+
+### Bug Fixes
+
+* correct shadow-dom specification, fixes [#188](https://github.com/theKashey/react-focus-lock/issues/188) ([159bb98](https://github.com/theKashey/react-focus-lock/commit/159bb9861265793117524eb43a7475fc2c96c994))
+
+
+
 # [2.8.0](https://github.com/theKashey/react-focus-lock/compare/v2.7.1...v2.8.0) (2022-02-14)
 
 
