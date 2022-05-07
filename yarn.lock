@@ -5428,10 +5428,10 @@ flush-write-stream@^1.0.0:
     inherits "^2.0.3"
     readable-stream "^2.3.6"
 
-focus-lock@^0.11.0:
-  version "0.11.0"
-  resolved "https://registry.yarnpkg.com/focus-lock/-/focus-lock-0.11.0.tgz#72f9055d34fff59d54aec8e602adbb5438108709"
-  integrity sha512-7tCIkCdnMEnqwEWr3PktH8wA/SAcIPlhrDuLg+o20DjZ/fZW/rIy7Tc9BC2kJBOttH4vbzTXqte5PL8babatBw==
+focus-lock@^0.11.2:
+  version "0.11.2"
+  resolved "https://registry.yarnpkg.com/focus-lock/-/focus-lock-0.11.2.tgz#aeef3caf1cea757797ac8afdebaec8fd9ab243ed"
+  integrity sha512-pZ2bO++NWLHhiKkgP1bEXHhR1/OjVcSvlCJ98aNJDFeb7H5OOQaO+SKOZle6041O9rv2tmbrO4JzClAvDUHf0g==
   dependencies:
     tslib "^2.0.3"
 
@@ -9207,10 +9207,10 @@ react-clientside-effect@^1.2.2:
   dependencies:
     "@babel/runtime" "^7.0.0"
 
-react-clientside-effect@^1.2.5:
-  version "1.2.5"
-  resolved "https://registry.yarnpkg.com/react-clientside-effect/-/react-clientside-effect-1.2.5.tgz#e2c4dc3c9ee109f642fac4f5b6e9bf5bcd2219a3"
-  integrity sha512-2bL8qFW1TGBHozGGbVeyvnggRpMjibeZM2536AKNENLECutp2yfs44IL8Hmpn8qjFQ2K7A9PnYf3vc7aQq/cPA==
+react-clientside-effect@^1.2.6:
+  version "1.2.6"
+  resolved "https://registry.yarnpkg.com/react-clientside-effect/-/react-clientside-effect-1.2.6.tgz#29f9b14e944a376b03fb650eed2a754dd128ea3a"
+  integrity sha512-XGGGRQAKY+q25Lz9a/4EPqom7WRjz3z9R2k4jhVKA/puQFH/5Nt27vFZYql4m4NVNdUvX8PS3O7r/Zzm7cjUlg==
   dependencies:
     "@babel/runtime" "^7.12.13"
 

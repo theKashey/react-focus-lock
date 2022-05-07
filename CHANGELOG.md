@@ -1,3 +1,13 @@
+# [2.9.0](https://github.com/theKashey/react-focus-lock/compare/v2.8.1...v2.9.0) (2022-05-01)
+
+
+### Bug Fixes
+
+* no more using SFC types ([ca9e5e8](https://github.com/theKashey/react-focus-lock/commit/ca9e5e8ae1bbb4ee252a11490f95c2dcc2f76efd))
+* update dependnecies. fixes [#210](https://github.com/theKashey/react-focus-lock/issues/210) and fixes [#212](https://github.com/theKashey/react-focus-lock/issues/212) ([a3895ce](https://github.com/theKashey/react-focus-lock/commit/a3895cec02b2a748f85424c2dabaf9c8b698b76c))
+
+
+
 ## [2.8.1](https://github.com/theKashey/react-focus-lock/compare/v2.8.0...v2.8.1) (2022-02-14)
 
 
