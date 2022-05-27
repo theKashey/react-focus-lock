@@ -215,7 +215,7 @@ FocusLock.defaultProps = {
   noFocusGuards: false,
   autoFocus: true,
   persistentFocus: false,
-  crossFrame: true,
+  crossFrame: false,
   hasPositiveIndices: undefined,
   allowTextSelection: undefined,
   group: undefined,

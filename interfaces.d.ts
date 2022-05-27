@@ -44,7 +44,7 @@ export interface ReactFocusLockProps<ChildrenType = React.ReactNode, LockProps =
    * enables aggressive focus capturing within iframes
    * - once disabled allows focus to move outside of iframe, if enabled inside iframe
    * - once enabled keep focus in the lock, no matter where lock is active (default)
-   * @default true
+   * @default false
    */
   crossFrame?: boolean;
 
