@@ -82,6 +82,7 @@ I've got a good [article about focus management, dialogs and  WAI-ARIA](https://
   - `as='div'` if you need to change internal `div` element, to any other. Use ref forwarding to give FocusLock the node to work with.
   - `lockProps={}` to pass any extra props (except className) to the internal wrapper.
   - `hasPositiveIndices=false` to support a focus lock behavior when any elements tabIndex greater than 0.
+  - `crossFrame=true` enables aggressive focus capturing within iframes
 
 ### Focusing in OSX (Safari/Firefox) is strange!
 By default `tabbing` in OSX `sees` only controls, but not links or anything else `tabbable`. This is system settings, and Safari/Firefox obey.
