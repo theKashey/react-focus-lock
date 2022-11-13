@@ -116,7 +116,8 @@ const FocusLock = React.forwardRef(function FocusLockUI(props, parentRef) {
     }
 
     React.useEffect(() => {
-      if (!observed.current) {
+      // report incorrect integration - https://github.com/theKashey/react-focus-lock/issues/123
+      if (!observed.current && typeof Container !== 'string') {
         // eslint-disable-next-line no-console
         console.error('FocusLock: could not obtain ref to internal node');
       }
