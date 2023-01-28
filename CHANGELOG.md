@@ -1,3 +1,12 @@
+## [2.9.2](https://github.com/theKashey/react-focus-lock/compare/v2.9.1...v2.9.2) (2022-11-13)
+
+
+### Bug Fixes
+
+* suppress ref warning for host nodes, fixes [#123](https://github.com/theKashey/react-focus-lock/issues/123) ([fb14cb5](https://github.com/theKashey/react-focus-lock/commit/fb14cb58634b72bc16e968dc8fd3651992784b9d))
+
+
+
 ## [2.9.1](https://github.com/theKashey/react-focus-lock/compare/v2.9.0...v2.9.1) (2022-05-07)
 
 
