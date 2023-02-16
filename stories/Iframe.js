@@ -21,7 +21,6 @@ class Trap extends Component {
 
   render() {
     const {disabled} = this.state;
-    const {crossFrame} = this.props;
     return (
       <FocusLock disabled={this.state.disabled}>
         {disabled && <div>
@@ -34,9 +33,7 @@ class Trap extends Component {
         }
         You will cycle over this. Never leaving <br/>
         <input placeholder="input1"/>
-
-        <iframe src={`/iframe.html?id=focus-lock--codesandbox-example&crossFrame=${crossFrame}`} style={{width:'100%', height: '400px'}}/>
-
+          {this.props.children}
         <input placeholder="input2"/>
 
         { !disabled && <div>
@@ -50,13 +47,28 @@ class Trap extends Component {
   }
 }
 
-const App = (props) =>
+export const IFrame = (props) =>
   <div style={styles}>
     <input placeholder="input1"/>
     <div style={bg}> Inaccessible <a href='#'>Link</a> outside</div>
-    <Trap {...props} />
+    <Trap {...props}>
+        <iframe src={`/iframe.html?id=focus-lock--codesandbox-example&crossFrame=${props.crossFrame}`} style={{width:'100%', height: '400px'}}/>
+    </Trap>
     <div style={bg}> Inaccessible <a href='#'>Link</a> outside</div>
     <input placeholder="input1"/>
   </div>;
 
-export default App;
+export const SandboxedIFrame = (props) =>
+    <div style={styles}>
+        <input placeholder="input1"/>
+        <div style={bg}> Inaccessible <a href='#'>Link</a> outside</div>
+        <Trap {...props} >
+            <iframe
+                title="test-iframe"
+                src="https://chekrd.github.io/custom-element/index.html"
+                sandbox="allow-forms allow-modals allow-popups allow-same-origin allow-scripts allow-downloads allow-storage-access-by-user-activation"
+            />
+        </Trap>
+        <div style={bg}> Inaccessible <a href='#'>Link</a> outside</div>
+        <input placeholder="input1"/>
+    </div>;

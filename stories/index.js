@@ -6,7 +6,7 @@ import { linkTo } from '@storybook/addon-links';
 
 
 import DefaultAll from './Default';
-import Iframe from './Iframe';
+import {IFrame, SandboxedIFrame} from './Iframe';
 import SideCar from './sideCar';
 import TabIndex from './TabIndex';
 import AutoFocus from './Autofocus';
@@ -79,8 +79,9 @@ storiesOf('Disabled', module)
 
 storiesOf('Exotic', module)
   .add('video', () => <Frame><Video /></Frame>)
-  .add('iframe - crossframe', () => <Frame><Iframe crossFrame /></Frame>)
-  .add('iframe - free', () => <Frame><Iframe crossFrame={false} /></Frame>)
+  .add('iframe - crossframe', () => <Frame><IFrame crossFrame /></Frame>)
+  .add('iframe - free', () => <Frame><IFrame crossFrame={false} /></Frame>)
+  .add('iframe - Sandbox', () => <Frame><SandboxedIFrame /></Frame>)
   .add('sidecar', () => <Frame><SideCar /></Frame>)
   .add('tabbable parent', () => <Frame><TabbableParent /></Frame>)
   .add('form override', () => <Frame><FormOverride /></Frame>);
