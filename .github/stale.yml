@@ -1,0 +1,12 @@
+# Number of days of inactivity before an issue becomes stale
+daysUntilStale: 60
+# Number of days of inactivity before a stale issue is closed
+daysUntilClose: 7
+# Label to use when marking an issue as stale
+staleLabel: state
+# Comment to post when marking an issue as stale. Set to `false` to disable
+markComment: >
+  This issue has been marked as "stale" because there has been no activity for 2 months. 
+  If you have any new information or would like to continue the discussion, please feel free to do so.
+  If this issue got buried among other tasks, maybe this message will reignite the conversation.
+  Otherwise, this issue will be closed in 7 days. Thank you for your contributions so far.    
