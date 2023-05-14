@@ -122,5 +122,5 @@ export interface FreeFocusProps {
 }
 
 export interface InFocusGuardProps {
-  children: React.ReactNode;
+  children?: React.ReactNode;
 }
