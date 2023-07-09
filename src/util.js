@@ -1,11 +1,5 @@
 export function deferAction(action) {
-  // Hidding setImmediate from Webpack to avoid inserting polyfill
-  const { setImmediate } = window;
-  if (typeof setImmediate !== 'undefined') {
-    setImmediate(action);
-  } else {
-    setTimeout(action, 1);
-  }
+  setTimeout(action, 1);
 }
 
 export const inlineProp = (name, value) => {
