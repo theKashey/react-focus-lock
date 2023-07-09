@@ -182,9 +182,9 @@ FocusTrap.propTypes = {
 const onWindowBlur = () => {
   focusWasOutsideWindow = 'just';
   // using setTimeout to set  this variable after React/sidecar reaction
-  setTimeout(() => {
+  deferAction(() => {
     focusWasOutsideWindow = 'meanwhile';
-  }, 0);
+  });
 };
 
 const attachHandler = () => {

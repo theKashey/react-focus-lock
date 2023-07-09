@@ -1,3 +1,12 @@
+## [2.9.4](https://github.com/theKashey/react-focus-lock/compare/v2.9.3...v2.9.4) (2023-02-16)
+
+
+### Bug Fixes
+
+* update focus-lock to prevent error when accessing cross-origin frames. fixes [#241](https://github.com/theKashey/react-focus-lock/issues/241) ([6633d2b](https://github.com/theKashey/react-focus-lock/commit/6633d2bed7f61fe1b6ca9a573331568bbd0b63af))
+
+
+
 ## [2.9.3](https://github.com/theKashey/react-focus-lock/compare/v2.9.2...v2.9.3) (2023-01-28)
 
 
