@@ -1,4 +1,3 @@
-/* eslint-disable react/require-default-props */
 import * as React from 'react';
 import PropTypes from 'prop-types';
 import * as constants from 'focus-lock/constants';
