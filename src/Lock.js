@@ -19,11 +19,11 @@ const FocusLock = React.forwardRef(function FocusLockUI(props, parentRef) {
 
   const {
     children,
-    disabled,
-    noFocusGuards,
-    persistentFocus,
-    crossFrame,
-    autoFocus,
+    disabled = false,
+    noFocusGuards = false,
+    persistentFocus = false,
+    crossFrame = true,
+    autoFocus = true,
     allowTextSelection,
     group,
     className,
@@ -34,7 +34,7 @@ const FocusLock = React.forwardRef(function FocusLockUI(props, parentRef) {
     lockProps: containerProps = {},
     sideCar: SideCar,
 
-    returnFocus: shouldReturnFocus,
+    returnFocus: shouldReturnFocus = false,
     focusOptions,
 
     onActivation: onActivationCallback,
@@ -206,28 +206,6 @@ FocusLock.propTypes = {
   onDeactivation: func,
 
   sideCar: any.isRequired,
-};
-
-FocusLock.defaultProps = {
-  children: undefined,
-  disabled: false,
-  returnFocus: false,
-  focusOptions: undefined,
-  noFocusGuards: false,
-  autoFocus: true,
-  persistentFocus: false,
-  crossFrame: true,
-  hasPositiveIndices: undefined,
-  allowTextSelection: undefined,
-  group: undefined,
-  className: undefined,
-  whiteList: undefined,
-  shards: undefined,
-  as: 'div',
-  lockProps: {},
-
-  onActivation: undefined,
-  onDeactivation: undefined,
 };
 
 export default FocusLock;

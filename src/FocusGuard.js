@@ -11,20 +11,16 @@ export const hiddenGuard = {
   left: '1px',
 };
 
-const InFocusGuard = ({ children }) => (
+const InFocusGuard = ({ children = null }) => (
   <React.Fragment>
     <div key="guard-first" data-focus-guard data-focus-auto-guard style={hiddenGuard} />
     {children}
     {children && <div key="guard-last" data-focus-guard data-focus-auto-guard style={hiddenGuard} />}
   </React.Fragment>
 );
+
 InFocusGuard.propTypes = {
   children: PropTypes.node,
 };
-
-InFocusGuard.defaultProps = {
-  children: null,
-};
-
 
 export default InFocusGuard;
