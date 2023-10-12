@@ -1,3 +1,12 @@
+## [2.9.5](https://github.com/theKashey/react-focus-lock/compare/v2.9.4...v2.9.5) (2023-07-09)
+
+
+### Bug Fixes
+
+* correct crossframe behavior for Safary, fixes [#249](https://github.com/theKashey/react-focus-lock/issues/249) ([bc303e5](https://github.com/theKashey/react-focus-lock/commit/bc303e592a709d3d2e77b898343d4274f536273b))
+
+
+
 ## [2.9.4](https://github.com/theKashey/react-focus-lock/compare/v2.9.3...v2.9.4) (2023-02-16)
 
 
