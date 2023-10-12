@@ -14,8 +14,4 @@ FreeFocusInside.propTypes = {
   className: PropTypes.string,
 };
 
-FreeFocusInside.defaultProps = {
-  className: undefined,
-};
-
 export default FreeFocusInside;

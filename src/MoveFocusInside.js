@@ -21,7 +21,7 @@ export const useFocusInside = (observedRef) => {
   }, [observedRef]);
 };
 
-function MoveFocusInside({ disabled: isDisabled, className, children }) {
+function MoveFocusInside({ disabled: isDisabled = false, className, children }) {
   const ref = React.useRef(null);
   useFocusInside(isDisabled ? undefined : ref);
 
@@ -40,11 +40,6 @@ MoveFocusInside.propTypes = {
   children: PropTypes.node.isRequired,
   disabled: PropTypes.bool,
   className: PropTypes.string,
-};
-
-MoveFocusInside.defaultProps = {
-  disabled: false,
-  className: undefined,
 };
 
 export default MoveFocusInside;
