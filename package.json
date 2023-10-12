@@ -11,6 +11,14 @@
     ".": {
       "import": "./dist/es2015/index.js",
       "require": "./dist/cjs/index.js"
+    },
+    "./sidecar": {
+      "import": "./dist/es2015/sidecar.js",
+      "require": "./dist/cjs/sidecar.js"
+    },
+    "./UI": {
+      "import": "./dist/es2015/UI.js",
+      "require": "./dist/cjs/UI.js"
     }
   },
   "sideEffects": [
