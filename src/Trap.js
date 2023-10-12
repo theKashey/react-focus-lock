@@ -2,7 +2,9 @@
 import * as React from 'react';
 import PropTypes from 'prop-types';
 import withSideEffect from 'react-clientside-effect';
-import moveFocusInside, { focusInside, focusIsHidden, getFocusabledIn } from 'focus-lock';
+import {
+  moveFocusInside, focusInside, focusIsHidden, expandFocusableNodes,
+} from 'focus-lock';
 import { deferAction } from './util';
 import { mediumFocus, mediumBlur, mediumEffect } from './medium';
 
@@ -129,7 +131,7 @@ const activateTrap = () => {
 
       if (document) {
         const newActiveElement = document && document.activeElement;
-        const allNodes = getFocusabledIn(workingArea);
+        const allNodes = expandFocusableNodes(workingArea);
         const focusedIndex = allNodes.map(({ node }) => node).indexOf(newActiveElement);
         if (focusedIndex > -1) {
           // remove old focus
