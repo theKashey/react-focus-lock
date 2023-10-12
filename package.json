@@ -3,16 +3,14 @@
   "version": "2.11.3",
   "description": "It is a trap! (for a focus)",
   "type": "module",
-  "main": "dist/cjs/index.js",
-  "jsnext:main": "dist/es2015/index.js",
-  "module": "dist/es2015/index.js",
-  "types": "react-focus-lock.d.ts",
+  "main": "./dist/cjs/index.js",
+  "module": "./dist/es2015/index.js",
+  "jsnext:main": "./dist/es2015/index.js",
+  "types": "./dist/cjs/index.d.ts",
   "exports": {
     ".": {
-      "types": "./react-focus-lock.d.ts",
       "import": "./dist/es2015/index.js",
-      "require": "./dist/cjs/index.js",
-      "default": "./dist/es2015/index.js"
+      "require": "./dist/cjs/index.js"
     }
   },
   "sideEffects": [
@@ -20,8 +18,8 @@
     "**/index.js"
   ],
   "scripts": {
-    "build:cjs": "NODE_ENV=cjs babel src -d dist/cjs && echo '{\n  \"type\": \"commonjs\"\n}' > dist/cjs/package.json",
-    "build:esm": "NODE_ENV=es2015 babel src -d dist/es2015",
+    "build:cjs": "NODE_ENV=cjs babel src -d dist/cjs && copyfiles -u 1 src/**/*.d.ts dist/cjs && echo '{\n  \"type\": \"commonjs\"\n}' > dist/cjs/package.json",
+    "build:esm": "NODE_ENV=es2015 babel src -d dist/es2015 && copyfiles -u 1 src/**/*.d.ts dist/es2015",
     "build": "rm -Rf ./dist && yarn build:esm && yarn build:cjs",
     "test": "npm run test:pick -- '_tests/**/*spec.js'",
     "test:pick": "NODE_ENV=cjs mocha --require @babel/register --require global-jsdom/register --require _tests/spinup/scaffolding --exit",
@@ -89,6 +87,7 @@
     "chai": "^4.1.0",
     "chai-enzyme": "^1.0.0-beta.0",
     "conventional-changelog-cli": "^2.0.12",
+    "copyfiles": "^2.4.0",
     "enzyme": "^3.3.0",
     "enzyme-adapter-react-16": "^1.15.2",
     "eslint": "^5.16.0",
