@@ -23,7 +23,7 @@
   "dependencies": {
     "preact": "^10.0.0-beta.1",
     "react-focus-lock": "^1.19.1",
-    "use-sidecar": "^0.2.0"
+    "use-sidecar": "^1.1.2"
   },
   "alias": {
     "react": "preact/compat",
