@@ -14,7 +14,10 @@
             "mode": "wrap"
           }
         ]
-      ]
+      ],
+      "generatorOpts": {
+        "concise": true
+      }
     },
     "es2015": {
       "presets": [
@@ -37,7 +40,10 @@
             "mode": "wrap"
           }
         ]
-      ]
+      ],
+      "generatorOpts": {
+        "concise": true
+      }
     }
   }
 }
