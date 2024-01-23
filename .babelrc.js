@@ -1,3 +1,5 @@
+// modified Babel's default to account for __PURE__ annotations
+// https://babeljs.io/docs/options#shouldprintcomment
 const shouldPrintComment = (val) => /@license|@preserve|[#@]__PURE__/.test(val);
 
 module.exports = {
