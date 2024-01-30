@@ -4,14 +4,12 @@ import type {
   AutoFocusProps,
   FreeFocusProps,
   InFocusGuardProps,
-} from "../dist/cjs/interfaces";
+} from "./interfaces.js";
 
 /**
  * Traps Focus inside a Lock
  */
-declare const ReactFocusLock: React.FC<
-  ReactFocusLockProps & { sideCar: React.FC<any> }
->;
+declare const ReactFocusLock: React.FC<ReactFocusLockProps>;
 
 export default ReactFocusLock;
 
@@ -34,8 +32,3 @@ export class FreeFocusInside extends React.Component<FreeFocusProps> {}
  * Secures the focus around the node
  */
 export class InFocusGuard extends React.Component<InFocusGuardProps> {}
-
-/**
- * Moves focus inside a given node
- */
-export function useFocusInside(node: React.RefObject<HTMLElement>): void;

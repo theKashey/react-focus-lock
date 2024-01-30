@@ -4,7 +4,7 @@ import type {
   AutoFocusProps,
   FreeFocusProps,
   InFocusGuardProps,
-} from "../dist/cjs/interfaces";
+} from "./interfaces.js";
 
 /**
  * Traps Focus inside a Lock
