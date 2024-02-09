@@ -1,3 +1,11 @@
+## [2.9.7](https://github.com/theKashey/react-focus-lock/compare/v2.9.6...v2.9.7) (2024-01-23)
+
+
+
+## [2.9.6](https://github.com/theKashey/react-focus-lock/compare/v2.9.5...v2.9.6) (2023-10-12)
+
+
+
 ## [2.9.5](https://github.com/theKashey/react-focus-lock/compare/v2.9.4...v2.9.5) (2023-07-09)
 
 
