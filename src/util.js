@@ -7,3 +7,5 @@ export const inlineProp = (name, value) => {
   obj[name] = value;
   return obj;
 };
+
+export const extractRef = ref => ((ref && 'current' in ref) ? ref.current : ref);

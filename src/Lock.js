@@ -8,6 +8,7 @@ import { useMergeRefs } from 'use-callback-ref';
 import { useEffect } from 'react';
 import { hiddenGuard } from './FocusGuard';
 import { mediumFocus, mediumBlur, mediumSidecar } from './medium';
+import { focusScope } from './scope';
 
 const emptyArray = [];
 
@@ -16,6 +17,8 @@ const FocusLock = React.forwardRef(function FocusLockUI(props, parentRef) {
   const observed = React.useRef();
   const isActive = React.useRef(false);
   const originalFocusedElement = React.useRef(null);
+
+  const [, update] = React.useState({});
 
   const {
     children,
@@ -53,6 +56,7 @@ const FocusLock = React.forwardRef(function FocusLockUI(props, parentRef) {
       onActivationCallback(observed.current);
     }
     isActive.current = true;
+    update();
   }, [onActivationCallback]);
 
   const onDeactivation = React.useCallback(() => {
@@ -60,6 +64,7 @@ const FocusLock = React.forwardRef(function FocusLockUI(props, parentRef) {
     if (onDeactivationCallback) {
       onDeactivationCallback(observed.current);
     }
+    update();
   }, [onDeactivationCallback]);
 
   useEffect(() => {
@@ -135,6 +140,13 @@ const FocusLock = React.forwardRef(function FocusLockUI(props, parentRef) {
 
   const mergedRef = useMergeRefs([parentRef, setObserveNode]);
 
+  const focusScopeValue = React.useMemo(() => ({
+    observed,
+    shards,
+    enabled: !disabled,
+    active: isActive.current,
+  }), [disabled, isActive.current, shards, realObserved]);
+
   return (
     <React.Fragment>
       {hasLeadingGuards && [
@@ -170,7 +182,9 @@ const FocusLock = React.forwardRef(function FocusLockUI(props, parentRef) {
         onBlur={onBlur}
         onFocus={onFocus}
       >
-        {children}
+        <focusScope.Provider value={focusScopeValue}>
+          {children}
+        </focusScope.Provider>
       </Container>
       {
         hasTailingGuards

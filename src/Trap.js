@@ -3,9 +3,12 @@ import * as React from 'react';
 import PropTypes from 'prop-types';
 import withSideEffect from 'react-clientside-effect';
 import {
-  moveFocusInside, focusInside, focusIsHidden, expandFocusableNodes,
+  moveFocusInside, focusInside,
+  focusIsHidden, expandFocusableNodes,
+  focusNextElement,
+  focusPrevElement,
 } from 'focus-lock';
-import { deferAction } from './util';
+import { deferAction, extractRef } from './util';
 import { mediumFocus, mediumBlur, mediumEffect } from './medium';
 
 const focusOnBody = () => (
@@ -58,8 +61,6 @@ function autoGuard(startIndex, end, step, allNodes) {
     lastGuard.node.tabIndex = 0;
   }
 }
-
-const extractRef = ref => ((ref && 'current' in ref) ? ref.current : ref);
 
 const focusWasOutside = (crossFrameOption) => {
   if (crossFrameOption) {
@@ -245,6 +246,8 @@ mediumBlur.assignMedium(onBlur);
 mediumEffect.assignMedium(cb => cb({
   moveFocusInside,
   focusInside,
+  focusNextElement,
+  focusPrevElement,
 }));
 
 export default withSideEffect(

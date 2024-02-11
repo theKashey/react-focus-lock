@@ -6,7 +6,7 @@ import { expect } from 'chai';
 import { mount as emount, configure as configureEnzyme } from 'enzyme';
 import sinon from 'sinon';
 import EnzymeReactAdapter from 'enzyme-adapter-react-16';
-import FocusLock, { AutoFocusInside, MoveFocusInside } from '../src/index';
+import FocusLock, { AutoFocusInside, MoveFocusInside, useFocusScope } from '../src/index';
 
 
 configureEnzyme({ adapter: new EnzymeReactAdapter() });
@@ -46,21 +46,21 @@ describe('react-focus-lock', () => {
     let mountPoint = [];
     const mount = (code) => {
       const wrapper = emount(code, {
-        attachTo: document.getElementById('root')
+        attachTo: document.getElementById('root'),
       });
       mountPoint.push(wrapper);
       return wrapper;
     };
     beforeEach(() => {
-      document.body.innerHTML='<div id="root"></div>';
+      document.body.innerHTML = '<div id="root"></div>';
       mountPoint = [];
     });
 
     afterEach(() => {
-      mountPoint.forEach(wrapper => {
+      mountPoint.forEach((wrapper) => {
         try {
-          wrapper.unmount()
-        } catch (e){
+          wrapper.unmount();
+        } catch (e) {
 
         }
       });
@@ -193,7 +193,7 @@ describe('react-focus-lock', () => {
                   <span className={`clickTarget${this.state.c}`} onClick={this.toggle} />
                   text
                   <button className="action2">
-d-action
+                    d-action
                     {this.state.c}
                   </button>
                   {this.state.focused && <Test />}
@@ -590,7 +590,7 @@ d-action
     describe('AutoFocus', () => {
       it('Should not focus by default', () => {
         mount(<div>
-text
+          text
           <button>action</button>
           text
               </div>);
@@ -600,7 +600,7 @@ text
       it('AutoFocus do nothing without FocusLock', () => {
         mount(<AutoFocusInside>
           <div>
-text
+            text
             <button>action</button>
             text
           </div>
@@ -612,7 +612,7 @@ text
         mount(<FocusLock>
           <AutoFocusInside>
             <div>
-text
+              text
               <button>action</button>
               text
             </div>
@@ -624,7 +624,7 @@ text
       it('MoveFocusInside works without FocusLock', async () => {
         mount(<MoveFocusInside>
           <div>
-text
+            text
             <button>action</button>
             text
           </div>
@@ -638,7 +638,7 @@ text
         mount(<FocusLock>
           <MoveFocusInside>
             <div>
-text
+              text
               <button>action</button>
               text
             </div>
@@ -1118,6 +1118,35 @@ text
           expect(document.activeElement.innerHTML).to.be.equal('button3');
           done();
         }, 1);
+      });
+    });
+
+    describe('Control', () => {
+      it('moves focus with control hook', async () => {
+        let control;
+        const Capture = () => {
+          control = useFocusScope();
+          return null;
+        };
+        mount(
+          <div>
+            <FocusLock disabled>
+              <button id="b1">button1</button>
+              <button id="b2">button2</button>
+              <Capture />
+            </FocusLock>
+          </div>,
+        );
+
+        control.autofocus();
+        await tick();
+        expect(document.activeElement.innerHTML).to.be.equal('button1');
+        control.focusNext();
+        await tick();
+        expect(document.activeElement.innerHTML).to.be.equal('button2');
+        control.focusPrev();
+        await tick();
+        expect(document.activeElement.innerHTML).to.be.equal('button1');
       });
     });
 
