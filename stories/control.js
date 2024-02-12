@@ -31,7 +31,12 @@ const ControlTrap = () => {
 
 const FocusButton = ({ children }) => {
   const { active, onFocus, ref } = useFocusState();
-  return <button tabIndex={active ? undefined : -1} onFocus={onFocus} ref={ref}>{children}</button>;
+  return (
+    <button tabIndex={active ? undefined : -1} onFocus={onFocus} ref={ref}>
+      {active ? '*' : ''}
+      {children}
+    </button>
+  );
 };
 const RowingFocusTrap = () => {
   const { autofocus, focusNext, focusPrev } = useFocusScope();
@@ -56,7 +61,7 @@ const RowingFocusTrap = () => {
       onKeyDown={onKey}
       onFocus={onFocus}
       ref={ref}
-      style={{ border: active ? '3px solid green' : '3px solid grey' }}
+      style={{ border: active ? '3px solid red' : '3px solid #EEE' }}
     >
       <button>zero</button>
       <FocusButton>Button1</FocusButton>
@@ -75,7 +80,13 @@ const ControlledFocusButton = ({ children, onFocus: reportFocused, isActive }) =
     }
   }, [active]);
 
-  return <button tabIndex={isActive ? undefined : -1} onFocus={onFocus} ref={ref}>{children}</button>;
+  return (
+    <button tabIndex={isActive ? undefined : -1} onFocus={onFocus} ref={ref}>
+      {active ? '*' : ''}
+      {children}
+      {isActive ? '*' : ''}
+    </button>
+  );
 };
 const ConstantRowingFocusTrap = () => {
   const { focusNext, focusPrev } = useFocusScope();
