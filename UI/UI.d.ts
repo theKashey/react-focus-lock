@@ -54,17 +54,17 @@ export type FocusControl = {
     /**
      * moves focus to the current scope, can be considered as autofocus
      */
-    autofocus():void;
+    autoFocus():Promise<void>;
     /**
      * focuses the next element in the scope.
      * If active element is not in the scope, autofocus will be triggered first
      */
-    focusNext(options:FocusOptions):void;
+    focusNext(options:FocusOptions):Promise<void>;
     /**
      * focuses the prev element in the scope.
      * If active element is not in the scope, autofocus will be triggered first
      */
-    focusPrev():void;
+    focusPrev():Promise<void>;
 }
 
 

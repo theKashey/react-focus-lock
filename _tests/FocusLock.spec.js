@@ -1138,7 +1138,7 @@ describe('react-focus-lock', () => {
           </div>,
         );
 
-        control.autofocus();
+        control.autoFocus();
         await tick();
         expect(document.activeElement.innerHTML).to.be.equal('button1');
         control.focusNext();

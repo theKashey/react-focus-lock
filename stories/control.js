@@ -3,10 +3,10 @@ import FocusLock, { useFocusScope } from '../src/index';
 import { useFocusState } from '../src/use-focus-state';
 
 const ControlTrap = () => {
-  const { autofocus, focusNext, focusPrev } = useFocusScope();
+  const { autoFocus, focusNext, focusPrev } = useFocusScope();
 
   useEffect(() => {
-    autofocus();
+    autoFocus();
   }, []);
 
   const onKey = (event) => {
@@ -39,10 +39,10 @@ const FocusButton = ({ children }) => {
   );
 };
 const RowingFocusTrap = () => {
-  const { autofocus, focusNext, focusPrev } = useFocusScope();
+  const { autoFocus, focusNext, focusPrev } = useFocusScope();
 
   useEffect(() => {
-    autofocus();
+    autoFocus();
   }, []);
 
   const onKey = (event) => {

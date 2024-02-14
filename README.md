@@ -242,11 +242,11 @@ const FocusTrackingButton = ({ children }) => {
     );
 };
 const RowingFocusInternalTrap = () => {
-    const { autofocus, focusNext, focusPrev } = useFocusScope();
+    const { autoFocus, focusNext, focusPrev } = useFocusScope();
     // use useFocusController(divRef) if there is no FocusLock around
 
     useEffect(() => {
-        autofocus();
+        autoFocus();
     }, []);
 
     const onKey = (event) => {

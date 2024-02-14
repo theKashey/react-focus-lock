@@ -14,7 +14,7 @@ describe('Sidecar', () => {
   );
 
   // FIXME: sidecar needs a custom SSR override to run this test
-  it.skip('properly handles dynamic sidecar', async () => {
+  it('properly handles dynamic sidecar', async () => {
     let resolve;
     const lock = new Promise((res) => {
       resolve = res;
