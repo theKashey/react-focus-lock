@@ -20,6 +20,7 @@ It is a trap! We got your focus and will not let him out!
 - Modal dialogs. You can not leave it with "Tab", ie do a "tab-out".
 - Focused tasks. It will aways brings you back, as you can "lock" user inside a component.
 - Any any other case, when you have to lock user _intention_ and _focus_, if that's what `a11y` is asking for.
+   - Including programatic focus management and smart return focus 
 
 ### Trusted
 Trusted by 
@@ -30,13 +31,13 @@ Trusted by
 and we will do our best to earn your trust too!
  
 # Features
- - no keyboard control, everything is done watching a __focus behavior__, not emulating it. Thus works always and everywhere.
+ - no keyboard control, everything is done watching a __focus behavior__, not emulating it. Focus-Locks works for all cases including positive tab indexes.
  - React __Portals__ support. Even if some data is in outer space - it is [still in lock](https://github.com/theKashey/react-focus-lock/issues/19).
  - _Scattered_ locks, or focus lock groups - you can setup different isolated locks, and _tab_ from one to another.
  - Controllable isolation level.
- - variable size bundle. Uses sidecar to trim UI part to 1.5kb. 
+ - variable size bundle. Uses _sidecar_ to trim UI part down to 1.5kb. 
  
-> 💡 __focus__ locks is only the first part, there are also __scroll lock__ and __text-to-speech__ lock
+> 💡 __focus__ locks is part of a bigger whole, consider __scroll lock__ and __text-to-speech__ lock
 you have to use to really "lock" the user.
 Try [react-focus-on](https://github.com/theKashey/react-focus-on) to archive everything above, assembled in the right order. 
  
@@ -53,15 +54,6 @@ Just wrap something with focus lock, and focus will be `moved inside` on mount.
  );
 ```
 Demo - https://codesandbox.io/s/5wmrwlvxv4.
-
-# WHY?
-From [MDN Article about accessible dialogs](https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/ARIA_Techniques/Using_the_dialog_role):
- - The dialog must be properly labeled
- - Keyboard __focus must be managed__ correctly
- 
-This one is about managing the focus.
-
-I've got a good [article about focus management, dialogs and  WAI-ARIA](https://medium.com/@antonkorzunov/its-a-focus-trap-699a04d66fb5).    
 
 # API
 > FocusLock would work perfectly even with no props set.
@@ -83,6 +75,25 @@ I've got a good [article about focus management, dialogs and  WAI-ARIA](https://
   - `lockProps={}` to pass any extra props (except className) to the internal wrapper.
   - `hasPositiveIndices=false` to support a focus lock behavior when any elements tabIndex greater than 0.
   - `crossFrame=true` enables aggressive focus capturing within iframes
+
+## Programmatic control
+Focus lock exposes a few methods to control focus programmatically.
+### Imperative API
+- `useFocusInside(nodeRef)` - to move focus inside the given node
+- `useFocusScope():{autofocus, focusNext, focusPrev}` - provides API to manage focus within the current lock
+- `useFocusState()` - manages focus state of a given node
+- `useFocusController(nodeRef)` - low level version of `useFocusScope` working without FocusLock 
+
+### Declarative API
+- `<AutoFocusInside/>` - causes autofocus to look inside the component
+- `<MoveFocusInside/>` - wrapper around `useFocusInside`, forcibly moves focus inside on mount
+- `<FreeFocusInside/>` - hides internals from FocusLock allowing unmanaged focus
+
+#### Indirect API
+Focus-lock behavior can be controlled via data-attributes. Declarative API above is working by setting them for you.
+See [corresponding section in focus-lock](https://github.com/theKashey/focus-lock#declarative-control) for details
+
+
 
 ### Focusing in OSX (Safari/Firefox) is strange!
 By default `tabbing` in OSX `sees` only controls, but not links or anything else `tabbable`. This is system settings, and Safari/Firefox obey.
@@ -218,6 +229,56 @@ You may use `as` prop to change _what_ Focus-Lock will render around `children`.
  </FocusLock>
 ``` 
 
+### Programmatic Control
+Let's take a look at the `Rowing Focus` as an example. 
+```tsx
+// Will set tabindex to -1 when is not focused
+const FocusTrackingButton = ({ children }) => {
+    const { active, onFocus, ref } = useFocusState();
+    return (
+        <button tabIndex={active ? undefined : -1} onFocus={onFocus} ref={ref}>
+            {children}
+        </button>
+    );
+};
+const RowingFocusInternalTrap = () => {
+    const { autofocus, focusNext, focusPrev } = useFocusScope();
+    // use useFocusController(divRef) if there is no FocusLock around
+
+    useEffect(() => {
+        autofocus();
+    }, []);
+
+    const onKey = (event) => {
+        if (event.key === 'ArrowDown') {
+            focusNext({ onlyTabbable: false });
+        }
+        if (event.key === 'ArrowUp') {
+            focusPrev({ onlyTabbable: false });
+        }
+    };
+    
+    return (
+        <div
+            onKeyDown={onKey}
+            // ref={divRef} for  useFocusController
+        >
+            <FocusButton>Button1</FocusButton>
+            <FocusButton>Button2</FocusButton>
+            <FocusButton>Button3</FocusButton>
+            <FocusButton>Button4</FocusButton>
+        </div>
+    );
+};
+
+// FocusLock, even disabled one
+const RowingFocusTrap = () => (
+    <FocusLock disabled>
+        <RowingFocusInternalTrap />
+    </FocusLock>
+);
+```
+
 ### Guarding
 As you may know - FocusLock is adding `Focus Guards` before and after lock to remove some side effects, like page scrolling.
 But `shards` will not have such guards, and it might be not so cool to use them - for example if no `tabbable` would be
@@ -280,18 +341,15 @@ To return focus, but without _jumpy_ page scroll returning a focus you might spe
 ```  
 Not supported by Edge and Safari.
 
-# Not only for React
- Uses [focus-lock](https://github.com/theKashey/focus-lock/) under the hood. It does also provide support for Vue.js and Vanilla DOM solutions
- 
-# Warning!
-Two different _focus-lock-managers_ or even different version of a single one, active
-simultaneously will FIGHT!
-
-__Focus-lock will surrender__, as long any other focus management library will not.
-
 ## Focus fighting
+Two different _focus-lock-managers_ or even different version of a single one, being active
+simultaneously will FIGHT for the focus. This usually totally breaks user experience.
+
+__React-Focus-Lock will automatically surrender__, letting another library to take the lead.
+
+### Resolving focus fighting
 You may wrap some render branch with `FreeFocusInside`, and react-focus-lock __will ignore__
-any focus inside marked node, thus landing a peace.
+any focus inside marked node. So in case focus moves to _uncontrolled location_ focus-lock will not trigger letting another library to act without interference in that another location.
 
 ```js
 import { FreeFocusInside } from 'react-focus-lock';
@@ -302,15 +360,17 @@ import { FreeFocusInside } from 'react-focus-lock';
  </div>
 </FreeFocusInside>
 ```
-
-Even the better is to `whiteList` FocusLock areas - for example "you should handle only React Stuff in React Root"
+Another option for hybrid applications is to `whiteList` area where Focus-Lock should act, automatically allowing other managers in other areas.
+The code below will scope Focus-Lock on inside the (react)`root` element, so anything jQuery can add to the body will be ignored.
 ```js
 <FocusLock whiteList={node => document.getElementById('root').contains(node)}>
  ...
 </FocusLock>
 ```
 
-PS: __please use webpack or yarn resolution for force one version of react-focus-lock used__
+### Two Focus-Locks
+React-Focus-Lock is expected to be a singlentone.
+__Use webpack or yarn resolution for force only one version of react-focus-lock used.
 
 > webpack.conf
 ```js
@@ -319,6 +379,18 @@ PS: __please use webpack or yarn resolution for force one version of react-focus
       'react-focus-lock': path.resolve(path.join(__dirname, './node_modules/react-focus-lock'))
  ...
 ```
+
+# WHY?
+From [MDN Article about accessible dialogs](https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/ARIA_Techniques/Using_the_dialog_role):
+- The dialog must be properly labeled
+- Keyboard __focus must be managed__ correctly
+
+This one is about managing the focus.
+
+I've got a good [article about focus management, dialogs and  WAI-ARIA](https://medium.com/@antonkorzunov/its-a-focus-trap-699a04d66fb5).
+
+# Not only for React
+Uses [focus-lock](https://github.com/theKashey/focus-lock/) under the hood. It does also provide support for Vue.js and Vanilla DOM solutions
 
 # More
 To create a "right" modal dialog you have to:

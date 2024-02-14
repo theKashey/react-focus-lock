@@ -71,6 +71,7 @@ export type FocusControl = {
 /**
  * returns FocusControl over the union given elements, one or many
  * - can be used outside of FocusLock
+ * @see {@link useFocusScope} for use cases inside of FocusLock
  */
 export function useFocusController(...shards: HTMLElement[]):FocusControl;
 
@@ -78,6 +79,7 @@ export function useFocusController(...shards: HTMLElement[]):FocusControl;
  * returns FocusControl over the current FocusLock
  * - can be used only within FocusLock
  * - can be used by disabled FocusLock
+ * @see {@link useFocusController} for use cases outside of FocusLock
  */
 export function useFocusScope():FocusControl
 
