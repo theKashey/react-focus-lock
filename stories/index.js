@@ -1,12 +1,10 @@
 import * as React from 'react';
 
 import { storiesOf } from '@storybook/react';
-import { action } from '@storybook/addon-actions';
-import { linkTo } from '@storybook/addon-links';
 
 
 import DefaultAll from './Default';
-import {IFrame, SandboxedIFrame} from './Iframe';
+import { IFrame, SandboxedIFrame } from './Iframe';
 import SideCar from './sideCar';
 import TabIndex from './TabIndex';
 import AutoFocus from './Autofocus';
@@ -21,9 +19,10 @@ import { PortalCase, ShardPortalCase } from './Portal';
 import { MUISelect, MUISelectWhite } from './MUI';
 import Fight from './FocusFighting';
 import { StyledComponent, StyledSection } from './Custom';
-import { AutoDisabledForm, DisabledForm, DisabledFormWithTabIndex } from './Disabled';
+import { DisabledForm, DisabledFormWithTabIndex } from './Disabled';
 import { FormOverride, Video } from './Exotic';
 import { TabbableParent } from './TabbableParent';
+import { ControlTrapExample, GroupRowingFocusExample, RowingFocusExample } from './control';
 
 const frameStyle = {
   width: '400px',
@@ -85,3 +84,8 @@ storiesOf('Exotic', module)
   .add('sidecar', () => <Frame><SideCar /></Frame>)
   .add('tabbable parent', () => <Frame><TabbableParent /></Frame>)
   .add('form override', () => <Frame><FormOverride /></Frame>);
+
+storiesOf('FocusScope', module)
+  .add('keyboard navigation', () => <Frame><ControlTrapExample /></Frame>)
+  .add('keyboard navigation with rowing tab index', () => <Frame><RowingFocusExample /></Frame>)
+  .add('keyboard navigation with persistent rowing tab index', () => <Frame><GroupRowingFocusExample /></Frame>);

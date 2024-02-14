@@ -1,3 +1,12 @@
+## [2.9.8](https://github.com/theKashey/react-focus-lock/compare/v2.9.7...v2.9.8) (2024-02-09)
+
+
+### Bug Fixes
+
+* improve focus-lock behavior for exotic components ([557f8cd](https://github.com/theKashey/react-focus-lock/commit/557f8cdb1440a0781a6aa0be560d4ee3ee73e365))
+
+
+
 ## [2.9.7](https://github.com/theKashey/react-focus-lock/compare/v2.9.6...v2.9.7) (2024-01-23)
 
 

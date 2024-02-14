@@ -5919,10 +5919,17 @@ flush-write-stream@^1.0.0:
     inherits "^2.0.3"
     readable-stream "^2.3.6"
 
-focus-lock@^1.0.0, focus-lock@^1.0.1:
+focus-lock@^1.0.0:
   version "1.0.1"
   resolved "https://registry.yarnpkg.com/focus-lock/-/focus-lock-1.0.1.tgz#df141640a93917413738733f5f5d6008f149cb0e"
   integrity sha512-4YEXPTg9tATXwaVTpzHxT7GgO+Xot+VAoBSfXakUXXvQIXID0xv43GkZNDXkzWLYW1L9hrbHZ1CQjfT/svK9zA==
+  dependencies:
+    tslib "^2.0.3"
+
+focus-lock@^1.1.0:
+  version "1.1.0"
+  resolved "https://registry.yarnpkg.com/focus-lock/-/focus-lock-1.1.0.tgz#74fe85dc1a15360cc1a694de8e686c691e0dd5ed"
+  integrity sha512-7j9OR+mxVmGcfxpCU7qKT09R32TX4jlic2/iWT5pm58SYWB1lbREpb7hEkrXxx9MzkenDBOAGatBEcMbJ143UQ==
   dependencies:
     tslib "^2.0.3"
 
