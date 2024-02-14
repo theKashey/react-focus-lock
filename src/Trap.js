@@ -130,7 +130,11 @@ const activateTrap = () => {
         }
       }
 
-      if (document) {
+      if (document
+          // element was changed
+          && activeElement !== document.activeElement
+          // fast check for any auto-guard
+          && document.querySelector('[data-focus-auto-guard]')) {
         const newActiveElement = document && document.activeElement;
         const allNodes = expandFocusableNodes(workingArea);
         const focusedIndex = allNodes.map(({ node }) => node).indexOf(newActiveElement);
