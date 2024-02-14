@@ -5926,10 +5926,10 @@ focus-lock@^1.0.0:
   dependencies:
     tslib "^2.0.3"
 
-focus-lock@^1.1.0:
-  version "1.1.0"
-  resolved "https://registry.yarnpkg.com/focus-lock/-/focus-lock-1.1.0.tgz#74fe85dc1a15360cc1a694de8e686c691e0dd5ed"
-  integrity sha512-7j9OR+mxVmGcfxpCU7qKT09R32TX4jlic2/iWT5pm58SYWB1lbREpb7hEkrXxx9MzkenDBOAGatBEcMbJ143UQ==
+focus-lock@^1.2.0:
+  version "1.2.0"
+  resolved "https://registry.yarnpkg.com/focus-lock/-/focus-lock-1.2.0.tgz#8a59d4171ba07b2849a7a60f064fc133db21e610"
+  integrity sha512-MGUkR6hFmRNeoQxUtL9jYckpf6DZhlD4crD8FgEO9hS+yXaCg2vi2hat9fB9qUe9YsLa6eE9ykldqaqLU0kYKg==
   dependencies:
     tslib "^2.0.3"
 
