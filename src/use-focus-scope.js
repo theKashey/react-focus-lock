@@ -2,18 +2,14 @@ import { useContext, useMemo, useRef } from 'react';
 import { focusScope } from './scope';
 import { mediumEffect } from './medium';
 import { extractRef } from './util';
-import { requireSideCar } from './require-side-car';
 
 const collapseRefs = shards => (
   shards.map(extractRef).filter(Boolean)
 );
 
-const withMedium = (fn) => {
-  requireSideCar();
-  return new Promise(resolve => mediumEffect.useMedium((...args) => {
-    resolve(fn(...args));
-  }));
-};
+const withMedium = fn => new Promise(resolve => mediumEffect.useMedium((...args) => {
+  resolve(fn(...args));
+}));
 export const useFocusController = (...shards) => {
   if (!shards.length) {
     throw new Error('useFocusController requires at least one target element');

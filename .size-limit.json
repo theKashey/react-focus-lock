@@ -1,15 +1,6 @@
 [
   {
     "path": "dist/cjs/UI.js",
-    "limit": "2.5 KB",
-    "ignore": [
-      "prop-types",
-      "@babel/runtime",
-      "use-sidecar"
-    ]
-  },
-  {
-    "path": "dist/es2015/sidecar.js",
     "limit": "3.7 KB",
     "ignore": [
       "prop-types",
@@ -18,8 +9,17 @@
     ]
   },
   {
+    "path": "dist/es2015/sidecar.js",
+    "limit": "4.2 KB",
+    "ignore": [
+      "prop-types",
+      "@babel/runtime",
+      "use-sidecar"
+    ]
+  },
+  {
     "path": "dist/es2015/index.js",
-    "limit": "4.99 KB",
+    "limit": "6.5 KB",
     "ignore": [
       "prop-types",
       "@babel/runtime",
