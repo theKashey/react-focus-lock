@@ -55,11 +55,7 @@ const FocusLock = React.forwardRef(function FocusLockUI(props, parentRef) {
       originalFocusedElement.current = activeElement;
       // store stack reference
       if (activeElement !== document.body) {
-        if (document.contains(activeElement)) {
-          originalFocusedElement.current = captureFocusRestore(activeElement);
-        } else if (shouldReturnFocus) {
-          console.error('FocusLock: returnFocus element has been removed from the DOM before stack capture. Element:', activeElement);
-        }
+        originalFocusedElement.current = captureFocusRestore(activeElement);
       }
     }
 
