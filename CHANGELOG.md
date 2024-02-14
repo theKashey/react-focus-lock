@@ -1,3 +1,12 @@
+## [2.10.1](https://github.com/theKashey/react-focus-lock/compare/v2.10.0...v2.10.1) (2024-02-14)
+
+
+### Bug Fixes
+
+* speedup resolution for auto-guards ([802ef11](https://github.com/theKashey/react-focus-lock/commit/802ef11493bcfc554958b1472c7d493561990ac3))
+
+
+
 # [2.10.0](https://github.com/theKashey/react-focus-lock/compare/v2.9.8...v2.10.0) (2024-02-14)
 
 
