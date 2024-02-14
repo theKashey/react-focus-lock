@@ -1,3 +1,13 @@
+# [2.10.0](https://github.com/theKashey/react-focus-lock/compare/v2.9.8...v2.10.0) (2024-02-14)
+
+
+### Bug Fixes
+
+* implement focus control hooks ([b7e53d7](https://github.com/theKashey/react-focus-lock/commit/b7e53d75ead8760bc5c186ada704b715d3bec834))
+* refactor use-focus-state to cause one redraw ([ebd13e1](https://github.com/theKashey/react-focus-lock/commit/ebd13e18455ddb18918f8e000613930d6c257bac))
+
+
+
 ## [2.9.8](https://github.com/theKashey/react-focus-lock/compare/v2.9.7...v2.9.8) (2024-02-09)
 
 
