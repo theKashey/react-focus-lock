@@ -61,8 +61,9 @@ Demo - https://codesandbox.io/s/5wmrwlvxv4.
  FocusLock has few props to tune behavior, all props are optional:
   - `disabled`, to disable(enable) behavior without altering the tree.
   - `className`, to set the `className` of the internal wrapper.
-  - `returnFocus`, to return focus into initial position on unmount(not disable).
-> By default `returnFocus` is disabled, so FocusLock will __not__ restore original focus on deactivation.
+  - `returnFocus`, to return focus into initial position on unmount
+> By default `returnFocus` is disabled, so FocusLock __will not__ restore original focus on deactivation.
+> This was done mostly to avoid breaking changes. We __strong recommend enabling it__, to provide a better user experience.
     
   This is expected behavior for Modals, but it is better to implement it by your self. See [unmounting and focus management](https://github.com/theKashey/react-focus-lock#unmounting-and-focus-management) for details
   - `persistentFocus=false`, requires any element to be focused. This also disables text selections inside, and __outside__ focus lock.
@@ -328,6 +329,32 @@ to allow user _tab_ into address bar.
   }
 >
 ```
+
+## Return focus to another node
+In some cases the original node that was focused before the lock was activated is not the desired node to return focus to.
+Some times this node might not exists at all.
+
+- first of all, FocusLock need a moment to record this node, please do not hide it onClick, but hide onBlur (Dropdown, looking at you)
+- second, you may specify a callback as `returnFocus`, letting you decide where to return focus to.
+```tsx
+<FocusLock
+    returnFocus={(suggestedNode) => {
+        // somehow activeElement should not be changed
+        if(document.activeElement.hasAttributes('main-content')) {
+            // opt out from default behavior
+            return false;
+        }
+        if (someCondition(suggestedNode)) {
+            // proceed with the suggested node
+            return true;
+        } 
+        // handle return focus manually
+        document.getElementById('the-button').focus();
+        // opt out from default behavior
+        return false;
+    }}
+/>
+````
 
 ## Return focus with no scroll
 > read more at the [issue #83](https://github.com/theKashey/react-focus-lock/issues/83) or

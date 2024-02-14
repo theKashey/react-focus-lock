@@ -244,6 +244,81 @@ describe('react-focus-lock', () => {
       expect(document.activeElement.innerHTML).to.be.equal('d-action0');
     });
 
+    it('Should return focus to the possible place', async () => {
+      const LockTest = ({ action }) => (
+        <FocusLock returnFocus>
+          <button id="focus-action" onClick={action}>
+            inside
+          </button>
+        </FocusLock>
+      );
+
+      const TriggerTest = () => {
+        const [clicked, setClicked] = React.useState(false);
+        const [removed, setRemoved] = React.useState(false);
+        return (
+          <>
+            {removed ? null : <button id="trigger" onClick={() => setClicked(true)}>trigger</button>}
+            <button id="follower">another action</button>
+            {clicked && (
+            <LockTest
+              action={() => {
+                setRemoved(true);
+                setTimeout(() => {
+                  setClicked(false);
+                }, 1);
+              }}
+            />
+            )}
+          </>
+        );
+      };
+
+      const wrapper = mount(<TriggerTest />);
+
+      document.getElementById('trigger').focus();
+      wrapper.find('#trigger').simulate('click');
+      expect(document.activeElement.innerHTML).to.be.equal('inside');
+      // await tick(1);
+      wrapper.find('#focus-action').simulate('click');
+      await tick(5);
+      expect(document.activeElement.innerHTML).to.be.equal('another action');
+    });
+
+    it.only('Should return focus to the possible place: timing', async () => {
+      const LockTest = ({ action }) => (
+        <FocusLock returnFocus>
+          <button id="focus-action" onClick={action}>
+            inside
+          </button>
+        </FocusLock>
+      );
+
+      const TriggerTest = () => {
+        const [clicked, setClicked] = React.useState(false);
+        return (
+          <>
+            {clicked ? null : <button id="trigger" onClick={() => setClicked(true)}>trigger</button>}
+            <button id="follower">another action</button>
+            {clicked && (
+              <LockTest
+                action={() => { setClicked(false); }}
+              />
+            )}
+          </>
+        );
+      };
+
+      const wrapper = mount(<TriggerTest />);
+
+      wrapper.find('#trigger').simulate('click');
+      await tick();
+      expect(document.activeElement.innerHTML).to.be.equal('inside');
+      wrapper.find('#focus-action').simulate('click');
+      await tick();
+      expect(document.activeElement).to.be.equal(document.body);
+    });
+
     it('Should focus on inputs', (done) => {
       const wrapper = mount(<div>
         <div>

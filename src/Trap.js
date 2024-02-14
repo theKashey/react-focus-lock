@@ -7,6 +7,7 @@ import {
   focusIsHidden, expandFocusableNodes,
   focusNextElement,
   focusPrevElement,
+  captureFocusRestore,
 } from 'focus-lock';
 import { deferAction, extractRef } from './util';
 import { mediumFocus, mediumBlur, mediumEffect } from './medium';
@@ -211,6 +212,14 @@ function reducePropsToState(propsList) {
     .filter(({ disabled }) => !disabled);
 }
 
+const focusLockAPI = {
+  moveFocusInside,
+  focusInside,
+  focusNextElement,
+  focusPrevElement,
+  captureFocusRestore,
+};
+
 function handleStateChangeOnClient(traps) {
   const trap = traps.slice(-1)[0];
   if (trap && !lastActiveTrap) {
@@ -234,7 +243,7 @@ function handleStateChangeOnClient(traps) {
   if (trap) {
     lastActiveFocus = null;
     if (!sameTrap || lastTrap.observed !== trap.observed) {
-      trap.onActivation();
+      trap.onActivation(focusLockAPI);
     }
     activateTrap(true);
     deferAction(activateTrap);
@@ -247,12 +256,7 @@ function handleStateChangeOnClient(traps) {
 // bind medium
 mediumFocus.assignSyncMedium(onFocus);
 mediumBlur.assignMedium(onBlur);
-mediumEffect.assignMedium(cb => cb({
-  moveFocusInside,
-  focusInside,
-  focusNextElement,
-  focusPrevElement,
-}));
+mediumEffect.assignMedium(cb => cb(focusLockAPI));
 
 export default withSideEffect(
   reducePropsToState,

@@ -5,9 +5,10 @@ import {
 import * as constants from 'focus-lock/constants';
 import { useMergeRefs } from 'use-callback-ref';
 
-import { useEffect } from 'react';
 import { hiddenGuard } from './FocusGuard';
-import { mediumFocus, mediumBlur, mediumSidecar } from './medium';
+import {
+  mediumFocus, mediumBlur, mediumSidecar,
+} from './medium';
 import { focusScope } from './scope';
 
 const emptyArray = [];
@@ -48,10 +49,20 @@ const FocusLock = React.forwardRef(function FocusLockUI(props, parentRef) {
 
   // SIDE EFFECT CALLBACKS
 
-  const onActivation = React.useCallback(() => {
-    originalFocusedElement.current = (
-      originalFocusedElement.current || (document && document.activeElement)
-    );
+  const onActivation = React.useCallback(({ captureFocusRestore }) => {
+    if (!originalFocusedElement.current) {
+      const activeElement = document?.activeElement;
+      originalFocusedElement.current = activeElement;
+      // store stack reference
+      if (activeElement !== document.body) {
+        if (document.contains(activeElement)) {
+          originalFocusedElement.current = captureFocusRestore(activeElement);
+        } else if (shouldReturnFocus) {
+          console.error('FocusLock: returnFocus element has been removed from the DOM before stack capture. Element:', activeElement);
+        }
+      }
+    }
+
     if (observed.current && onActivationCallback) {
       onActivationCallback(observed.current);
     }
@@ -67,17 +78,10 @@ const FocusLock = React.forwardRef(function FocusLockUI(props, parentRef) {
     update();
   }, [onDeactivationCallback]);
 
-  useEffect(() => {
-    if (!disabled) {
-      // cleanup return focus on trap deactivation
-      // sideEffect/returnFocus should happen by this time
-      originalFocusedElement.current = null;
-    }
-  }, []);
-
   const returnFocus = React.useCallback((allowDefer) => {
-    const { current: returnFocusTo } = originalFocusedElement;
-    if (returnFocusTo && returnFocusTo.focus) {
+    const { current: focusRestore } = originalFocusedElement;
+    if (focusRestore) {
+      const returnFocusTo = (typeof focusRestore === 'function' ? focusRestore() : focusRestore) || document.body;
       const howToReturnFocus = typeof shouldReturnFocus === 'function' ? shouldReturnFocus(returnFocusTo) : shouldReturnFocus;
       if (howToReturnFocus) {
         const returnFocusOptions = typeof howToReturnFocus === 'object' ? howToReturnFocus : undefined;
