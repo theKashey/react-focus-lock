@@ -41,20 +41,24 @@ const getFocusState = (target, current) => {
   return 'within-boundary';
 };
 
-export const useFocusState = () => {
+export const useFocusState = (callbacks = {}) => {
   const [active, setActive] = useState(false);
   const [state, setState] = useState('');
   const ref = useRef(null);
   const focusState = useRef({});
+  const stateTracker = useRef(false);
 
   // initial focus
   useEffect(() => {
     if (ref.current) {
-      setActive(
-        ref.current === document.activeElement
-          || ref.current.contains(document.activeElement),
-      );
+      const isAlreadyFocused = ref.current === document.activeElement
+              || ref.current.contains(document.activeElement);
+      setActive(isAlreadyFocused);
       setState(getFocusState(document.activeElement, ref.current));
+
+      if (isAlreadyFocused && callbacks.onFocus) {
+        callbacks.onFocus();
+      }
     }
   }, []);
 
@@ -75,8 +79,20 @@ export const useFocusState = () => {
     });
     const fin = mainbus.on('assign', () => {
       // focus event propagation is ended
-      setActive(focusState.current.focused || false);
+      const newState = focusState.current.focused || false;
+      setActive(newState);
       setState(focusState.current.state || '');
+
+      if (newState !== stateTracker.current) {
+        stateTracker.current = newState;
+        if (newState) {
+          // eslint-disable-next-line no-unused-expressions
+          callbacks.onFocus && callbacks.onFocus();
+        } else {
+          // eslint-disable-next-line no-unused-expressions
+          callbacks.onBlur && callbacks.onBlur();
+        }
+      }
     });
     return () => {
       fout();

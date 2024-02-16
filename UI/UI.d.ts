@@ -83,6 +83,11 @@ export function useFocusController(...shards: HTMLElement[]):FocusControl;
  */
 export function useFocusScope():FocusControl
 
+
+export type FocusCallbacks = {
+    onFocus():void;
+    onBlur():void;
+}
 /**
  * returns information about FocusState of a given node
  * @example
@@ -91,7 +96,7 @@ export function useFocusScope():FocusControl
  * return <div ref={ref} onFocus={onFocus}>{active ? 'is focused' : 'not focused'}</div>
  * ```
  */
-export function useFocusState<T extends Element>():{
+export function useFocusState<T extends Element>(callbacks?: FocusCallbacks ):{
     /**
      * is currently focused, or is focus is inside
      */
