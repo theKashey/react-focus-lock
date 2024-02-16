@@ -1,3 +1,17 @@
+# [2.11.0](https://github.com/theKashey/react-focus-lock/compare/v2.10.1...v2.11.0) (2024-02-16)
+
+
+### Bug Fixes
+
+* correct d.ts exports ([a9be7a4](https://github.com/theKashey/react-focus-lock/commit/a9be7a4d1a39386141a28bd6e02cc0083c595880))
+
+
+### Features
+
+* smart return focus feature ([fed88d2](https://github.com/theKashey/react-focus-lock/commit/fed88d2a48c99edc805b0525c4499bec7bea531d))
+
+
+
 ## [2.10.1](https://github.com/theKashey/react-focus-lock/compare/v2.10.0...v2.10.1) (2024-02-14)
 
 
