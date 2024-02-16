@@ -65,6 +65,14 @@ export type FocusControl = {
      * If active element is not in the scope, autofocus will be triggered first
      */
     focusPrev():Promise<void>;
+    /**
+     * focused the first element in the scope
+     */
+    focusFirst(options: Pick<FocusOptions,'onlyTabbable'>):Promise<void>;
+    /**
+     * focused the last element in the scope
+     */
+    focusLast(options: Pick<FocusOptions,'onlyTabbable'>):Promise<void>;
 }
 
 

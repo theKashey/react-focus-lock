@@ -39,6 +39,16 @@ export const useFocusController = (...shards) => {
         );
       });
     },
+    focusFirst(options) {
+      return withMedium((car) => {
+        car.focusFirstElement(collapseRefs(ref.current), options);
+      });
+    },
+    focusLast(options) {
+      return withMedium((car) => {
+        car.focusLastElement(collapseRefs(ref.current), options);
+      });
+    },
   }), []);
 };
 export const useFocusScope = () => {

@@ -10,7 +10,7 @@
   },
   {
     "path": "dist/es2015/sidecar.js",
-    "limit": "4.5 KB",
+    "limit": "4.6 KB",
     "ignore": [
       "prop-types",
       "@babel/runtime",
@@ -19,7 +19,7 @@
   },
   {
     "path": "dist/es2015/index.js",
-    "limit": "6.8 KB",
+    "limit": "6.9 KB",
     "ignore": [
       "prop-types",
       "@babel/runtime",

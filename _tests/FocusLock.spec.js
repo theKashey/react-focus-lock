@@ -285,7 +285,7 @@ describe('react-focus-lock', () => {
       expect(document.activeElement.innerHTML).to.be.equal('another action');
     });
 
-    it.only('Should return focus to the possible place: timing', async () => {
+    it('Should return focus to the possible place: timing', async () => {
       const LockTest = ({ action }) => (
         <FocusLock returnFocus>
           <button id="focus-action" onClick={action}>
@@ -1208,6 +1208,7 @@ describe('react-focus-lock', () => {
             <FocusLock disabled>
               <button id="b1">button1</button>
               <button id="b2">button2</button>
+              <button id="b3">button3</button>
               <Capture />
             </FocusLock>
           </div>,
@@ -1216,11 +1217,13 @@ describe('react-focus-lock', () => {
         control.autoFocus();
         await tick();
         expect(document.activeElement.innerHTML).to.be.equal('button1');
-        control.focusNext();
-        await tick();
+        await control.focusNext();
         expect(document.activeElement.innerHTML).to.be.equal('button2');
-        control.focusPrev();
-        await tick();
+        await control.focusPrev();
+        expect(document.activeElement.innerHTML).to.be.equal('button1');
+        await control.focusLast();
+        expect(document.activeElement.innerHTML).to.be.equal('button3');
+        await control.focusFirst();
         expect(document.activeElement.innerHTML).to.be.equal('button1');
       });
     });

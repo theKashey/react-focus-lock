@@ -7,6 +7,8 @@ import {
   focusIsHidden, expandFocusableNodes,
   focusNextElement,
   focusPrevElement,
+  focusFirstElement,
+  focusLastElement,
   captureFocusRestore,
 } from 'focus-lock';
 import { deferAction, extractRef } from './util';
@@ -217,6 +219,8 @@ const focusLockAPI = {
   focusInside,
   focusNextElement,
   focusPrevElement,
+  focusFirstElement,
+  focusLastElement,
   captureFocusRestore,
 };
 
