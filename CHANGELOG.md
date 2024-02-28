@@ -1,3 +1,13 @@
+## [2.11.2](https://github.com/theKashey/react-focus-lock/compare/v2.11.1...v2.11.2) (2024-02-28)
+
+
+### Bug Fixes
+
+* correct typescript definitions for focus helpers ([a418e7a](https://github.com/theKashey/react-focus-lock/commit/a418e7adeaa4b686fbde91ae09d7546fa02146c0))
+* mark index as sideeffect as it contains sidecar defintion ([aa9dc11](https://github.com/theKashey/react-focus-lock/commit/aa9dc11d4c9b7ec4146ded125b40fc4827bd0e3a))
+
+
+
 ## [2.11.1](https://github.com/theKashey/react-focus-lock/compare/v2.11.0...v2.11.1) (2024-02-19)
 
 
