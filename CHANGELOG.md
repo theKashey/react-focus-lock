@@ -1,3 +1,12 @@
+## [2.11.1](https://github.com/theKashey/react-focus-lock/compare/v2.11.0...v2.11.1) (2024-02-19)
+
+
+### Bug Fixes
+
+* bump minimal focus-lock version, fixes [#288](https://github.com/theKashey/react-focus-lock/issues/288) ([bc144bb](https://github.com/theKashey/react-focus-lock/commit/bc144bb748c9a34d5df31e31886130e81e9b7cbe))
+
+
+
 # [2.11.0](https://github.com/theKashey/react-focus-lock/compare/v2.10.1...v2.11.0) (2024-02-16)
 
 
