@@ -7,7 +7,8 @@
   "module": "dist/es2015/index.js",
   "types": "react-focus-lock.d.ts",
   "sideEffects": [
-    "**/sidecar.js"
+    "**/sidecar.js",
+    "**/index.js"
   ],
   "scripts": {
     "build:cjs": "NODE_ENV=cjs babel src -d dist/cjs",
