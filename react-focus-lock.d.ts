@@ -82,7 +82,7 @@ export type FocusControl = {
  * - can accept HTML elements or React Refs
  * @see {@link useFocusScope} for use cases inside of FocusLock
  */
-export function useFocusController<Elements extends HTMLElement=HTMLElement>(...shards: ReadonlyArray<HTMLElement | {current:HTMLElement}>):FocusControl;
+export function useFocusController<Elements extends HTMLElement=HTMLElement>(...shards: ReadonlyArray<HTMLElement | {current:HTMLElement | null}>):FocusControl;
 
 /**
  * returns FocusControl over the current FocusLock
