@@ -59,29 +59,30 @@ export type FocusControl = {
      * focuses the next element in the scope.
      * If active element is not in the scope, autofocus will be triggered first
      */
-    focusNext(options:FocusOptions):Promise<void>;
+    focusNext(options?:FocusOptions):Promise<void>;
     /**
      * focuses the prev element in the scope.
      * If active element is not in the scope, autofocus will be triggered first
      */
-    focusPrev():Promise<void>;
+    focusPrev(options?:FocusOptions):Promise<void>;
     /**
      * focused the first element in the scope
      */
-    focusFirst(options: Pick<FocusOptions,'onlyTabbable'>):Promise<void>;
+    focusFirst(options?: Pick<FocusOptions,'onlyTabbable'>):Promise<void>;
     /**
      * focused the last element in the scope
      */
-    focusLast(options: Pick<FocusOptions,'onlyTabbable'>):Promise<void>;
+    focusLast(options?: Pick<FocusOptions,'onlyTabbable'>):Promise<void>;
 }
 
 
 /**
  * returns FocusControl over the union given elements, one or many
  * - can be used outside of FocusLock
+ * - can accept HTML elements or React Refs
  * @see {@link useFocusScope} for use cases inside of FocusLock
  */
-export function useFocusController(...shards: HTMLElement[]):FocusControl;
+export function useFocusController<Elements extends HTMLElement=HTMLElement>(...shards: ReadonlyArray<HTMLElement | {current:HTMLElement}>):FocusControl;
 
 /**
  * returns FocusControl over the current FocusLock
