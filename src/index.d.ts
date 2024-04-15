@@ -95,8 +95,8 @@ export function useFocusController<Elements extends HTMLElement=HTMLElement>(...
 export function useFocusScope():FocusControl
 
 export type FocusCallbacks = {
-    onFocus():void;
-    onBlur():void;
+  onFocus(): void;
+  onBlur(): void;
 }
 /**
  * returns information about FocusState of a given node
