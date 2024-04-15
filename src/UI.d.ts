@@ -1,39 +1,36 @@
-import * as React from "react";
-import type {
-  ReactFocusLockProps,
-  AutoFocusProps,
-  FreeFocusProps,
-  InFocusGuardProps,
-} from "./interfaces.js";
+import * as React from 'react';
+import {ReactFocusLockProps, AutoFocusProps, FreeFocusProps, InFocusGuardProps} from "./interfaces.js";
 
 /**
  * Traps Focus inside a Lock
  */
-declare const ReactFocusLock: React.FC<
-  ReactFocusLockProps & { sideCar: React.FC<any> }
->;
+declare const ReactFocusLock: React.FC<ReactFocusLockProps & { sideCar: React.FC<any> }>;
 
 export default ReactFocusLock;
 
 /**
  * Autofocus on children on Lock activation
  */
-export class AutoFocusInside extends React.Component<AutoFocusProps> {}
+export class AutoFocusInside extends React.Component<AutoFocusProps> {
+}
 
 /**
  * Autofocus on children
  */
-export class MoveFocusInside extends React.Component<AutoFocusProps> {}
+export class MoveFocusInside extends React.Component<AutoFocusProps> {
+}
 
 /**
  * Allow free focus inside on children
  */
-export class FreeFocusInside extends React.Component<FreeFocusProps> {}
+export class FreeFocusInside extends React.Component<FreeFocusProps> {
+}
 
 /**
  * Secures the focus around the node
  */
-export class InFocusGuard extends React.Component<InFocusGuardProps> {}
+export class InFocusGuard extends React.Component<InFocusGuardProps> {
+}
 
 /**
  * Moves focus inside a given node
@@ -41,41 +38,41 @@ export class InFocusGuard extends React.Component<InFocusGuardProps> {}
 export function useFocusInside(node: React.RefObject<HTMLElement>): void;
 
 export type FocusOptions = {
-  /**
-   * enables focus cycle
-   * @default true
-   */
-  cycle?: boolean;
-  /**
-   * limits focusables to tabbables (tabindex>=0) elements only
-   * @default true
-   */
-  onlyTabbable?:boolean
+    /**
+     * enables focus cycle
+     * @default true
+     */
+    cycle?: boolean;
+    /**
+     * limits focusables to tabbables (tabindex>=0) elements only
+     * @default true
+     */
+    onlyTabbable?:boolean
 }
 
 export type FocusControl = {
-  /**
-   * moves focus to the current scope, can be considered as autofocus
-   */
-  autoFocus():Promise<void>;
-  /**
-   * focuses the next element in the scope.
-   * If active element is not in the scope, autofocus will be triggered first
-   */
-  focusNext(options?:FocusOptions):Promise<void>;
-  /**
-   * focuses the prev element in the scope.
-   * If active element is not in the scope, autofocus will be triggered first
-   */
-  focusPrev(options?:FocusOptions):Promise<void>;
-  /**
-   * focused the first element in the scope
-   */
-  focusFirst(options?: Pick<FocusOptions,'onlyTabbable'>):Promise<void>;
-  /**
-   * focused the last element in the scope
-   */
-  focusLast(options?: Pick<FocusOptions,'onlyTabbable'>):Promise<void>;
+    /**
+     * moves focus to the current scope, can be considered as autofocus
+     */
+    autoFocus():Promise<void>;
+    /**
+     * focuses the next element in the scope.
+     * If active element is not in the scope, autofocus will be triggered first
+     */
+    focusNext(options?:FocusOptions):Promise<void>;
+    /**
+     * focuses the prev element in the scope.
+     * If active element is not in the scope, autofocus will be triggered first
+     */
+    focusPrev(options?:FocusOptions):Promise<void>;
+    /**
+     * focused the first element in the scope
+     */
+    focusFirst(options?: Pick<FocusOptions,'onlyTabbable'>):Promise<void>;
+    /**
+     * focused the last element in the scope
+     */
+    focusLast(options?: Pick<FocusOptions,'onlyTabbable'>):Promise<void>;
 }
 
 
@@ -96,8 +93,8 @@ export function useFocusScope():FocusControl
 
 
 export type FocusCallbacks = {
-  onFocus(): void;
-  onBlur(): void;
+    onFocus():void;
+    onBlur():void;
 }
 /**
  * returns information about FocusState of a given node
@@ -108,17 +105,17 @@ export type FocusCallbacks = {
  * ```
  */
 export function useFocusState<T extends Element>(callbacks?: FocusCallbacks ):{
-  /**
-   * is currently focused, or is focus is inside
-   */
-  active: boolean;
-  /**
-   * focus handled. SHALL be passed to the node down
-   */
-  onFocus: React.FocusEventHandler<T>;
-  /**
-   * reference to the node
-   * only required to capture current status of the node
-   */
-  ref: React.RefObject<T>;
+    /**
+     * is currently focused, or is focus is inside
+     */
+    active: boolean;
+    /**
+     * focus handled. SHALL be passed to the node down
+     */
+    onFocus: React.FocusEventHandler<T>;
+    /**
+     * reference to the node
+     * only required to capture current status of the node
+     */
+    ref: React.RefObject<T>;
 }

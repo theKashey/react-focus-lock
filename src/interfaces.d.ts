@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { Ref } from 'react';
+import {Ref} from "react";
 
 export type FocusOptions = {
   /**
@@ -14,10 +14,7 @@ export type FocusOptions = {
   onlyTabbable?:boolean
 }
 
-export interface ReactFocusLockProps<
-  ChildrenType = React.ReactNode,
-  LockProps = Record<string, any>
-> {
+export interface ReactFocusLockProps<ChildrenType = React.ReactNode, LockProps = Record<string, any>> {
   disabled?: boolean;
 
   /**
@@ -28,16 +25,12 @@ export interface ReactFocusLockProps<
    * can also accept a function with the first argument equals to element focus will be returned to
    * in order to provide full control to the user space
    */
-  returnFocus?:
-    | boolean
-    | FocusOptions
-    | ((returnTo: Element) => boolean | FocusOptions);
+  returnFocus?: boolean | FocusOptions | ((returnTo: Element) => boolean | FocusOptions);
 
   /**
    * used to control behavior or "returning focus back to the lock"
    *
-   * @deprecated Can lead to a wrong user experience. Use this option only if you know what you are
-   *   doing
+   * @deprecated Can lead to a wrong user experience. Use this option only if you known what you are doing
    * @see {@link https://github.com/theKashey/react-focus-lock/issues/162}
    * @example
    * prevent scroll example
@@ -99,25 +92,24 @@ export interface ReactFocusLockProps<
    * life-cycle hook, called on lock activation
    * @param node the observed node
    */
-  onActivation?: (node: HTMLElement) => void;
+  onActivation?(node: HTMLElement): void;
 
   /**
    * life-cycle hook, called on deactivation
    * @param node the observed node
    */
-  onDeactivation?: (node: HTMLElement) => void;
+  onDeactivation?(node: HTMLElement): void;
 
   /**
    * Component to use, defaults to 'div'
    */
-  as?: string | React.ElementType<LockProps & { children: ChildrenType }>;
-  lockProps?: LockProps;
+  as?: string | React.ElementType<LockProps & { children: ChildrenType }>,
+  lockProps?: LockProps,
 
   ref?: Ref<HTMLElement>;
 
   /**
-   * Controls focus lock working areas. Lock will silently ignore all the events from `not allowed`
-   *   areas
+   * Controls focus lock working areas. Lock will silently ignore all the events from `not allowed` areas
    * @param activeElement
    * @returns {Boolean} true if focus lock should handle activeElement, false if not
    */
