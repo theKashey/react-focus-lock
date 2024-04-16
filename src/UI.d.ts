@@ -1,10 +1,10 @@
 import * as React from 'react';
-import {ReactFocusLockProps, AutoFocusProps, FreeFocusProps, InFocusGuardProps} from "./interfaces";
+import {ReactFocusLockProps, AutoFocusProps, FreeFocusProps, InFocusGuardProps} from "./interfaces.js";
 
 /**
  * Traps Focus inside a Lock
  */
-declare const ReactFocusLock: React.FC<ReactFocusLockProps>;
+declare const ReactFocusLock: React.FC<ReactFocusLockProps & { sideCar: React.FC<any> }>;
 
 export default ReactFocusLock;
 
@@ -79,7 +79,6 @@ export type FocusControl = {
 /**
  * returns FocusControl over the union given elements, one or many
  * - can be used outside of FocusLock
- * - can accept HTML elements or React Refs
  * @see {@link useFocusScope} for use cases inside of FocusLock
  */
 export function useFocusController<Elements extends HTMLElement=HTMLElement>(...shards: ReadonlyArray<HTMLElement | {current:HTMLElement | null}>):FocusControl;
@@ -91,6 +90,7 @@ export function useFocusController<Elements extends HTMLElement=HTMLElement>(...
  * @see {@link useFocusController} for use cases outside of FocusLock
  */
 export function useFocusScope():FocusControl
+
 
 export type FocusCallbacks = {
     onFocus():void;

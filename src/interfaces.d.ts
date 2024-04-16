@@ -1,6 +1,19 @@
 import * as React from 'react';
 import {Ref} from "react";
 
+export type FocusOptions = {
+  /**
+   * enables focus cycle
+   * @default true
+   */
+  cycle?: boolean;
+  /**
+   * limits focusables to tabbables (tabindex>=0) elements only
+   * @default true
+   */
+  onlyTabbable?:boolean
+}
+
 export interface ReactFocusLockProps<ChildrenType = React.ReactNode, LockProps = Record<string, any>> {
   disabled?: boolean;
 
