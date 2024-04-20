@@ -15,6 +15,7 @@
     "jsx-a11y/href-no-hash": "off",
     // Override airbnb to disable devDependencies check until we figure out how to exclude tests files
     "import/no-extraneous-dependencies": [2, {"optionalDependencies": false}],
+    "import/extensions": ["error", "always", { "ignorePackages": true }],
 
     // We rely on named export for reducer so namespace is preserved in the redux store.
     "import/prefer-default-export": 0,

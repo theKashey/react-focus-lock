@@ -1,7 +1,7 @@
 import { useContext, useMemo, useRef } from 'react';
-import { focusScope } from './scope';
-import { mediumEffect } from './medium';
-import { extractRef } from './util';
+import { focusScope } from './scope.js';
+import { mediumEffect } from './medium.js';
+import { extractRef } from './util.js';
 
 const collapseRefs = shards => (
   shards.map(extractRef).filter(Boolean)

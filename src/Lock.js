@@ -1,15 +1,13 @@
 import * as React from 'react';
-import {
-  node, bool, string, any, arrayOf, oneOfType, object, func,
-} from 'prop-types';
+import PropTypes from 'prop-types';
 import * as constants from 'focus-lock/constants';
 import { useMergeRefs } from 'use-callback-ref';
 
-import { hiddenGuard } from './FocusGuard';
+import { hiddenGuard } from './FocusGuard.js';
 import {
   mediumFocus, mediumBlur, mediumSidecar,
-} from './medium';
-import { focusScope } from './scope';
+} from './medium.js';
+import { focusScope } from './scope.js';
 
 const emptyArray = [];
 
@@ -194,6 +192,10 @@ const FocusLock = React.forwardRef(function FocusLockUI(props, parentRef) {
   );
 });
 
+
+const {
+  node, bool, string, any, arrayOf, oneOfType, object, func,
+} = PropTypes;
 FocusLock.propTypes = {
   children: node,
   disabled: bool,

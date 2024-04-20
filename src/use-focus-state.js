@@ -1,7 +1,7 @@
 import {
   useCallback, useRef, useState, useEffect,
 } from 'react';
-import { createNanoEvents } from './nano-events';
+import { createNanoEvents } from './nano-events.js';
 
 const mainbus = createNanoEvents();
 

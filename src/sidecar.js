@@ -1,5 +1,5 @@
 import { exportSidecar } from 'use-sidecar';
-import FocusTrap from './Trap';
-import { mediumSidecar } from './medium';
+import FocusTrap from './Trap.js';
+import { mediumSidecar } from './medium.js';
 
 export default exportSidecar(mediumSidecar, FocusTrap);
