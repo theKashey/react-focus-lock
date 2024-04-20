@@ -1,4 +1,5 @@
 import * as React from 'react';
+import PropTypes from 'prop-types';
 import * as constants from 'focus-lock/constants';
 import { useMergeRefs } from 'use-callback-ref';
 
@@ -190,5 +191,37 @@ const FocusLock = React.forwardRef(function FocusLockUI(props, parentRef) {
     </React.Fragment>
   );
 });
+
+
+const {
+  node, bool, string, any, arrayOf, oneOfType, object, func,
+} = PropTypes;
+FocusLock.propTypes = {
+  children: node,
+  disabled: bool,
+  returnFocus: oneOfType([bool, object, func]),
+  focusOptions: object,
+  noFocusGuards: bool,
+  hasPositiveIndices: bool,
+
+  allowTextSelection: bool,
+  autoFocus: bool,
+  persistentFocus: bool,
+  crossFrame: bool,
+
+  group: string,
+  className: string,
+
+  whiteList: func,
+  shards: arrayOf(any),
+
+  as: oneOfType([string, func, object]),
+  lockProps: object,
+
+  onActivation: func,
+  onDeactivation: func,
+
+  sideCar: any.isRequired,
+};
 
 export default FocusLock;

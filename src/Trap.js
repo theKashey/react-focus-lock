@@ -2,7 +2,12 @@
 import * as React from 'react';
 import PropTypes from 'prop-types';
 import withSideEffect from 'react-clientside-effect';
-import {
+import focusLockPkg from 'focus-lock';
+import { deferAction, extractRef } from './util.js';
+import { mediumFocus, mediumBlur, mediumEffect } from './medium.js';
+
+
+const {
   moveFocusInside, focusInside,
   focusIsHidden, expandFocusableNodes,
   focusNextElement,
@@ -10,9 +15,7 @@ import {
   focusFirstElement,
   focusLastElement,
   captureFocusRestore,
-} from 'focus-lock';
-import { deferAction, extractRef } from './util.js';
-import { mediumFocus, mediumBlur, mediumEffect } from './medium.js';
+} = focusLockPkg;
 
 const focusOnBody = () => (
   document && document.activeElement === document.body
