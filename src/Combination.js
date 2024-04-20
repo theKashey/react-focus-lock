@@ -1,6 +1,6 @@
 import * as React from 'react';
-import FocusLockUI from './Lock';
-import FocusTrap from './Trap';
+import FocusLockUI from './Lock.js';
+import FocusTrap from './Trap.js';
 
 /* that would be a BREAKING CHANGE!
 // delaying sidecar execution till the first usage

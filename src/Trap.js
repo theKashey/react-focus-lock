@@ -11,8 +11,8 @@ import {
   focusLastElement,
   captureFocusRestore,
 } from 'focus-lock';
-import { deferAction, extractRef } from './util';
-import { mediumFocus, mediumBlur, mediumEffect } from './medium';
+import { deferAction, extractRef } from './util.js';
+import { mediumFocus, mediumBlur, mediumEffect } from './medium.js';
 
 const focusOnBody = () => (
   document && document.activeElement === document.body
