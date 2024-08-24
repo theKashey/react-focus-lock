@@ -21,7 +21,7 @@
     "w:build": "yarn clean && NODE_ENV=production webpack app/client.js -p"
   },
   "dependencies": {
-    "preact": "^10.0.0-beta.1",
+    "preact": "^10.23.1",
     "react-focus-lock": "^1.19.1",
     "use-sidecar": "^0.2.0"
   },
