@@ -4,7 +4,9 @@ import PropTypes from 'prop-types';
 import withSideEffect from 'react-clientside-effect';
 import {
   moveFocusInside, focusInside,
-  focusIsHidden, expandFocusableNodes,
+  focusIsHidden,
+  expandFocusableNodes,
+  getFocusableNodes,
   focusNextElement,
   focusPrevElement,
   focusFirstElement,
@@ -22,6 +24,7 @@ const isFreeFocus = () => focusOnBody() || focusIsHidden();
 
 let lastActiveTrap = null;
 let lastActiveFocus = null;
+let tryRestoreFocus = () => null;
 
 let lastPortaledElement = null;
 
@@ -86,6 +89,10 @@ const withinHost = (activeElement, workingArea) => (
   workingArea.some(area => checkInHost(activeElement, area, area))
 );
 
+const isNotFocusable = node => (
+  !getFocusableNodes([node.parentNode], new Map()).some(el => el.node === node)
+);
+
 const activateTrap = () => {
   let result = false;
   if (lastActiveTrap) {
@@ -93,6 +100,24 @@ const activateTrap = () => {
       observed, persistentFocus, autoFocus, shards, crossFrame, focusOptions,
     } = lastActiveTrap;
     const workingNode = observed || (lastPortaledElement && lastPortaledElement.portaledElement);
+
+    // check if lastActiveFocus is still reachable
+    if (focusOnBody() && lastActiveFocus) {
+      if (
+        // it was removed
+        !document.body.contains(lastActiveFocus)
+          // or not focusable (this is expensive operation)!
+          || isNotFocusable(lastActiveFocus)
+      ) {
+        lastActiveFocus = null;
+
+        const newTarget = tryRestoreFocus();
+        if (newTarget) {
+          newTarget.focus();
+        }
+      }
+    }
+
     const activeElement = document && document.activeElement;
     if (workingNode) {
       const workingArea = [
@@ -130,11 +155,12 @@ const activateTrap = () => {
           }
           focusWasOutsideWindow = false;
           lastActiveFocus = document && document.activeElement;
+          tryRestoreFocus = captureFocusRestore(lastActiveFocus);
         }
       }
 
       if (document
-          // element was changed
+          // element was changed by moveFocusInside
           && activeElement !== document.activeElement
           // fast check for any auto-guard
           && document.querySelector('[data-focus-auto-guard]')) {
