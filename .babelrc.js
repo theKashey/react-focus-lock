@@ -2,7 +2,8 @@
 // https://babeljs.io/docs/options#shouldprintcomment
 const shouldPrintComment = (val) => /@license|@preserve|[#@]__PURE__/.test(val);
 
-export default {
+// export default {
+module.exports = {
   env: {
     cjs: {
       presets: ["@babel/preset-env", "@babel/preset-react"],
