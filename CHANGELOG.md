@@ -1,3 +1,12 @@
+# [2.12.0](https://github.com/theKashey/react-focus-lock/compare/v2.11.3...v2.12.0) (2024-04-20)
+
+
+### Bug Fixes
+
+* remove conflicting type ([7245bde](https://github.com/theKashey/react-focus-lock/commit/7245bde25148562462986feb15ab106a2f9f0202))
+
+
+
 ## [2.11.3](https://github.com/theKashey/react-focus-lock/compare/v2.11.2...v2.11.3) (2024-04-13)
 
 
