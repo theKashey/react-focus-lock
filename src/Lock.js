@@ -173,6 +173,7 @@ const FocusLock = React.forwardRef(function FocusLockUI(props, parentRef) {
           onDeactivation={onDeactivation}
           returnFocus={returnFocus}
           focusOptions={focusOptions}
+          noFocusGuards={noFocusGuards}
         />
       )}
       <Container

@@ -4,7 +4,9 @@ import PropTypes from 'prop-types';
 import withSideEffect from 'react-clientside-effect';
 import {
   moveFocusInside, focusInside,
-  focusIsHidden, expandFocusableNodes,
+  focusIsHidden,
+  expandFocusableNodes,
+  getFocusableNodes,
   focusNextElement,
   focusPrevElement,
   focusFirstElement,
@@ -22,10 +24,12 @@ const isFreeFocus = () => focusOnBody() || focusIsHidden();
 
 let lastActiveTrap = null;
 let lastActiveFocus = null;
+let tryRestoreFocus = () => null;
 
 let lastPortaledElement = null;
 
 let focusWasOutsideWindow = false;
+let windowFocused = false;
 
 const defaultWhitelist = () => true;
 
@@ -86,13 +90,36 @@ const withinHost = (activeElement, workingArea) => (
   workingArea.some(area => checkInHost(activeElement, area, area))
 );
 
+const getNodeFocusables = nodes => getFocusableNodes(nodes, new Map());
+const isNotFocusable = node => (
+  !getNodeFocusables([node.parentNode]).some(el => el.node === node)
+);
+
 const activateTrap = () => {
   let result = false;
   if (lastActiveTrap) {
     const {
-      observed, persistentFocus, autoFocus, shards, crossFrame, focusOptions,
+      observed, persistentFocus, autoFocus, shards, crossFrame, focusOptions, noFocusGuards,
     } = lastActiveTrap;
     const workingNode = observed || (lastPortaledElement && lastPortaledElement.portaledElement);
+
+    // check if lastActiveFocus is still reachable
+    if (focusOnBody() && lastActiveFocus) {
+      if (
+        // it was removed
+        !document.body.contains(lastActiveFocus)
+          // or not focusable (this is expensive operation)!
+          || isNotFocusable(lastActiveFocus)
+      ) {
+        lastActiveFocus = null;
+
+        const newTarget = tryRestoreFocus();
+        if (newTarget) {
+          newTarget.focus();
+        }
+      }
+    }
+
     const activeElement = document && document.activeElement;
     if (workingNode) {
       const workingArea = [
@@ -100,9 +127,24 @@ const activateTrap = () => {
         ...shards.map(extractRef).filter(Boolean),
       ];
 
+      const shouldForceRestoreFocus = () => {
+        // force restoration happens when
+        // - focus is not inside now
+        // - focusWasOutside
+        // - there are go guards
+        // - the last active element was the first or the last focusable one
+        if (!focusWasOutside(crossFrame) || !noFocusGuards || !lastActiveFocus || windowFocused) {
+          return false;
+        }
+        const nodes = getNodeFocusables(workingArea);
+        const lastIndex = nodes.findIndex(({ node }) => node === lastActiveFocus);
+
+        return lastIndex === 0 || lastIndex === nodes.length - 1;
+      };
+
       if (!activeElement || focusWhitelisted(activeElement)) {
         if (
-          (persistentFocus || focusWasOutside(crossFrame))
+          (persistentFocus || shouldForceRestoreFocus())
           || !isFreeFocus()
           || (!lastActiveFocus && autoFocus)
         ) {
@@ -130,11 +172,12 @@ const activateTrap = () => {
           }
           focusWasOutsideWindow = false;
           lastActiveFocus = document && document.activeElement;
+          tryRestoreFocus = captureFocusRestore(lastActiveFocus);
         }
       }
 
       if (document
-          // element was changed
+          // element was changed by moveFocusInside
           && activeElement !== document.activeElement
           // fast check for any auto-guard
           && document.querySelector('[data-focus-auto-guard]')) {
@@ -189,7 +232,11 @@ FocusTrap.propTypes = {
   children: PropTypes.node.isRequired,
 };
 
+const onWindowFocus = () => {
+  windowFocused = true;
+};
 const onWindowBlur = () => {
+  windowFocused = false;
   focusWasOutsideWindow = 'just';
   // using setTimeout to set  this variable after React/sidecar reaction
   deferAction(() => {
@@ -200,12 +247,14 @@ const onWindowBlur = () => {
 const attachHandler = () => {
   document.addEventListener('focusin', onTrap);
   document.addEventListener('focusout', onBlur);
+  window.addEventListener('focus', onWindowFocus);
   window.addEventListener('blur', onWindowBlur);
 };
 
 const detachHandler = () => {
   document.removeEventListener('focusin', onTrap);
   document.removeEventListener('focusout', onBlur);
+  window.removeEventListener('focus', onWindowFocus);
   window.removeEventListener('blur', onWindowBlur);
 };
 
