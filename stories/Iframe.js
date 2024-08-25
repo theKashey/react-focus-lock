@@ -74,9 +74,23 @@ export const IFrame = props => (
       {' '}
       outside
     </div>
+    <hr />
+    <Trap {...props} />
+    <hr />
+
     <Trap {...props}>
-      <iframe src={`/iframe.html?id=focus-lock--codesandbox-example&crossFrame=${props.crossFrame}`} style={{ width: '100%', height: '400px' }} />
+      <iframe
+        src={`/iframe.html?id=focus-lock--codesandbox-example&crossFrame=${props.crossFrame}`}
+        style={{ width: '100%', height: '400px' }}
+      />
+      <iframe
+        src={`/iframe.html?id=focus-lock--codesandbox-example&crossFrame=${props.crossFrame}`}
+        style={{ width: '100%', height: '400px' }}
+      />
     </Trap>
+    <hr />
+    <Trap {...props} />
+    <hr />
     <div style={bg}>
       {' '}
       Inaccessible
