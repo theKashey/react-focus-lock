@@ -1,3 +1,13 @@
+# [2.13.0](https://github.com/theKashey/react-focus-lock/compare/v2.12.0...v2.13.0) (2024-08-25)
+
+
+### Bug Fixes
+
+* auto-focus in case of activeElement disappeareance, fixes [#321](https://github.com/theKashey/react-focus-lock/issues/321) ([a109314](https://github.com/theKashey/react-focus-lock/commit/a10931455a547d2bc91e84d1203396b119e0f913))
+* better manage cross-frame relations ([72b4d4b](https://github.com/theKashey/react-focus-lock/commit/72b4d4be6f0a7b2be8fb64027a6e6cc0871da165))
+
+
+
 # [2.12.0](https://github.com/theKashey/react-focus-lock/compare/v2.11.3...v2.12.0) (2024-04-20)
 
 
