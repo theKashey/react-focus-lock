@@ -1,6 +1,7 @@
 import * as React from 'react';
 import {ReactFocusLockProps, AutoFocusProps, FreeFocusProps, InFocusGuardProps} from "./interfaces.js";
 
+export {ReactFocusLockProps};
 /**
  * Traps Focus inside a Lock
  */
