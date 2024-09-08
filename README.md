@@ -422,7 +422,7 @@ Uses [focus-lock](https://github.com/theKashey/focus-lock/) under the hood. It d
 # More
 To create a "right" modal dialog you have to:
 - manage a focus. Use this library
-- block document scroll. Use [react-scroll-locky](https://github.com/theKashey/react-scroll-locky).
+- block document scroll. Use [react-remove-scroll](https://github.com/theKashey/react-remove-scroll).
 - hide everything else from screen readers. Use [aria-hidden](https://github.com/theKashey/aria-hidden)
 
 You may use [react-focus-on](https://github.com/theKashey/react-focus-on) to achieve everything above, assembled in the right order.
