@@ -5405,10 +5405,10 @@ posthtml@^0.11.2, posthtml@^0.11.3:
     posthtml-parser "^0.4.1"
     posthtml-render "^1.1.5"
 
-preact@^10.0.0-beta.1:
-  version "10.0.0-beta.1"
-  resolved "https://registry.yarnpkg.com/preact/-/preact-10.0.0-beta.1.tgz#f7d524668db72ed74e99d447f09600fa4db0b186"
-  integrity sha512-1uhj3JXOEzEPUof5t/iQW5heEvTOpexwS0FLAjJQfgfT8OCXICyzI2TwkYyFJ+W9q9GsDmhZgFagH2G0akFveQ==
+preact@^10.23.1:
+  version "10.23.2"
+  resolved "https://registry.yarnpkg.com/preact/-/preact-10.23.2.tgz#52deec92796ae0f0cc6b034d9c66e0fbc1b837dc"
+  integrity sha512-kKYfePf9rzKnxOAKDpsWhg/ysrHPqT+yQ7UW4JjdnqjFIeNUnNcEJvhuA8fDenxAGWzUqtd51DfVg7xp/8T9NA==
 
 prelude-ls@~1.1.2:
   version "1.1.2"
