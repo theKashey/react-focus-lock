@@ -1,6 +1,6 @@
 import { useCallback, useRef, useState, useEffect } from "react";
 import { createNanoEvents } from "./nano-events";
-import { FocusCallbacks } from "./types";
+import { FocusCallbacks } from "./interfaces";
 
 const mainbus = createNanoEvents();
 

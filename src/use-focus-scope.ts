@@ -2,9 +2,8 @@ import { useContext, useMemo, useRef } from "react";
 import { focusScope } from "./scope";
 import { mediumEffect } from "./medium";
 import { extractShards } from "./util";
-import { FocusControl } from "./types";
 import { focusLockAPI } from "./Trap";
-import { Shards } from "./interfaces";
+import { FocusControl, Shards } from "./interfaces";
 
 const withMedium = (fn: (car: typeof focusLockAPI) => void): Promise<void> =>
   new Promise((resolve) =>
