@@ -6,7 +6,11 @@ const shouldPrintComment = (val) => /@license|@preserve|[#@]__PURE__/.test(val);
 module.exports = {
   env: {
     cjs: {
-      presets: ["@babel/preset-env", "@babel/preset-react"],
+      presets: [
+        "@babel/preset-env",
+        "@babel/preset-react",
+        ["@babel/preset-typescript", { isTSX: true, allExtensions: true }],
+      ],
       plugins: [
         "@babel/plugin-proposal-class-properties",
         "@babel/plugin-transform-runtime",
@@ -31,6 +35,7 @@ module.exports = {
           },
         ],
         "@babel/preset-react",
+        ["@babel/preset-typescript", { isTSX: true, allExtensions: true }],
       ],
       plugins: [
         "@babel/plugin-syntax-dynamic-import",
