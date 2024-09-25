@@ -1,14 +1,13 @@
-import {
-  useCallback, useRef, useState, useEffect,
-} from 'react';
-import { createNanoEvents } from './nano-events';
+import { useCallback, useRef, useState, useEffect } from "react";
+import { createNanoEvents } from "./nano-events";
+import { FocusCallbacks } from "./types";
 
 const mainbus = createNanoEvents();
 
 let subscribeCounter = 0;
 
-const onFocusIn = event => mainbus.emit('assign', event.target);
-const onFocusOut = event => mainbus.emit('reset', event.target);
+const onFocusIn = (event: FocusEvent) => mainbus.emit("assign", event.target);
+const onFocusOut = (event: FocusEvent) => mainbus.emit("reset", event.target);
 
 /**
  * attaches focusin/focusout listener-singlenton to the document
@@ -17,44 +16,48 @@ const onFocusOut = event => mainbus.emit('reset', event.target);
 const useDocumentFocusSubscribe = () => {
   useEffect(() => {
     if (!subscribeCounter) {
-      document.addEventListener('focusin', onFocusIn);
-      document.addEventListener('focusout', onFocusOut);
+      document.addEventListener("focusin", onFocusIn);
+      document.addEventListener("focusout", onFocusOut);
     }
     subscribeCounter += 1;
     return () => {
       subscribeCounter -= 1;
       if (!subscribeCounter) {
-        document.removeEventListener('focusin', onFocusIn);
-        document.removeEventListener('focusout', onFocusOut);
+        document.removeEventListener("focusin", onFocusIn);
+        document.removeEventListener("focusout", onFocusOut);
       }
     };
   }, []);
 };
 
-const getFocusState = (target, current) => {
+const getFocusState = (target: Element, current: Element) => {
   if (target === current) {
-    return 'self';
+    return "self";
   }
   if (current.contains(target)) {
-    return 'within';
+    return "within";
   }
-  return 'within-boundary';
+  return "within-boundary";
 };
 
-export const useFocusState = (callbacks = {}) => {
+export const useFocusState = (callbacks: FocusCallbacks = {}) => {
   const [active, setActive] = useState(false);
-  const [state, setState] = useState('');
-  const ref = useRef(null);
-  const focusState = useRef({});
+  const [state, setState] = useState("");
+  const ref = useRef<HTMLElement>(null);
+  const focusState = useRef<{
+    focused?: true;
+    state?: "self" | "within" | "within-boundary";
+  }>({});
   const stateTracker = useRef(false);
 
   // initial focus
   useEffect(() => {
     if (ref.current) {
-      const isAlreadyFocused = ref.current === document.activeElement
-              || ref.current.contains(document.activeElement);
+      const isAlreadyFocused =
+        ref.current === document.activeElement ||
+        ref.current.contains(document.activeElement);
       setActive(isAlreadyFocused);
-      setState(getFocusState(document.activeElement, ref.current));
+      setState(getFocusState(document.activeElement!, ref.current));
 
       if (isAlreadyFocused && callbacks.onFocus) {
         callbacks.onFocus();
@@ -62,26 +65,25 @@ export const useFocusState = (callbacks = {}) => {
     }
   }, []);
 
-  const onFocus = useCallback((e) => {
+  const onFocus = useCallback((e: FocusEvent) => {
     // element caught focus. Store, but do not set value yes
     focusState.current = {
       focused: true,
-      state: getFocusState(e.target, e.currentTarget),
+      state: getFocusState(e.target as Element, e.currentTarget as Element),
     };
   }, []);
 
-
   useDocumentFocusSubscribe();
   useEffect(() => {
-    const fout = mainbus.on('reset', () => {
+    const fout = mainbus.on("reset", () => {
       // focus is going somewhere
       focusState.current = {};
     });
-    const fin = mainbus.on('assign', () => {
+    const fin = mainbus.on("assign", () => {
       // focus event propagation is ended
       const newState = focusState.current.focused || false;
       setActive(newState);
-      setState(focusState.current.state || '');
+      setState(focusState.current.state || "");
 
       if (newState !== stateTracker.current) {
         stateTracker.current = newState;
