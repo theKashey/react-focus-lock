@@ -1,7 +1,12 @@
-import * as React from 'react';
-import {Ref} from "react";
+import * as React from "react";
+import { Ref } from "react";
+import { focusLockAPI } from "./Trap";
+import { SideCarComponent } from "use-sidecar";
 
-export interface ReactFocusLockProps<ChildrenType = React.ReactNode, LockProps = Record<string, any>> {
+export interface ReactFocusLockProps<
+  ChildrenType = React.ReactNode,
+  LockProps = Record<string, any>
+> {
   disabled?: boolean;
 
   /**
@@ -12,7 +17,10 @@ export interface ReactFocusLockProps<ChildrenType = React.ReactNode, LockProps =
    * can also accept a function with the first argument equals to element focus will be returned to
    * in order to provide full control to the user space
    */
-  returnFocus?: boolean | FocusOptions | ((returnTo: Element) => boolean | FocusOptions);
+  returnFocus?:
+    | boolean
+    | FocusOptions
+    | ((returnTo: Element) => boolean | FocusOptions);
 
   /**
    * used to control behavior or "returning focus back to the lock"
@@ -90,10 +98,11 @@ export interface ReactFocusLockProps<ChildrenType = React.ReactNode, LockProps =
   /**
    * Component to use, defaults to 'div'
    */
-  as?: string | React.ElementType<LockProps & { children: ChildrenType }>,
-  lockProps?: LockProps,
+  as?: string | React.ElementType<LockProps & { children: ChildrenType }>;
 
-  ref?: Ref<HTMLElement>;
+  lockProps?: LockProps;
+
+  ref?: React.ForwardedRef<HTMLDivElement>;
 
   /**
    * Controls focus lock working areas. Lock will silently ignore all the events from `not allowed` areas
@@ -105,9 +114,11 @@ export interface ReactFocusLockProps<ChildrenType = React.ReactNode, LockProps =
   /**
    * Shards forms a scattered lock, same as `group` does, but in more "low" and controlled way
    */
-  shards?: Array<React.RefObject<any> | HTMLElement>;
+  shards?: Shards;
 
   children?: ChildrenType;
+
+  sideCar?: SideCarComponent;
 }
 
 export interface AutoFocusProps {
@@ -124,3 +135,72 @@ export interface FreeFocusProps {
 export interface InFocusGuardProps {
   children?: React.ReactNode;
 }
+
+export interface Trap {
+  id: string;
+
+  disabled: boolean;
+
+  noFocusGuards: boolean;
+  hasPositiveIndices: boolean;
+
+  allowTextSelection: boolean;
+  autoFocus: boolean;
+  persistentFocus: boolean;
+  crossFrame: boolean;
+
+  group: string;
+  className: string;
+
+  /**
+   * Controls focus lock working areas. Lock will silently ignore all the events from `not allowed` areas
+   * @param activeElement
+   * @returns {Boolean} true if focus lock should handle activeElement, false if not
+   */
+  whiteList?: (activeElement: HTMLElement) => boolean;
+
+  shards: Shards;
+
+  observed: HTMLElement;
+
+  focusOptions: FocusOptions;
+
+  onActivation: (api: typeof focusLockAPI) => void;
+  onDeactivation: () => void;
+
+  returnFocus: (val: boolean) => void;
+}
+
+export type Shards = ReadonlyArray<
+  HTMLElement | { current: HTMLElement | null }
+>;
+
+export type FocusCallbacks = {
+  onFocus?: () => void;
+  onBlur?: () => void;
+};
+
+export type FocusControl = {
+  /**
+   * moves focus to the current scope, can be considered as autofocus
+   */
+  autoFocus(): Promise<void>;
+  /**
+   * focuses the next element in the scope.
+   * If active element is not in the scope, autofocus will be triggered first
+   */
+  focusNext(options?: FocusOptions): Promise<void>;
+  /**
+   * focuses the prev element in the scope.
+   * If active element is not in the scope, autofocus will be triggered first
+   */
+  focusPrev(options?: FocusOptions): Promise<void>;
+  /**
+   * focused the first element in the scope
+   */
+  focusFirst(options?: { onlyTabbable?: boolean }): Promise<void>;
+  /**
+   * focused the last element in the scope
+   */
+  focusLast(options?: { onlyTabbable?: boolean }): Promise<void>;
+};

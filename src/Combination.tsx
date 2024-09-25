@@ -1,6 +1,7 @@
-import * as React from 'react';
-import FocusLockUI from './Lock';
-import FocusTrap from './Trap';
+import * as React from "react";
+import FocusLockUI from "./Lock";
+import FocusTrap from "./Trap";
+import { ReactFocusLockProps } from "./interfaces";
 
 /* that would be a BREAKING CHANGE!
 // delaying sidecar execution till the first usage
@@ -11,14 +12,11 @@ const RequireSideCar = (props) => {
 };
 */
 
-const FocusLockCombination = React.forwardRef(function FocusLockUICombination(props, ref) {
-  return (
-    <FocusLockUI
-      sideCar={FocusTrap}
-      ref={ref}
-      {...props}
-    />
-  );
+const FocusLockCombination = React.forwardRef<
+  HTMLDivElement,
+  ReactFocusLockProps
+>(function FocusLockUICombination(props, ref) {
+  return <FocusLockUI sideCar={FocusTrap} ref={ref} {...props} />;
 });
 
 const { sideCar, ...propTypes } = FocusLockUI.propTypes || {};
