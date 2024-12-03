@@ -1,7 +1,6 @@
-import * as React from 'react';
-import {Ref} from "react";
+import { Ref, ReactNode, ElementType, RefObject } from "react";
 
-export interface ReactFocusLockProps<ChildrenType = React.ReactNode, LockProps = Record<string, any>> {
+export interface ReactFocusLockProps<ChildrenType = ReactNode, LockProps = Record<string, any>> {
   disabled?: boolean;
 
   /**
@@ -90,7 +89,7 @@ export interface ReactFocusLockProps<ChildrenType = React.ReactNode, LockProps =
   /**
    * Component to use, defaults to 'div'
    */
-  as?: string | React.ElementType<LockProps & { children: ChildrenType }>,
+  as?: string | ElementType<LockProps & { children: ChildrenType }>,
   lockProps?: LockProps,
 
   ref?: Ref<HTMLElement>;
@@ -105,22 +104,22 @@ export interface ReactFocusLockProps<ChildrenType = React.ReactNode, LockProps =
   /**
    * Shards forms a scattered lock, same as `group` does, but in more "low" and controlled way
    */
-  shards?: Array<React.RefObject<any> | HTMLElement>;
+  shards?: Array<RefObject<any> | HTMLElement>;
 
   children?: ChildrenType;
 }
 
 export interface AutoFocusProps {
-  children: React.ReactNode;
+  children: ReactNode;
   disabled?: boolean;
   className?: string;
 }
 
 export interface FreeFocusProps {
-  children: React.ReactNode;
+  children: ReactNode;
   className?: string;
 }
 
 export interface InFocusGuardProps {
-  children?: React.ReactNode;
+  children?: ReactNode;
 }

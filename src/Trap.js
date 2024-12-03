@@ -1,5 +1,6 @@
 /* eslint-disable no-mixed-operators */
-import * as React from 'react';
+
+import React from 'react';
 import PropTypes from 'prop-types';
 import withSideEffect from 'react-clientside-effect';
 import {

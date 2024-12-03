@@ -1,8 +1,10 @@
-import * as React from 'react';
+import React, {
+  forwardRef, useRef, useState, useCallback, useEffect, useMemo, Fragment,
+} from 'react';
 import {
   node, bool, string, any, arrayOf, oneOfType, object, func,
 } from 'prop-types';
-import * as constants from 'focus-lock/constants';
+import { FOCUS_DISABLED, FOCUS_GROUP } from 'focus-lock/constants';
 import { useMergeRefs } from 'use-callback-ref';
 
 import { hiddenGuard } from './FocusGuard';
@@ -13,13 +15,13 @@ import { focusScope } from './scope';
 
 const emptyArray = [];
 
-const FocusLock = React.forwardRef(function FocusLockUI(props, parentRef) {
-  const [realObserved, setObserved] = React.useState();
-  const observed = React.useRef();
-  const isActive = React.useRef(false);
-  const originalFocusedElement = React.useRef(null);
+const FocusLock = forwardRef(function FocusLockUI(props, parentRef) {
+  const [realObserved, setObserved] = useState();
+  const observed = useRef();
+  const isActive = useRef(false);
+  const originalFocusedElement = useRef(null);
 
-  const [, update] = React.useState({});
+  const [, update] = useState({});
 
   const {
     children,
@@ -45,11 +47,11 @@ const FocusLock = React.forwardRef(function FocusLockUI(props, parentRef) {
     onDeactivation: onDeactivationCallback,
   } = props;
 
-  const [id] = React.useState({});
+  const [id] = useState({});
 
   // SIDE EFFECT CALLBACKS
 
-  const onActivation = React.useCallback(({ captureFocusRestore }) => {
+  const onActivation = useCallback(({ captureFocusRestore }) => {
     if (!originalFocusedElement.current) {
       const activeElement = document?.activeElement;
       originalFocusedElement.current = activeElement;
@@ -66,7 +68,7 @@ const FocusLock = React.forwardRef(function FocusLockUI(props, parentRef) {
     update();
   }, [onActivationCallback]);
 
-  const onDeactivation = React.useCallback(() => {
+  const onDeactivation = useCallback(() => {
     isActive.current = false;
     if (onDeactivationCallback) {
       onDeactivationCallback(observed.current);
@@ -74,7 +76,7 @@ const FocusLock = React.forwardRef(function FocusLockUI(props, parentRef) {
     update();
   }, [onDeactivationCallback]);
 
-  const returnFocus = React.useCallback((allowDefer) => {
+  const returnFocus = useCallback((allowDefer) => {
     const { current: focusRestore } = originalFocusedElement;
     if (focusRestore) {
       const returnFocusTo = (typeof focusRestore === 'function' ? focusRestore() : focusRestore) || document.body;
@@ -96,7 +98,7 @@ const FocusLock = React.forwardRef(function FocusLockUI(props, parentRef) {
 
   // MEDIUM CALLBACKS
 
-  const onFocus = React.useCallback((event) => {
+  const onFocus = useCallback((event) => {
     if (isActive.current) {
       mediumFocus.useMedium(event);
     }
@@ -107,7 +109,7 @@ const FocusLock = React.forwardRef(function FocusLockUI(props, parentRef) {
   // REF PROPAGATION
   // not using real refs due to race conditions
 
-  const setObserveNode = React.useCallback((newObserved) => {
+  const setObserveNode = useCallback((newObserved) => {
     if (observed.current !== newObserved) {
       observed.current = newObserved;
       setObserved(newObserved);
@@ -120,7 +122,7 @@ const FocusLock = React.forwardRef(function FocusLockUI(props, parentRef) {
       console.warn('React-Focus-Lock: allowTextSelection is deprecated and enabled by default');
     }
 
-    React.useEffect(() => {
+    useEffect(() => {
       // report incorrect integration - https://github.com/theKashey/react-focus-lock/issues/123
       if (!observed.current && typeof Container !== 'string') {
         // eslint-disable-next-line no-console
@@ -130,8 +132,8 @@ const FocusLock = React.forwardRef(function FocusLockUI(props, parentRef) {
   }
 
   const lockProps = {
-    [constants.FOCUS_DISABLED]: disabled && 'disabled',
-    [constants.FOCUS_GROUP]: group,
+    [FOCUS_DISABLED]: disabled && 'disabled',
+    [FOCUS_GROUP]: group,
     ...containerProps,
   };
 
@@ -140,7 +142,7 @@ const FocusLock = React.forwardRef(function FocusLockUI(props, parentRef) {
 
   const mergedRef = useMergeRefs([parentRef, setObserveNode]);
 
-  const focusScopeValue = React.useMemo(() => ({
+  const focusScopeValue = useMemo(() => ({
     observed,
     shards,
     enabled: !disabled,
@@ -148,7 +150,7 @@ const FocusLock = React.forwardRef(function FocusLockUI(props, parentRef) {
   }), [disabled, isActive.current, shards, realObserved]);
 
   return (
-    <React.Fragment>
+    <Fragment>
       {hasLeadingGuards && [
         // nearest focus guard
         <div key="guard-first" data-focus-guard tabIndex={disabled ? -1 : 0} style={hiddenGuard} />,
@@ -191,7 +193,7 @@ const FocusLock = React.forwardRef(function FocusLockUI(props, parentRef) {
         hasTailingGuards
         && <div data-focus-guard tabIndex={disabled ? -1 : 0} style={hiddenGuard} />
       }
-    </React.Fragment>
+    </Fragment>
   );
 });
 

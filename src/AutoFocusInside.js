@@ -1,10 +1,10 @@
-import * as React from 'react';
+import React from 'react';
 import PropTypes from 'prop-types';
-import * as constants from 'focus-lock/constants';
+import { FOCUS_AUTO } from 'focus-lock/constants';
 import { inlineProp } from './util';
 
 const AutoFocusInside = ({ disabled = false, children, className = undefined }) => (
-  <div {...inlineProp(constants.FOCUS_AUTO, !disabled)} className={className}>
+  <div {...inlineProp(FOCUS_AUTO, !disabled)} className={className}>
     {children}
   </div>
 );

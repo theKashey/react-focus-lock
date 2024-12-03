@@ -1,41 +1,41 @@
-import * as React from 'react';
+import { FC, Component, RefObject, FocusEventHandler } from 'react';
 import {ReactFocusLockProps, AutoFocusProps, FreeFocusProps, InFocusGuardProps} from "./interfaces.js";
 
 /**
  * Traps Focus inside a Lock
  */
-declare const ReactFocusLock: React.FC<ReactFocusLockProps & { sideCar: React.FC<any> }>;
+declare const ReactFocusLock: FC<ReactFocusLockProps & { sideCar: FC<any> }>;
 
 export default ReactFocusLock;
 
 /**
  * Autofocus on children on Lock activation
  */
-export class AutoFocusInside extends React.Component<AutoFocusProps> {
+export class AutoFocusInside extends Component<AutoFocusProps> {
 }
 
 /**
  * Autofocus on children
  */
-export class MoveFocusInside extends React.Component<AutoFocusProps> {
+export class MoveFocusInside extends Component<AutoFocusProps> {
 }
 
 /**
  * Allow free focus inside on children
  */
-export class FreeFocusInside extends React.Component<FreeFocusProps> {
+export class FreeFocusInside extends Component<FreeFocusProps> {
 }
 
 /**
  * Secures the focus around the node
  */
-export class InFocusGuard extends React.Component<InFocusGuardProps> {
+export class InFocusGuard extends Component<InFocusGuardProps> {
 }
 
 /**
  * Moves focus inside a given node
  */
-export function useFocusInside(node: React.RefObject<HTMLElement>): void;
+export function useFocusInside(node: RefObject<HTMLElement>): void;
 
 export type FocusOptions = {
     /**
@@ -112,10 +112,10 @@ export function useFocusState<T extends Element>(callbacks?: FocusCallbacks ):{
     /**
      * focus handled. SHALL be passed to the node down
      */
-    onFocus: React.FocusEventHandler<T>;
+    onFocus: FocusEventHandler<T>;
     /**
      * reference to the node
      * only required to capture current status of the node
      */
-    ref: React.RefObject<T>;
+    ref: RefObject<T>;
 }

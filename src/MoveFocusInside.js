@@ -1,11 +1,11 @@
-import * as React from 'react';
+import React, { useEffect, useRef } from 'react';
 import PropTypes from 'prop-types';
-import * as constants from 'focus-lock/constants';
+import { FOCUS_AUTO } from 'focus-lock/constants';
 import { inlineProp } from './util';
 import { mediumEffect } from './medium';
 
 export const useFocusInside = (observedRef) => {
-  React.useEffect(() => {
+  useEffect(() => {
     let enabled = true;
     mediumEffect.useMedium((car) => {
       const observed = observedRef && observedRef.current;
@@ -22,12 +22,12 @@ export const useFocusInside = (observedRef) => {
 };
 
 function MoveFocusInside({ disabled: isDisabled = false, className, children }) {
-  const ref = React.useRef(null);
+  const ref = useRef(null);
   useFocusInside(isDisabled ? undefined : ref);
 
   return (
     <div
-      {...inlineProp(constants.FOCUS_AUTO, !isDisabled)}
+      {...inlineProp(FOCUS_AUTO, !isDisabled)}
       ref={ref}
       className={className}
     >

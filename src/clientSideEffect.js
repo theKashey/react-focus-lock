@@ -1,6 +1,6 @@
-/* eslint-disable */
+/* eslint-disable no-unused-vars, no-console */
 
-import * as React from 'react';
+import React, { useEffect, useRef } from 'react';
 
 // NOT USED
 
@@ -31,14 +31,14 @@ function withSideEffect(reducePropsToState, handleStateChangeOnClient) {
     }
 
     const SideEffect = (props) => {
-      const lastProps = React.useRef(props);
+      const lastProps = useRef(props);
 
-      React.useEffect(() => {
+      useEffect(() => {
         lastProps.current = props;
       });
 
       // handle mounted instances
-      React.useEffect(() => {
+      useEffect(() => {
         console.log('ins added');
         mountedInstances.push(lastProps);
 
@@ -50,7 +50,7 @@ function withSideEffect(reducePropsToState, handleStateChangeOnClient) {
       }, []);
 
       // notify updates
-      // React.useEffect(emitChange, [props.disabled]);
+      // useEffect(emitChange, [props.disabled]);
 
       return <WrappedComponent {...props} />;
     };

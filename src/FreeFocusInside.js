@@ -1,10 +1,10 @@
-import * as React from 'react';
+import React from 'react';
 import PropTypes from 'prop-types';
-import * as constants from 'focus-lock/constants';
+import { FOCUS_ALLOW } from 'focus-lock/constants';
 import { inlineProp } from './util';
 
 const FreeFocusInside = ({ children, className }) => (
-  <div {...inlineProp(constants.FOCUS_ALLOW, true)} className={className}>
+  <div {...inlineProp(FOCUS_ALLOW, true)} className={className}>
     {children}
   </div>
 );
