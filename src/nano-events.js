@@ -1,6 +1,6 @@
 /**
  * @fileoverview this is a copy of https://github.com/ai/nanoevents
-  a temp measure to avoid breaking changes in node/compilation
+ * as a temp measure to avoid breaking changes in node/compilation
  */
 
 export const createNanoEvents = () => ({
