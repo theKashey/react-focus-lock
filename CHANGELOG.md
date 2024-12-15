@@ -1,3 +1,30 @@
+## [2.13.5](https://github.com/theKashey/react-focus-lock/compare/v2.13.4...v2.13.5) (2024-12-15)
+
+
+### Bug Fixes
+
+* correct focus order for non-autofocusable modals, fixes [#340](https://github.com/theKashey/react-focus-lock/issues/340) ([5b06e8d](https://github.com/theKashey/react-focus-lock/commit/5b06e8db7cc297dcaf4ecdd6b31127697c8030b4))
+
+
+
+## [2.13.4](https://github.com/theKashey/react-focus-lock/compare/v2.13.3...v2.13.4) (2024-12-15)
+
+
+
+## [2.13.3](https://github.com/theKashey/react-focus-lock/compare/v2.13.2...v2.13.3) (2024-12-15)
+
+
+### Bug Fixes
+
+* code; ([e4acec6](https://github.com/theKashey/react-focus-lock/commit/e4acec687acfdee8ba9781eb27498fde52ed8a7a))
+
+
+### Features
+
+* refactor: use name imports; ([e0c95bf](https://github.com/theKashey/react-focus-lock/commit/e0c95bfbb871d619e7479ba78cbfc41e2cbdd6ee))
+
+
+
 ## [2.13.2](https://github.com/theKashey/react-focus-lock/compare/v2.13.1...v2.13.2) (2024-08-26)
 
 
