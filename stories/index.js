@@ -20,7 +20,7 @@ import { MUISelect, MUISelectWhite } from './MUI';
 import Fight from './FocusFighting';
 import { StyledComponent, StyledSection } from './Custom';
 import { DisabledForm, DisabledFormWithTabIndex } from './Disabled';
-import { FormOverride, Video } from './Exotic';
+import { FormOverride, Video, NonAutofocusModal } from './Exotic';
 import { TabbableParent } from './TabbableParent';
 import { ControlTrapExample, GroupRowingFocusExample, RowingFocusExample } from './control';
 
@@ -83,7 +83,8 @@ storiesOf('Exotic', module)
   .add('iframe - Sandbox', () => <Frame><SandboxedIFrame /></Frame>)
   .add('sidecar', () => <Frame><SideCar /></Frame>)
   .add('tabbable parent', () => <Frame><TabbableParent /></Frame>)
-  .add('form override', () => <Frame><FormOverride /></Frame>);
+  .add('form override', () => <Frame><FormOverride /></Frame>)
+  .add('non autofocusable', () => <Frame><NonAutofocusModal /></Frame>);
 
 storiesOf('FocusScope', module)
   .add('keyboard navigation', () => <Frame><ControlTrapExample /></Frame>)

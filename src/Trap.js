@@ -104,15 +104,13 @@ const activateTrap = () => {
     const workingNode = observed || (lastPortaledElement && lastPortaledElement.portaledElement);
 
     // check if lastActiveFocus is still reachable
-    if (focusOnBody() && lastActiveFocus) {
+    if (focusOnBody() && lastActiveFocus && lastActiveFocus !== document.body) {
       if (
         // it was removed
         !document.body.contains(lastActiveFocus)
           // or not focusable (this is expensive operation)!
           || isNotFocusable(lastActiveFocus)
       ) {
-        lastActiveFocus = null;
-
         const newTarget = tryRestoreFocus();
         if (newTarget) {
           newTarget.focus();
@@ -159,6 +157,10 @@ const activateTrap = () => {
               || focusIsPortaledPair(activeElement, workingNode)
             )
           ) {
+            // in case there no yet selected element(first activation),
+            // but there is some active element
+            // and autofocus is off
+            // - we blur currently active element and move focus to the body
             if (document && !lastActiveFocus && activeElement && !autoFocus) {
               // Check if blur() exists, which is missing on certain elements on IE
               if (activeElement.blur) {
@@ -170,9 +172,11 @@ const activateTrap = () => {
               lastPortaledElement = {};
             }
           }
-          focusWasOutsideWindow = false;
           lastActiveFocus = document && document.activeElement;
-          tryRestoreFocus = captureFocusRestore(lastActiveFocus);
+          if (lastActiveFocus !== document.body) {
+            tryRestoreFocus = captureFocusRestore(lastActiveFocus);
+          }
+          focusWasOutsideWindow = false;
         }
       }
 
