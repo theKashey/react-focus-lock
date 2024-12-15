@@ -1,4 +1,4 @@
-import * as React from 'react';
+import React, { Fragment } from 'react';
 import PropTypes from 'prop-types';
 
 export const hiddenGuard = {
@@ -12,11 +12,11 @@ export const hiddenGuard = {
 };
 
 const InFocusGuard = ({ children = null }) => (
-  <React.Fragment>
+  <Fragment>
     <div key="guard-first" data-focus-guard data-focus-auto-guard style={hiddenGuard} />
     {children}
     {children && <div key="guard-last" data-focus-guard data-focus-auto-guard style={hiddenGuard} />}
-  </React.Fragment>
+  </Fragment>
 );
 
 InFocusGuard.propTypes = {

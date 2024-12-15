@@ -1,4 +1,4 @@
-import * as React from 'react';
+import React, { forwardRef } from 'react';
 import FocusLockUI from './Lock';
 import FocusTrap from './Trap';
 
@@ -11,7 +11,7 @@ const RequireSideCar = (props) => {
 };
 */
 
-const FocusLockCombination = React.forwardRef(function FocusLockUICombination(props, ref) {
+const FocusLockCombination = forwardRef(function FocusLockUICombination(props, ref) {
   return (
     <FocusLockUI
       sideCar={FocusTrap}

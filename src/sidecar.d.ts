@@ -1,5 +1,5 @@
-import * as React from "react";
+import { FC } from 'react';
 
-declare var sidecar: React.FC;
+declare var sidecar: FC;
 
 export default sidecar;
