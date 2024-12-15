@@ -1,8 +1,20 @@
-## 2.13.2 (2024-12-11)
+## [2.13.2](https://github.com/theKashey/react-focus-lock/compare/v2.13.1...v2.13.2) (2024-08-26)
+
 
 ### Bug Fixes
 
-* Fix install packages without `npm` installation
+* expose ReactFocusLockProps ([492f6a4](https://github.com/theKashey/react-focus-lock/commit/492f6a445ce3e60014d73243cf7728abf0d56f6f))
+
+
+
+## [2.13.1](https://github.com/theKashey/react-focus-lock/compare/v2.13.0...v2.13.1) (2024-08-26)
+
+
+### Bug Fixes
+
+* retore d.ts generation, fixes [#325](https://github.com/theKashey/react-focus-lock/issues/325) ([887b3c5](https://github.com/theKashey/react-focus-lock/commit/887b3c595a2e04cb1bd28dab6434c8bf9b1bc792))
+
+
 
 # [2.13.0](https://github.com/theKashey/react-focus-lock/compare/v2.12.0...v2.13.0) (2024-08-25)
 
