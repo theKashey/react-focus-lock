@@ -1,3 +1,9 @@
+## 2.13.2 (2024-12-11)
+
+### Bug Fixes
+
+* Fix install packages without `npm` installation
+
 # [2.13.0](https://github.com/theKashey/react-focus-lock/compare/v2.12.0...v2.13.0) (2024-08-25)
 
 
