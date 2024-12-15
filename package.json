@@ -50,8 +50,8 @@
     "url": "https://github.com/theKashey/react-focus-lock/issues"
   },
   "peerDependencies": {
-    "@types/react": "^16.8.0 || ^17.0.0 || ^18.0.0",
-    "react": "^16.8.0 || ^17.0.0 || ^18.0.0"
+    "@types/react": "*",
+    "react": "^16.8.0 || ^17.0.0 || ^18.0.0 || ^19.0.0 || ^19.0.0-rc"
   },
   "peerDependenciesMeta": {
     "@types/react": {
