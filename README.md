@@ -396,7 +396,7 @@ The code below will scope Focus-Lock on inside the (react)`root` element, so any
 ```
 
 ### Two Focus-Locks
-React-Focus-Lock is expected to be a singlentone.
+React-Focus-Lock is expected to be a singleton.
 __Use webpack or yarn resolution for force only one version of react-focus-lock used.
 
 > webpack.conf
