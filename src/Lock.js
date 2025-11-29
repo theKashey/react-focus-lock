@@ -146,8 +146,11 @@ const FocusLock = forwardRef(function FocusLockUI(props, parentRef) {
     observed,
     shards,
     enabled: !disabled,
-    active: isActive.current,
-  }), [disabled, isActive.current, shards, realObserved]);
+    get active() {
+      return isActive.current;
+    },
+  }), [disabled, isActive, shards, observed]);
+
 
   return (
     <Fragment>
