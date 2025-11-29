@@ -1,3 +1,21 @@
+## [2.13.7](https://github.com/theKashey/react-focus-lock/compare/v2.13.6...v2.13.7) (2025-11-29)
+
+
+### Bug Fixes
+
+* correct Context instability leading to hydration failure ([#388](https://github.com/theKashey/react-focus-lock/issues/388), [#377](https://github.com/theKashey/react-focus-lock/issues/377)) ([0986de6](https://github.com/theKashey/react-focus-lock/commit/0986de6570232604d7dc1f9af64ee1c36cfab66c))
+
+
+
+## [2.13.6](https://github.com/theKashey/react-focus-lock/compare/v2.13.5...v2.13.6) (2025-02-07)
+
+
+### Bug Fixes
+
+* enforce react 19 compatible dependencies ([ab5b53b](https://github.com/theKashey/react-focus-lock/commit/ab5b53b0495a420a780b998b6fff0a870d4454e0))
+
+
+
 ## [2.13.5](https://github.com/theKashey/react-focus-lock/compare/v2.13.4...v2.13.5) (2024-12-15)
 
 
