@@ -141,13 +141,24 @@ const FocusLock = forwardRef(function FocusLockUI(props, parentRef) {
   const hasTailingGuards = hasLeadingGuards && (noFocusGuards !== 'tail');
 
   const mergedRef = useMergeRefs([parentRef, setObserveNode]);
+  
+    const [providerValue, setProviderValue] = useState(() => ({
+      observed: null,
+      shards,
+      enabled: !disabled,
+      active: false,
+    }));
 
-  const focusScopeValue = useMemo(() => ({
-    observed,
-    shards,
-    enabled: !disabled,
-    active: isActive.current,
-  }), [disabled, isActive.current, shards, realObserved]);
+    useEffect(() => {
+      startTransition(() => {
+        setProviderValue({
+          observed,
+          shards,
+          enabled: !disabled,
+          active: isActive.current,
+        });
+      });
+    }, [disabled, isActive.current, shards, realObserved]);
 
   return (
     <Fragment>
@@ -185,7 +196,7 @@ const FocusLock = forwardRef(function FocusLockUI(props, parentRef) {
         onBlur={onBlur}
         onFocus={onFocus}
       >
-        <focusScope.Provider value={focusScopeValue}>
+        <focusScope.Provider value={providerValue}>
           {children}
         </focusScope.Provider>
       </Container>
