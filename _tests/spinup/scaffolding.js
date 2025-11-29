@@ -21,8 +21,3 @@ function copyProps(src, target) {
 }
 
 copyProps(window, global);
-
-import chai from 'chai';
-import chaiEnzyme from 'chai-enzyme';
-
-chai.use(chaiEnzyme());
