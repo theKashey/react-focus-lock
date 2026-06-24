@@ -4,7 +4,7 @@
   "main": "index.js",
   "license": "MIT",
   "devDependencies": {
-    "@babel/core": "^7.4.5",
+    "@babel/core": "^7.29.6",
     "parcel": "^1.12.3",
     "parcel-plugin-bundle-visualiser": "^1.2.0",
     "typescript": "^3.5.1",
