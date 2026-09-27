@@ -11,16 +11,31 @@ import {
   focusPrevElement,
   focusFirstElement,
   focusLastElement,
-  captureFocusRestore,
+  captureFocusRestore as captureRestore,
+  getTabbableNodes,
 } from 'focus-lock';
 import { deferAction, extractRef } from './util';
+import { getActiveElement, getOwnerDocument } from './focusContext';
 import { mediumFocus, mediumBlur, mediumEffect } from './medium';
 
-const focusOnBody = () => (
-  document && document.activeElement === document.body
+// The dependency's restore search uses Document.contains, which excludes shadow
+// descendants. Keep its normal relocation behavior, but retain a live shadow
+// target when that search cannot reach it.
+const captureFocusRestore = (target) => {
+  const restore = captureRestore(target);
+  return () => restore() || (
+    target && target.isConnected && target.getRootNode().host
+      && getTabbableNodes([target.parentNode], new Map()).some(({ node }) => node === target)
+      ? target
+      : undefined
+  );
+};
+
+const focusOnBody = ownerDocument => (
+  !getActiveElement(ownerDocument) || getActiveElement(ownerDocument) === ownerDocument.body
 );
 
-const isFreeFocus = () => focusOnBody() || focusIsHidden();
+const isFreeFocus = ownerDocument => focusOnBody(ownerDocument) || focusIsHidden(ownerDocument);
 
 let lastActiveTrap = null;
 let lastActiveFocus = null;
@@ -103,11 +118,13 @@ const activateTrap = () => {
     } = lastActiveTrap;
     const workingNode = observed || (lastPortaledElement && lastPortaledElement.portaledElement);
 
+    const ownerDocument = getOwnerDocument(workingNode);
+
     // check if lastActiveFocus is still reachable
-    if (focusOnBody() && lastActiveFocus && lastActiveFocus !== document.body) {
+    if (focusOnBody(ownerDocument) && lastActiveFocus && lastActiveFocus !== ownerDocument.body) {
       if (
         // it was removed
-        !document.body.contains(lastActiveFocus)
+        !lastActiveFocus.isConnected
           // or not focusable (this is expensive operation)!
           || isNotFocusable(lastActiveFocus)
       ) {
@@ -118,7 +135,7 @@ const activateTrap = () => {
       }
     }
 
-    const activeElement = document && document.activeElement;
+    const activeElement = getActiveElement(ownerDocument);
     if (workingNode) {
       const workingArea = [
         workingNode,
@@ -143,17 +160,17 @@ const activateTrap = () => {
       if (!activeElement || focusWhitelisted(activeElement)) {
         if (
           (persistentFocus || shouldForceRestoreFocus())
-          || !isFreeFocus()
+          || !isFreeFocus(ownerDocument)
           || (!lastActiveFocus && autoFocus)
         ) {
           if (
             workingNode
             && !(
               // active element is "inside" working area
-              (focusInside(workingArea) || (
-              // check for shadow-dom contained elements
-                activeElement && withinHost(activeElement, workingArea))
-              )
+              (focusInside(workingArea, activeElement) || (
+                // Closed shadow roots cannot be traversed from document.activeElement.
+                activeElement && withinHost(activeElement, workingArea)
+              ))
               || focusIsPortaledPair(activeElement, workingNode)
             )
           ) {
@@ -161,31 +178,31 @@ const activateTrap = () => {
             // but there is some active element
             // and autofocus is off
             // - we blur currently active element and move focus to the body
-            if (document && !lastActiveFocus && activeElement && !autoFocus) {
+            if (!lastActiveFocus && activeElement && !autoFocus) {
               // Check if blur() exists, which is missing on certain elements on IE
               if (activeElement.blur) {
                 activeElement.blur();
               }
-              document.body.focus();
+              ownerDocument.body.focus();
             } else {
               result = moveFocusInside(workingArea, lastActiveFocus, { focusOptions });
               lastPortaledElement = {};
             }
           }
-          lastActiveFocus = document && document.activeElement;
-          if (lastActiveFocus !== document.body) {
+          lastActiveFocus = getActiveElement(ownerDocument);
+          if (lastActiveFocus && lastActiveFocus !== ownerDocument.body) {
             tryRestoreFocus = captureFocusRestore(lastActiveFocus);
           }
           focusWasOutsideWindow = false;
         }
       }
 
-      if (document
+      if (ownerDocument
           // element was changed by moveFocusInside
-          && activeElement !== document.activeElement
+          && activeElement !== getActiveElement(ownerDocument)
           // fast check for any auto-guard
-          && document.querySelector('[data-focus-auto-guard]')) {
-        const newActiveElement = document && document.activeElement;
+          && workingNode.getRootNode().querySelector('[data-focus-auto-guard]')) {
+        const newActiveElement = getActiveElement(ownerDocument);
         const allNodes = expandFocusableNodes(workingArea);
         const focusedIndex = allNodes.map(({ node }) => node).indexOf(newActiveElement);
         if (focusedIndex > -1) {
@@ -248,18 +265,25 @@ const onWindowBlur = () => {
   });
 };
 
-const attachHandler = () => {
-  document.addEventListener('focusin', onTrap);
-  document.addEventListener('focusout', onBlur);
-  window.addEventListener('focus', onWindowFocus);
-  window.addEventListener('blur', onWindowBlur);
+let observedDocument;
+
+const attachHandler = (ownerDocument) => {
+  observedDocument = ownerDocument;
+  observedDocument.addEventListener('focusin', onTrap);
+  observedDocument.addEventListener('focusout', onBlur);
+  observedDocument.defaultView.addEventListener('focus', onWindowFocus);
+  observedDocument.defaultView.addEventListener('blur', onWindowBlur);
 };
 
 const detachHandler = () => {
-  document.removeEventListener('focusin', onTrap);
-  document.removeEventListener('focusout', onBlur);
-  window.removeEventListener('focus', onWindowFocus);
-  window.removeEventListener('blur', onWindowBlur);
+  if (!observedDocument) {
+    return;
+  }
+  observedDocument.removeEventListener('focusin', onTrap);
+  observedDocument.removeEventListener('focusout', onBlur);
+  observedDocument.defaultView.removeEventListener('focus', onWindowFocus);
+  observedDocument.defaultView.removeEventListener('blur', onWindowBlur);
+  observedDocument = null;
 };
 
 function reducePropsToState(propsList) {
@@ -279,8 +303,9 @@ const focusLockAPI = {
 
 function handleStateChangeOnClient(traps) {
   const trap = traps.slice(-1)[0];
-  if (trap && !lastActiveTrap) {
-    attachHandler();
+  if (trap && observedDocument !== getOwnerDocument(trap.observed)) {
+    detachHandler();
+    attachHandler(getOwnerDocument(trap.observed));
   }
 
   const lastTrap = lastActiveTrap;
