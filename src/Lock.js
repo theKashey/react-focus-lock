@@ -12,6 +12,7 @@ import {
   mediumFocus, mediumBlur, mediumSidecar,
 } from './medium';
 import { focusScope } from './scope';
+import { getActiveElement, getOwnerDocument } from './focusContext';
 
 const emptyArray = [];
 
@@ -20,6 +21,7 @@ const FocusLock = forwardRef(function FocusLockUI(props, parentRef) {
   const observed = useRef();
   const isActive = useRef(false);
   const originalFocusedElement = useRef(null);
+  const originalDocument = useRef(null);
 
   const [, update] = useState({});
 
@@ -53,10 +55,12 @@ const FocusLock = forwardRef(function FocusLockUI(props, parentRef) {
 
   const onActivation = useCallback(({ captureFocusRestore }) => {
     if (!originalFocusedElement.current) {
-      const activeElement = document?.activeElement;
+      const ownerDocument = getOwnerDocument(observed.current);
+      originalDocument.current = ownerDocument;
+      const activeElement = getActiveElement(ownerDocument);
       originalFocusedElement.current = activeElement;
       // store stack reference
-      if (activeElement !== document.body) {
+      if (activeElement && activeElement !== ownerDocument.body) {
         originalFocusedElement.current = captureFocusRestore(activeElement);
       }
     }
@@ -79,7 +83,7 @@ const FocusLock = forwardRef(function FocusLockUI(props, parentRef) {
   const returnFocus = useCallback((allowDefer) => {
     const { current: focusRestore } = originalFocusedElement;
     if (focusRestore) {
-      const returnFocusTo = (typeof focusRestore === 'function' ? focusRestore() : focusRestore) || document.body;
+      const returnFocusTo = (typeof focusRestore === 'function' ? focusRestore() : focusRestore) || originalDocument.current.body;
       const howToReturnFocus = typeof shouldReturnFocus === 'function' ? shouldReturnFocus(returnFocusTo) : shouldReturnFocus;
       if (howToReturnFocus) {
         const returnFocusOptions = typeof howToReturnFocus === 'object' ? howToReturnFocus : undefined;
