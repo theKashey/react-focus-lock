@@ -98,7 +98,7 @@ export const useFocusState = (callbacks = {}) => {
       fout();
       fin();
     };
-  }, []);
+  }, [callbacks.onFocus, callbacks.onBlur]);
 
   return {
     active,
