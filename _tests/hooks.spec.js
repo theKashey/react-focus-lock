@@ -11,6 +11,39 @@ import {useFocusController, useFocusState} from '../src/UI';
 afterEach(cleanup);
 
 describe('Hooks w/o sidecar', () => {
+    it('uses the latest focus tracking callbacks', () => {
+        const originalFocus = sinon.spy();
+        const originalBlur = sinon.spy();
+        const updatedFocus = sinon.spy();
+        const updatedBlur = sinon.spy();
+        const Capture = ({callbacks}) => {
+            const {onFocus, ref} = useFocusState(callbacks);
+            return <button id="tracked" onFocus={onFocus} ref={ref}>tracked</button>;
+        };
+        const Suite = ({callbacks}) => (
+            <>
+                <Capture callbacks={callbacks}/>
+                <button id="outside">outside</button>
+            </>
+        );
+        const {rerender} = render(<Suite callbacks={{onFocus: originalFocus, onBlur: originalBlur}}/>);
+
+        rerender(<Suite callbacks={{onFocus: updatedFocus, onBlur: updatedBlur}}/>);
+        act(() => document.getElementById('tracked').focus());
+        act(() => document.getElementById('outside').focus());
+
+        sinon.assert.notCalled(originalFocus);
+        sinon.assert.notCalled(originalBlur);
+        sinon.assert.calledOnce(updatedFocus);
+        sinon.assert.calledOnce(updatedBlur);
+
+        rerender(<Suite callbacks={{}}/>);
+        act(() => document.getElementById('tracked').focus());
+        act(() => document.getElementById('outside').focus());
+        sinon.assert.calledOnce(updatedFocus);
+        sinon.assert.calledOnce(updatedBlur);
+    });
+
     it('controls focus', async () => {
         let control;
         const ref = React.createRef();
